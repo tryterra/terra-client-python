@@ -1,11 +1,11 @@
 #  Copyright 2022 Terra Enabling Developers Limited
-# 
+#
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
-# 
+#
 #      http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 #  Unless required by applicable law or agreed to in writing, software
 #  distributed under the License is distributed on an "AS IS" BASIS,
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,8 +16,9 @@ import typing as t
 
 import requests
 
-from terra import models, utils
 from terra import constants
+from terra import models
+from terra import utils
 from terra.models import user as user_
 
 
@@ -25,6 +26,7 @@ class Terra:
     """
     #TODO docstring here - what is this class? + constructor args
     """
+
     def __init__(self, api_key: str, dev_id: str) -> None:
         self.api_key = api_key
         self.dev_id = dev_id
@@ -43,7 +45,7 @@ class Terra:
     def from_user_id(self, user_id: str) -> user_.User:
         """
         Creates a User instance out of a UUID corresponding to a registered User on the API
-        
+
         Args:
             user_id (:obj:`str`): UUID corresponding to a user currently authenticated on the API
 
@@ -53,7 +55,9 @@ class Terra:
         """
         return user_.User(user_id=user_id, client=self)
 
-    def _get_arbitrary_data(self, user: user_.User, dtype: str, **kwargs: t.Any) -> models.api_responses.TerraApiResponse:
+    def _get_arbitrary_data(
+        self, user: user_.User, dtype: str, **kwargs: t.Any
+    ) -> models.api_responses.TerraApiResponse:
         """
         Internal method used to retrieve data for a given User
 
@@ -81,7 +85,7 @@ class Terra:
         user: user_.User,
         start_date: datetime.datetime,
         end_date: datetime.datetime = None,
-        to_webhook: bool=True,
+        to_webhook: bool = True,
     ) -> models.api_responses.TerraApiResponse:
         """
         Retrieves workouts/activity data for a given User object. By default, data will be asynchronously sent to registered
@@ -110,7 +114,7 @@ class Terra:
         user: user_.User,
         start_date: datetime.datetime,
         end_date: datetime.datetime = None,
-        to_webhook: bool=True,
+        to_webhook: bool = True,
     ) -> models.api_responses.TerraApiResponse:
         """
         Retrieves body metrics data for a given User object. By default, data will be asynchronously sent to registered
@@ -139,7 +143,7 @@ class Terra:
         user: user_.User,
         start_date: datetime.datetime,
         end_date: datetime.datetime = None,
-        to_webhook: bool=True,
+        to_webhook: bool = True,
     ) -> models.api_responses.TerraApiResponse:
         """
         Retrieves daily summary data for a given User object. By default, data will be asynchronously sent to registered
@@ -168,7 +172,7 @@ class Terra:
         user: user_.User,
         start_date: datetime.datetime,
         end_date: datetime.datetime = None,
-        to_webhook: bool=True,
+        to_webhook: bool = True,
     ) -> models.api_responses.TerraApiResponse:
         """
         Retrieves sleep data for a given User object. By default, data will be asynchronously sent to registered
@@ -195,10 +199,10 @@ class Terra:
     def get_athlete_for_user(
         self,
         user: user_.User,
-        to_webhook: bool=True,
+        to_webhook: bool = True,
     ) -> models.api_responses.TerraApiResponse:
         """
-        Retrieves profile info/athlete data for a given User object. By default, data will be asynchronously sent to 
+        Retrieves profile info/athlete data for a given User object. By default, data will be asynchronously sent to
         registered webhook URL.
 
         Args:
@@ -215,7 +219,7 @@ class Terra:
         user: user_.User,
         start_date: datetime.datetime,
         end_date: datetime.datetime = None,
-        to_webhook: bool=True,
+        to_webhook: bool = True,
     ) -> models.api_responses.TerraApiResponse:
         """
         Retrieves daily summary data for a given User object. By default, data will be asynchronously sent to registered
@@ -338,7 +342,9 @@ class Terra:
         )
         return models.api_responses.TerraApiResponse(user_resp, dtype="user_info")
 
-    def deauthenticate_user(self, user: user_.User) -> models.api_responses.TerraApiResponse:
+    def deauthenticate_user(
+        self, user: user_.User
+    ) -> models.api_responses.TerraApiResponse:
         """
         Deauthenticates given User from the Api
         Note: If successful, this triggers a User Deauthentication webhook event

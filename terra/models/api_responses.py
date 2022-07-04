@@ -95,9 +95,7 @@ class WidgetSession(TerraParsedApiResponse):
 
 @dataclasses.dataclass
 class UserInfo(TerraParsedApiResponse):
-    user: typing.Optional[models.user.User] = dataclasses.field(
-        default=None
-    )
+    user: typing.Optional[models.user.User] = dataclasses.field(default=None)
     is_authenticated: bool = dataclasses.field(default=True)
 
 
@@ -141,9 +139,7 @@ class NoDataReturned(TerraParsedApiResponse):
 class DataReturned(TerraParsedApiResponse):
     user: user_.User = dataclasses.field(default=None)
     type: typing.Optional[str] = dataclasses.field(default=None)
-    data: typing.List[TerraParsedApiResponse] = dataclasses.field(
-        default_factory=list
-    )
+    data: typing.List[TerraParsedApiResponse] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass

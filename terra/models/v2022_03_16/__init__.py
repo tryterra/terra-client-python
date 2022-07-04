@@ -11,14 +11,12 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-from terra.models.v2022_03_16 import (
-    activity,
-    activity_sample,
-    athlete,
-    body,
-    daily,
-    menstruation,
-    nutrition,
-    samples,
-    sleep,
-)
+from terra.models.v2022_03_16 import activity
+from terra.models.v2022_03_16 import activity_sample
+from terra.models.v2022_03_16 import athlete
+from terra.models.v2022_03_16 import body
+from terra.models.v2022_03_16 import daily
+from terra.models.v2022_03_16 import menstruation
+from terra.models.v2022_03_16 import nutrition
+from terra.models.v2022_03_16 import samples
+from terra.models.v2022_03_16 import sleep

@@ -16,16 +16,14 @@ import typing
 
 from terra.models import base_model
 from terra.models.v2022_03_16 import samples as samples_
-from terra.models.v2022_03_16.activity import (
-    ActiveDurationsData,
-    CaloriesData,
-    DeviceData,
-    ElevationSummary,
-    HeartRateData,
-    METData,
-    OxygenData,
-    SwimmingSummary,
-)
+from terra.models.v2022_03_16.activity import ActiveDurationsData
+from terra.models.v2022_03_16.activity import CaloriesData
+from terra.models.v2022_03_16.activity import DeviceData
+from terra.models.v2022_03_16.activity import ElevationSummary
+from terra.models.v2022_03_16.activity import HeartRateData
+from terra.models.v2022_03_16.activity import METData
+from terra.models.v2022_03_16.activity import OxygenData
+from terra.models.v2022_03_16.activity import SwimmingSummary
 
 __all__ = ["Daily"]
 

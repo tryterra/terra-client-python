@@ -18,8 +18,10 @@ import typing as t
 
 import requests
 
-from terra import models, utils, checks
+from terra import checks
 from terra import constants
+from terra import models
+from terra import utils
 from terra.models.base_model import TerraDataModel
 
 if t.TYPE_CHECKING:
@@ -30,7 +32,11 @@ __all__ = ["User"]
 
 class User(TerraDataModel):
     def __init__(
-        self, user_id: t.Optional[str]=None, provider: t.Optional[str]=None, last_webhook_update: t.Optional[str]=None, client: t.Optional[base_client.Terra]=None
+        self,
+        user_id: t.Optional[str] = None,
+        provider: t.Optional[str] = None,
+        last_webhook_update: t.Optional[str] = None,
+        client: t.Optional[base_client.Terra] = None,
     ) -> None:
         self.user_id = user_id
         self.provider = provider
@@ -44,7 +50,9 @@ class User(TerraDataModel):
             self.provider = user_info["resource"]
             self.last_webhook_update = user_info["last_webhook_update"]
 
-    def _get_arbitrary_data(self, dtype: str, **kwargs) -> models.api_responses.TerraApiResponse:
+    def _get_arbitrary_data(
+        self, dtype: str, **kwargs
+    ) -> models.api_responses.TerraApiResponse:
         """
         Internal method used to retrieve data for User
 
@@ -67,10 +75,10 @@ class User(TerraDataModel):
 
     @checks.check_has_client
     def get_activity(
-            self,
-            start_date: datetime.datetime,
-            end_date: datetime.datetime = None,
-            to_webhook=True,
+        self,
+        start_date: datetime.datetime,
+        end_date: datetime.datetime = None,
+        to_webhook=True,
     ) -> models.api_responses.TerraApiResponse:
         """
         Retrieves workouts/activity data for a given User object. By default, data will be asynchronously sent to registered
@@ -95,10 +103,10 @@ class User(TerraDataModel):
 
     @checks.check_has_client
     def get_body(
-            self,
-            start_date: datetime.datetime,
-            end_date: datetime.datetime = None,
-            to_webhook=True,
+        self,
+        start_date: datetime.datetime,
+        end_date: datetime.datetime = None,
+        to_webhook=True,
     ) -> models.api_responses.TerraApiResponse:
         """
         Retrieves body metrics data for a given User object. By default, data will be asynchronously sent to registered
@@ -122,10 +130,10 @@ class User(TerraDataModel):
 
     @checks.check_has_client
     def get_daily(
-            self,
-            start_date: datetime.datetime,
-            end_date: datetime.datetime = None,
-            to_webhook=True,
+        self,
+        start_date: datetime.datetime,
+        end_date: datetime.datetime = None,
+        to_webhook=True,
     ) -> models.api_responses.TerraApiResponse:
         """
         Retrieves daily summary data for a given User object. By default, data will be asynchronously sent to registered
@@ -149,10 +157,10 @@ class User(TerraDataModel):
 
     @checks.check_has_client
     def get_sleep(
-            self,
-            start_date: datetime.datetime,
-            end_date: datetime.datetime = None,
-            to_webhook=True,
+        self,
+        start_date: datetime.datetime,
+        end_date: datetime.datetime = None,
+        to_webhook=True,
     ) -> models.api_responses.TerraApiResponse:
         """
         Retrieves sleep data for a given User object. By default, data will be asynchronously sent to registered
@@ -177,8 +185,8 @@ class User(TerraDataModel):
 
     @checks.check_has_client
     def get_athlete(
-            self,
-            to_webhook=True,
+        self,
+        to_webhook=True,
     ) -> models.api_responses.TerraApiResponse:
         """
         Retrieves profile info/athlete data for a given User object. By default, data will be asynchronously sent to
@@ -194,10 +202,10 @@ class User(TerraDataModel):
 
     @checks.check_has_client
     def get_menstruation(
-            self,
-            start_date: datetime.datetime,
-            end_date: datetime.datetime = None,
-            to_webhook=True,
+        self,
+        start_date: datetime.datetime,
+        end_date: datetime.datetime = None,
+        to_webhook=True,
     ) -> t.Optional[models.api_responses.TerraApiResponse]:
         """
         Retrieves daily summary data for a given User object. By default, data will be asynchronously sent to registered
@@ -218,5 +226,3 @@ class User(TerraDataModel):
             end_date=end_date,
             to_webhook=to_webhook,
         )
-    
-    
