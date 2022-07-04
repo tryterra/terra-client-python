@@ -12,6 +12,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 import dataclasses
+from email.policy import default
 import json.decoder
 import typing
 
@@ -20,34 +21,6 @@ import requests
 from terra import models
 from terra.models import base_model
 from terra.models import user as user_
-
-__all__ = [
-    "NoDataReturned",
-    "DataReturned",
-    "RequestProcessing",
-    "DataSentToWebhook",
-    "UserAuthenticated",
-    "AuthenticationFailed",
-    "ConnectionDegraded",
-]
-
-USER_DATATYPES = ["activity", "athlete", "body", "daily", "menstruation", "sleep"]
-MODEL_MAPPING = {
-    "activity": models.v2022_03_16.activity.Activity,
-    "body": models.v2022_03_16.body.Body,
-    "daily": models.v2022_03_16.daily.Daily,
-    "sleep": models.v2022_03_16.sleep.Sleep,
-    "menstruation": models.v2022_03_16.menstruation.Menstruation,
-    "athlete": models.v2022_03_16.athlete.Athlete,
-}
-
-
-DTYPE_TO_RESPONSE = {
-    "widget_session": models.api_responses.WidgetSession,
-    "auth_url": models.api_responses.UserAuthUrl,
-    "user_info": models.api_responses.UserInfo,
-    "subscriptions": models.api_responses.SubscribedUsers,
-}
 
 
 class TerraParsedApiResponse(base_model.TerraDataModel):
@@ -88,6 +61,7 @@ class TerraApiResponse(TerraParsedApiResponse):
 
 @dataclasses.dataclass
 class WidgetSession(TerraParsedApiResponse):
+    expires_in : int = dataclasses.field(default=900)
     status: str = dataclasses.field(default=None)
     session_id: str = dataclasses.field(default=None)
     url: str = dataclasses.field(default=None)
@@ -188,3 +162,37 @@ class ConnectionDegraded(TerraParsedApiResponse):
     status: str = dataclasses.field(default="warning")
     message: str = dataclasses.field(default="User connection degraded")
     type: str = dataclasses.field(default="connection_error")
+
+@dataclasses.dataclass
+class ProvidersResponse(TerraParsedApiResponse):
+    status: str = dataclasses.field(default="warning")
+    providers: typing.Optional[typing.List[str]] = dataclasses.field(default=None)
+
+__all__ = [
+    "NoDataReturned",
+    "DataReturned",
+    "RequestProcessing",
+    "DataSentToWebhook",
+    "UserAuthenticated",
+    "AuthenticationFailed",
+    "ConnectionDegraded",
+]
+
+USER_DATATYPES = ["activity", "athlete", "body", "daily", "menstruation", "sleep"]
+MODEL_MAPPING = {
+    "activity": models.v2022_03_16.activity.Activity,
+    "body": models.v2022_03_16.body.Body,
+    "daily": models.v2022_03_16.daily.Daily,
+    "sleep": models.v2022_03_16.sleep.Sleep,
+    "menstruation": models.v2022_03_16.menstruation.Menstruation,
+    "athlete": models.v2022_03_16.athlete.Athlete,
+}
+
+
+DTYPE_TO_RESPONSE = {
+    "widget_session": WidgetSession,
+    "auth_url": UserAuthUrl,
+    "user_info": UserInfo,
+    "subscriptions": SubscribedUsers,
+    "providers" : ProvidersResponse
+}

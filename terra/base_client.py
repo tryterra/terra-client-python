@@ -18,13 +18,18 @@ import requests
 
 from terra import constants
 from terra import models
+from terra.api import api_responses
 from terra import utils
 from terra.models import user as user_
 
 
 class Terra:
     """
-    #TODO docstring here - what is this class? + constructor args
+    constructor of the Terra class
+
+    api_key (:obj:`str`)
+    dev_id (:obj:`str`)
+
     """
 
     def __init__(self, api_key: str, dev_id: str) -> None:
@@ -57,7 +62,7 @@ class Terra:
 
     def _get_arbitrary_data(
         self, user: user_.User, dtype: str, **kwargs: t.Any
-    ) -> models.api_responses.TerraApiResponse:
+    ) -> api_responses.TerraApiResponse:
         """
         Internal method used to retrieve data for a given User
 
@@ -78,7 +83,7 @@ class Terra:
             headers=self._auth_headers,
         )
 
-        return models.api_responses.TerraApiResponse(data_resp, user)
+        return api_responses.TerraApiResponse(data_resp, user)
 
     def get_activity_for_user(
         self,
@@ -86,7 +91,7 @@ class Terra:
         start_date: datetime.datetime,
         end_date: datetime.datetime = None,
         to_webhook: bool = True,
-    ) -> models.api_responses.TerraApiResponse:
+    ) -> api_responses.TerraApiResponse:
         """
         Retrieves workouts/activity data for a given User object. By default, data will be asynchronously sent to registered
         webhook URL.
@@ -115,7 +120,7 @@ class Terra:
         start_date: datetime.datetime,
         end_date: datetime.datetime = None,
         to_webhook: bool = True,
-    ) -> models.api_responses.TerraApiResponse:
+    ) -> api_responses.TerraApiResponse:
         """
         Retrieves body metrics data for a given User object. By default, data will be asynchronously sent to registered
         webhook URL.
@@ -144,7 +149,7 @@ class Terra:
         start_date: datetime.datetime,
         end_date: datetime.datetime = None,
         to_webhook: bool = True,
-    ) -> models.api_responses.TerraApiResponse:
+    ) -> api_responses.TerraApiResponse:
         """
         Retrieves daily summary data for a given User object. By default, data will be asynchronously sent to registered
         webhook URL.
@@ -173,7 +178,7 @@ class Terra:
         start_date: datetime.datetime,
         end_date: datetime.datetime = None,
         to_webhook: bool = True,
-    ) -> models.api_responses.TerraApiResponse:
+    ) -> api_responses.TerraApiResponse:
         """
         Retrieves sleep data for a given User object. By default, data will be asynchronously sent to registered
         webhook URL.
@@ -200,7 +205,7 @@ class Terra:
         self,
         user: user_.User,
         to_webhook: bool = True,
-    ) -> models.api_responses.TerraApiResponse:
+    ) -> api_responses.TerraApiResponse:
         """
         Retrieves profile info/athlete data for a given User object. By default, data will be asynchronously sent to
         registered webhook URL.
@@ -220,7 +225,7 @@ class Terra:
         start_date: datetime.datetime,
         end_date: datetime.datetime = None,
         to_webhook: bool = True,
-    ) -> models.api_responses.TerraApiResponse:
+    ) -> api_responses.TerraApiResponse:
         """
         Retrieves daily summary data for a given User object. By default, data will be asynchronously sent to registered
         webhook URL.
@@ -251,7 +256,7 @@ class Terra:
         language: t.Optional[str] = None,
         reference_id: t.Optional[str] = None,
         **kwargs: t.Any,
-    ) -> models.api_responses.TerraApiResponse:
+    ) -> api_responses.TerraApiResponse:
         """
         Generates a widget session used to allow an end user to authenticate through the API. Users should be
         redirected to the given URL in order to complete authentication
@@ -282,7 +287,7 @@ class Terra:
             headers=self._auth_headers,
             json=body_payload,
         )
-        return models.api_responses.TerraApiResponse(widget_resp, dtype="widget_sesion")
+        return api_responses.TerraApiResponse(widget_resp, dtype="widget_session")
 
     def generate_authentication_url(
         self,
@@ -291,7 +296,7 @@ class Terra:
         auth_failure_redirect_url: t.Optional[str] = None,
         reference_id: t.Optional[str] = None,
         **kwargs: t.Any,
-    ) -> models.api_responses.TerraApiResponse:
+    ) -> api_responses.TerraApiResponse:
         """
         Generates an authentication URL to allow an end user to authenticate through the API. Users should be
         redirected to the given URL in order to complete authentication. User ID will be provided in the response
@@ -321,9 +326,9 @@ class Terra:
             headers=self._auth_headers,
             json=body_payload,
         )
-        return models.api_responses.TerraApiResponse(auth_resp, dtype="auth_url")
+        return api_responses.TerraApiResponse(auth_resp, dtype="auth_url")
 
-    def get_user_info(self, user: user_.User) -> models.api_responses.TerraApiResponse:
+    def get_user_info(self, user: user_.User) -> api_responses.TerraApiResponse:
         """
         Retrieve information on a given User, including is_authenticated status, indicating if the user has
         successfully completed auth flow, or has yet to do so
@@ -340,11 +345,11 @@ class Terra:
             params={"user_id": user.user_id},
             headers=self._auth_headers,
         )
-        return models.api_responses.TerraApiResponse(user_resp, dtype="user_info")
+        return api_responses.TerraApiResponse(user_resp, dtype="user_info")
 
     def deauthenticate_user(
         self, user: user_.User
-    ) -> models.api_responses.TerraApiResponse:
+    ) -> api_responses.TerraApiResponse:
         """
         Deauthenticates given User from the Api
         Note: If successful, this triggers a User Deauthentication webhook event
@@ -361,9 +366,9 @@ class Terra:
             headers=self._auth_headers,
         )
         deauth_resp.raise_for_status()
-        return models.api_responses.TerraApiResponse(deauth_resp, dtype="user_deauth")
+        return api_responses.TerraApiResponse(deauth_resp, dtype="user_deauth")
 
-    def list_users(self) -> models.api_responses.TerraApiResponse:
+    def list_users(self) -> api_responses.TerraApiResponse:
         """
         Lists all users registered under Client's credentials on the API
 
@@ -373,4 +378,18 @@ class Terra:
         users_resp = requests.get(
             f"{constants.BASE_URL}/subscriptions", headers=self._auth_headers
         )
-        return models.api_responses.TerraApiResponse(users_resp, dtype="subscriptions")
+        return api_responses.TerraApiResponse(users_resp, dtype="subscriptions")
+    
+    def list_providers(self) -> api_responses.TerraApiResponse:
+        
+        """
+        Lists all providers on the API
+
+        Returns:
+            :obj:`models.api_responses.TerraApiResponse`: API response object containing ProvidersResponse parsed response object if no error has occured
+        """
+    
+        providers_resp = requests.get(
+            f'{constants.BASE_URL}/integrations' , headers=self._auth_headers
+        )
+        return api_responses.TerraApiResponse(providers_resp , dtype="providers")

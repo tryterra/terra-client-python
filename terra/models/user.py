@@ -19,6 +19,7 @@ import typing as t
 import requests
 
 from terra import checks
+from terra import exceptions
 from terra import constants
 from terra import models
 from terra import utils
@@ -28,6 +29,26 @@ if t.TYPE_CHECKING:
     from terra import base_client
 
 __all__ = ["User"]
+
+
+def check_has_client(f) -> None:
+
+    def wrapper(*args, **kwargs):
+        """
+        Check used on a User object's methods which require it to be initialized from a Client instance
+
+        Args:
+            user (:obj:`models.User`): User object
+
+        Returns:
+            ``None``
+        """
+    
+        if args[0]._client is None:
+                raise exceptions.NoClientAvailable
+            
+        return f(*args, **kwargs)
+    return wrapper
 
 
 class User(TerraDataModel):
@@ -43,6 +64,11 @@ class User(TerraDataModel):
         self.last_webhook_update = last_webhook_update
         self._client = client
         self._resource = None
+
+    def _has_client(self):
+        return self._client is not None
+
+   
 
     def fill_in_user_info(self):
         if self._client:
@@ -73,7 +99,7 @@ class User(TerraDataModel):
         )
         return models.api_responses.TerraApiResponse(data_resp, self)
 
-    @checks.check_has_client
+    @check_has_client
     def get_activity(
         self,
         start_date: datetime.datetime,
@@ -101,7 +127,7 @@ class User(TerraDataModel):
             to_webhook=to_webhook,
         )
 
-    @checks.check_has_client
+    @check_has_client
     def get_body(
         self,
         start_date: datetime.datetime,
@@ -128,7 +154,7 @@ class User(TerraDataModel):
             to_webhook=to_webhook,
         )
 
-    @checks.check_has_client
+    @check_has_client
     def get_daily(
         self,
         start_date: datetime.datetime,
@@ -155,7 +181,7 @@ class User(TerraDataModel):
             to_webhook=to_webhook,
         )
 
-    @checks.check_has_client
+    @check_has_client
     def get_sleep(
         self,
         start_date: datetime.datetime,
@@ -183,7 +209,7 @@ class User(TerraDataModel):
             to_webhook=to_webhook,
         )
 
-    @checks.check_has_client
+    @check_has_client
     def get_athlete(
         self,
         to_webhook=True,
@@ -200,7 +226,7 @@ class User(TerraDataModel):
         """
         return self._get_arbitrary_data(self, "athlete", to_webhook=to_webhook)
 
-    @checks.check_has_client
+    @check_has_client
     def get_menstruation(
         self,
         start_date: datetime.datetime,

@@ -11,7 +11,6 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-from terra.models import api_responses
 from terra.models import base_model
 from terra.models import user
 from terra.models import v2022_03_16

@@ -12,19 +12,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 from terra import exceptions
-from terra.models import user as user_
+#from .models import user as user_
 
 
-def check_has_client(user: user_.User) -> None:
-    """
-    Check used on a User object's methods which require it to be initialized from a Client instance
-
-    Args:
-        user (:obj:`models.User`): User object
-
-    Returns:
-        ``None``
-    """
-    # TODO - change this to property on User class, e.g. User.has_client
-    if user._client is None:
-        raise exceptions.NoClientAvailable
+#there was a circular import error
