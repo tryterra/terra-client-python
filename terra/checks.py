@@ -1,0 +1,30 @@
+#  Copyright 2022 Terra Enabling Developers Limited
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+from terra import exceptions
+from terra.models import user as user_
+
+
+def check_has_client(user: user_.User) -> None:
+    """
+    Check used on a User object's methods which require it to be initialized from a Client instance
+
+    Args:
+        user (:obj:`models.User`): User object
+
+    Returns:
+        ``None``
+    """
+    # TODO - change this to property on User class, e.g. User.has_client
+    if user._client is None:
+        raise exceptions.NoClientAvailable
