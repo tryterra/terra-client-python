@@ -15,7 +15,6 @@ import dataclasses
 import enum
 import pydoc
 import typing
-import typing as t
 
 
 PRIMITIVES = (str, int, bool, float, type(None), dict)

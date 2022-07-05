@@ -175,7 +175,7 @@ class User(TerraDataModel):
         start_date: datetime.datetime,
         end_date: datetime.datetime = None,
         to_webhook=True,
-    ) -> models.api_responses.TerraApiResponse:
+    ) -> api_responses.TerraApiResponse:
         """
         Retrieves nutrition data for a given User object. By default, data will be asynchronously sent to registered
         webhook URL.

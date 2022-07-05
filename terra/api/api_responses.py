@@ -38,12 +38,12 @@ def _parse_api_body(
 
     if "status" in body:
         if body["status"] in STATUS.keys():
-            return STATUS[body["status"]].from_dict_api(body, True)
+            return STATUS[body["status"]]().from_dict_api(body, True)
 
     if dtype in USER_DATATYPES:
         return DataReturned(
             user=Auser,
-            data=[MODEL_MAPPING[dtype].from_dict(item) for item in body["data"]]
+            data=[MODEL_MAPPING[dtype]().from_dict(item) for item in body["data"]]
             if body.get("data") or body.get("data") == []
             else [],
             type=dtype,
@@ -58,7 +58,7 @@ def _parse_api_body(
 
 
 class TerraApiResponse(TerraParsedApiResponse):
-    def __init__(self, resp: requests.Response, user=None, dtype=None):
+    def __init__(self, resp: requests.Response, user=None, dtype=None)->None:
         self.response_code = resp.status_code
         self.raw_body = resp.content.decode(resp.encoding)
         self.json = None
@@ -74,7 +74,7 @@ class TerraApiResponse(TerraParsedApiResponse):
 
 
 class TerraWebhookResponse(TerraParsedApiResponse):
-    def __init__(self, resp, user=None, dtype=None):
+    def __init__(self, resp, user=None, dtype=None)->None:
         self.dtype = dtype
         body = resp
         self.json = body
@@ -158,11 +158,6 @@ class RequestProcessingHookResponse(HookResponse):
     user: typing.Optional[models.user.User] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
-class RequestProcessingHookResponse(HookResponse):
-    message: typing.Optional[str] = dataclasses.field(default=None)
-    reference: typing.Optional[str] = dataclasses.field(default=None)
-    user: typing.Optional[models.user.User] = dataclasses.field(default=None)
 
 
 @dataclasses.dataclass
@@ -201,10 +196,10 @@ class DataReturned(TerraParsedApiResponse):
     data: typing.List[TerraParsedApiResponse] = dataclasses.field(default_factory=list)
 
 
-@dataclasses.dataclass
-class NutritionDeletedData(TerraParsedApiResponse):
-    type: typing.Optional[str] = dataclasses.field(default=None)
-    processed_logs: typing.List[dict] = dataclasses.field(default_factory=list)
+# @dataclasses.dataclass
+# class NutritionDeletedData(TerraParsedApiResponse):
+#     type: typing.Optional[str] = dataclasses.field(default=None)
+#     processed_logs: typing.List[typing.Dict(str,typing.Any)] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
