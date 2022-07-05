@@ -12,6 +12,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 from __future__ import annotations
+import dataclasses
 
 import datetime
 import typing as t
@@ -23,7 +24,7 @@ from terra import exceptions
 from terra import constants
 from terra import models
 from terra import utils
-from terra.models.base_model import TerraDataModel
+from terra.models.base_model import TerraDataModel, nested_dataclass
 
 if t.TYPE_CHECKING:
     from terra import base_client
@@ -50,7 +51,7 @@ def check_has_client(f) -> None:
         return f(*args, **kwargs)
     return wrapper
 
-
+@dataclasses.dataclass
 class User(TerraDataModel):
     def __init__(
         self,
@@ -84,11 +85,39 @@ class User(TerraDataModel):
         """
         if self._client:
             user_info = self._client.get_user_info(self)
-            self.provider = user_info.json['user']['provider']
-            self.last_webhook_update = user_info.json['user']['provider']
+            print(user_info)
+            # self.provider = user_info.json['user']['provider']
+            # self.last_webhook_update = user_info.json['user']['provider']
             
 
+    @check_has_client
+    def get_bulk(
+        self,
+        start_date: datetime.datetime,
+        end_date: datetime.datetime = None,
+        to_webhook=True,
+    ) -> models.api_responses.TerraApiResponse:
+        """
+        Retrieves bulk data for a given User object. By default, data will be asynchronously sent to registered
+        webhook URL.
 
+        Args:
+            
+            start_date (:obj:`datetime.datetime`): Datetime object for which to fetch data
+            end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will default to start_date + 24h according to current API specifications
+            to_webhook (:obj:`bool`): Whether to send data to registered webhook URL or return as a response body
+
+        Returns:
+            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
+
+        """
+        return self._client._get_arbitrary_data(
+            dtype="bulkUserInfo",
+            user=self,
+            start_date=int(start_date.timestamp()),
+            end_date=int(end_date.timestamp()) if end_date is not None else None,
+            to_webhook=to_webhook,
+        )
     
 
     @check_has_client
@@ -103,7 +132,7 @@ class User(TerraDataModel):
         webhook URL.
 
         Args:
-            user (:obj:`models.user.User`): User for whom to fetch data
+            
             start_date (:obj:`datetime.datetime`): Datetime object for which to fetch data
             end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will default to start_date + 24h according to current API specifications
             to_webhook (:obj:`bool`): Whether to send data to registered webhook URL or return as a response body
@@ -188,7 +217,7 @@ class User(TerraDataModel):
         webhook URL.
 
         Args:
-            user (:obj:`models.user.User`): User for whom to fetch data
+            
             start_date (:obj:`datetime.datetime`): Datetime object for which to fetch data
             end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will default to start_date + 24h according to current API specifications
             to_webhook (:obj:`bool`): Whether to send data to registered webhook URL or return as a response body

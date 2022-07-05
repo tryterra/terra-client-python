@@ -17,14 +17,14 @@ import typing
 from terra.models import base_model
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class GlucoseDataSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     blood_glucose_mg_per_dL: typing.Optional[int] = dataclasses.field(default=None)
     glucose_level_flag: typing.Optional[int] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class HeartRateDataSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     bpm: typing.Optional[float] = dataclasses.field(default=None)
@@ -37,80 +37,80 @@ class LapSample(base_model.TerraDataModel):
     calories: typing.Optional[float] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class HeartRateVariabilityDataSampleRMSSD(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     hrv_rmssd: typing.Optional[float] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class HeartRateVariabilityDataSampleSDNN(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     hrv_sdnn: typing.Optional[float] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class DistanceSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     distance_meters: typing.Optional[float] = dataclasses.field(default=None)
     timer_duration_seconds: typing.Optional[float] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class StepSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     steps: typing.Optional[float] = dataclasses.field(default=None)
     timer_duration_seconds: typing.Optional[float] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class ElevationSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     elev_meters: typing.Optional[float] = dataclasses.field(default=None)
     timer_duration_seconds: typing.Optional[float] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class PositionSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     coords_lat_lng_deg: typing.List[float] = dataclasses.field(default_factory=list)
     timer_duration_seconds: typing.Optional[float] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class PowerSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     watts: typing.Optional[float] = dataclasses.field(default=None)
     timer_duration_seconds: typing.Optional[float] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class SpeedSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     speed_meters_per_second: typing.Optional[float] = dataclasses.field(default=None)
     timer_duration_seconds: typing.Optional[float] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class CadenceSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     cadence_rpm: typing.Optional[float] = dataclasses.field(default=None)
     timer_duration_seconds: typing.Optional[float] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class ActivityLevelSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     activity_level: typing.Optional[int] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class METSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     level: typing.Optional[float] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class TSSSample(base_model.TerraDataModel):
     planned: typing.Optional[float] = dataclasses.field(default=None)
     actual: typing.Optional[float] = dataclasses.field(default=None)
@@ -120,44 +120,44 @@ class TSSSample(base_model.TerraDataModel):
     normalized_power_watts: typing.Optional[float] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class SleepHypnogramSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     level: typing.Optional[int] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class OxygenSaturationSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     percentage: typing.Optional[float] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class BreathSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     breaths_per_min: typing.Optional[float] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class SnoringSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     duration_seconds: typing.Optional[float] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class StressSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     level: typing.Optional[float] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class BloodPressureSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     diastolic_bp: typing.Optional[float] = dataclasses.field(default=None)
     systolic_bp: typing.Optional[float] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class MeasurementDataSample(base_model.TerraDataModel):
     measurement_time: typing.Optional[str] = dataclasses.field(default=None)
     BMI: typing.Optional[float] = dataclasses.field(default=None)
@@ -177,31 +177,31 @@ class MeasurementDataSample(base_model.TerraDataModel):
     urine_color: typing.Optional[str] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class BodyTemperatureSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     body_temperature_celsius: typing.Optional[float] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class SkinTemperatureSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     skin_temperature_celsius: typing.Optional[float] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class AmbientTemperatureSample(base_model.TerraDataModel):
     temperature_celsius: typing.Optional[float] = dataclasses.field(default=None)
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class TemperatureSample(base_model.TerraDataModel):
     temperature_celsius: typing.Optional[float] = dataclasses.field(default=None)
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class OtherDeviceData(base_model.TerraDataModel):
     name: typing.Optional[str] = dataclasses.field(default=None)
     manufacturer: typing.Optional[str] = dataclasses.field(default=None)
@@ -210,19 +210,19 @@ class OtherDeviceData(base_model.TerraDataModel):
     hardware_version: typing.Optional[str] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class HydrationMeasurementSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     hydration_kg: typing.Optional[float] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class Vo2MaxSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     vo2max_ml_per_min_per_kg: typing.Optional[float] = dataclasses.field(default=None)
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class PulseVelocitySample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     pulse_wave_velocity_meters_per_second: typing.Optional[float] = dataclasses.field(
@@ -230,7 +230,7 @@ class PulseVelocitySample(base_model.TerraDataModel):
     )
 
 
-@dataclasses.dataclass
+@base_model.nested_dataclass
 class AFibClassificationSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     afib_classification: typing.Optional[int] = dataclasses.field(default=None)

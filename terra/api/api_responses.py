@@ -13,6 +13,7 @@
 #  limitations under the License.
 from cgitb import Hook
 import dataclasses
+from email import message
 from email.policy import default
 import json.decoder
 import typing
@@ -43,8 +44,12 @@ def _parse_api_body(
             type=dtype
         )
     elif dtype in DTYPE_TO_RESPONSE.keys():
-        print("here")
-        return DTYPE_TO_RESPONSE[dtype]().from_dict(body, True)
+        return DTYPE_TO_RESPONSE[dtype]().from_dict_api(body, True)
+    elif dtype in HOOK_RESPONSE.keys():
+        return HOOK_RESPONSE[dtype]().from_dict_api(body, True)
+    else:
+        
+        return GenericMessage().from_dict_api(body,True)
 
 
 
@@ -75,6 +80,14 @@ class TerraWebhookResponse(TerraParsedApiResponse):
 
 
 @dataclasses.dataclass
+class GenericMessage(TerraParsedApiResponse):
+    message : str = dataclasses.field(default=None)
+    status: str = dataclasses.field(default=None)
+    type: str = dataclasses.field(default=None)
+    
+
+
+@dataclasses.dataclass
 class WidgetSession(TerraParsedApiResponse):
     expires_in : int = dataclasses.field(default=900)
     status: str = dataclasses.field(default=None)
@@ -97,6 +110,55 @@ class UserDeauthResp(TerraParsedApiResponse):
 class HookResponse(TerraParsedApiResponse):
     status: str = dataclasses.field(default="success")
     type: str = dataclasses.field(default=None)
+   
+@dataclasses.dataclass
+class AuthHookResponse(HookResponse):
+    reference_id: str = dataclasses.field(default=None)
+    user: user_.User = dataclasses.field(default=None)
+    widget_session_id: str = dataclasses.field(default=None)
+
+@dataclasses.dataclass
+class UserReauthHookResponse(HookResponse):
+    message: str = dataclasses.field(default=None)
+    old_user: user_.User = dataclasses.field(default=None)
+    new_user: user_.User = dataclasses.field(default=None)
+
+@dataclasses.dataclass
+class UserDeauthHookResponse(HookResponse):
+    message: str = dataclasses.field(default=None)
+    user: user_.User = dataclasses.field(default=None)
+    
+
+@dataclasses.dataclass
+class AccessRevokedHookResponse(HookResponse):
+    message: str = dataclasses.field(default=None)
+    user: user_.User = dataclasses.field(default=None)
+
+@dataclasses.dataclass
+class GoogleNoDataSourceHookResponse(HookResponse):
+    message: str = dataclasses.field(default=None)
+    user: user_.User = dataclasses.field(default=None)
+
+@dataclasses.dataclass
+class ConnectionErrorHookResponse(HookResponse):
+    message: str = dataclasses.field(default=None)
+    user: user_.User = dataclasses.field(default=None)
+
+@dataclasses.dataclass
+class RequestProcessingHookResponse(HookResponse):
+    message: str = dataclasses.field(default=None)
+    user: user_.User = dataclasses.field(default=None)
+
+@dataclasses.dataclass
+class RequestProcessingHookResponse(HookResponse):
+    message: str = dataclasses.field(default=None)
+    reference: str = dataclasses.field(default=None)
+    user: user_.User = dataclasses.field(default=None)
+
+@dataclasses.dataclass
+class RequestCompletedHookResponse(HookResponse):
+    message: str = dataclasses.field(default=None)
+    reference: str = dataclasses.field(default=None)
     user: user_.User = dataclasses.field(default=None)
 
 
@@ -180,7 +242,7 @@ class AuthenticationFailed(TerraParsedApiResponse):
 
 
 @dataclasses.dataclass
-class ConnectionDegraded(TerraParsedApiResponse):
+class ConnexionDegraded(TerraParsedApiResponse):
     status: str = dataclasses.field(default="warning")
     message: str = dataclasses.field(default="User connection degraded")
     type: str = dataclasses.field(default="connection_error")
@@ -190,7 +252,10 @@ class ProvidersResponse(TerraParsedApiResponse):
     status: str = dataclasses.field(default="warning")
     providers: typing.Optional[typing.List[str]] = dataclasses.field(default=None)
 
-
+@dataclasses.dataclass
+class SentToWebhook(TerraParsedApiResponse):
+    status: typing.Optional[str] = dataclasses.field(default=None)
+    message: str = dataclasses.field(default=None)
 
 
 __all__ = [
@@ -220,16 +285,18 @@ DTYPE_TO_RESPONSE = {
     "user_info": UserInfo,
     "subscriptions": SubscribedUsers,
     "providers" : ProvidersResponse,
-
+    "sent_to_webhook" : SentToWebhook
 }
 
-HOOK_TYPES = ["auth", "user_reauth", "access_revoked", "deauth", "google_no_datasource", "connexion_error"]
+HOOK_TYPES = {"auth", "user_reauth", "access_revoked", "deauth", "google_no_datasource", "connexion_error","request_processing", "request_completed"}
 
 HOOK_RESPONSE = {
-    "auth":HookResponse, 
-    "user_reauth":HookResponse,
-    "access_revoked":HookResponse,
-    "deauth":HookResponse, 
-    "google_no_datasource":HookResponse, 
-    "connexion_error":HookResponse
+    "auth":AuthHookResponse, 
+    "user_reauth":UserReauthHookResponse,
+    "access_revoked":AccessRevokedHookResponse,
+    "deauth":UserDeauthHookResponse, 
+    "google_no_datasource":GoogleNoDataSourceHookResponse, 
+    "connexion_error": ConnectionErrorHookResponse,
+    "request_completed": RequestCompletedHookResponse,
+    "request_processing": RequestProcessingHookResponse
 }

@@ -12,6 +12,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 import datetime
+import json
 import typing as t
 
 from flask import request
@@ -95,6 +96,31 @@ class Terra:
         )
 
         return api_responses.TerraApiResponse(data_resp, user)
+
+    def _get_bulk_data(
+        self, users:  t.Optional[user_.User], dtype: str, **kwargs: t.Any
+    ) -> api_responses.TerraApiResponse:
+        """
+        Internal method used to retrieve data for a given User
+
+        Args:
+            user (:obj:`models.user.User`):
+            dtype (:obj:`str`): datatype to be fetched
+            **kwargs: optional additional parameters for the request
+
+        Returns:
+            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
+
+        """
+        params = {"RAW_BODY": [user.user_id for user in users]}
+        params = utils.update_if_not_none(params, kwargs)
+        data_resp = requests.get(
+            f"{constants.BASE_URL}/{dtype}",
+            params=params,
+            headers=self._auth_headers,
+        )
+
+        return api_responses.TerraApiResponse(data_resp, "bulkUserInfo")
 
     def get_activity_for_user(
         self,
@@ -366,7 +392,7 @@ class Terra:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing UserDeauthResp parsed response object if no error has occured
         """
         deauth_resp = requests.delete(
-            f"{constants.BASE_URL}/deauthenticateUser",
+            f"{constants.BASE_URL}/auth/deauthenticateUser",
             params={"user_id": user.user_id},
             headers=self._auth_headers,
         )
@@ -402,7 +428,12 @@ class Terra:
 
     def signing(self, body: str, header: str) -> bool:
       
-        
+        """
+        Lists all providers on the API
+
+        Returns:
+            :obj:`models.api_responses.TerraApiResponse`: API response object containing ProvidersResponse parsed response object if no error has occured
+        """
     
         t, sig = (pair.split("=")[-1] for pair in header.split(","))
 
@@ -423,14 +454,13 @@ class Terra:
 
         if not self.signing(request.get_data().decode("utf-8"), request.headers["terra-signature"] ):
             return "Signature Error"
-        # print(request.get_json())
         ff = api_responses.TerraWebhookResponse(request.get_json(), dtype="hook" )
-        print(ff.parsed_response)
+       
         return ff
     
-    def hooks(self, payload: str, terra_signature_header: str):
+    
+    def hooks(self, payload: str, terra_signature_header: str, json: json):
         if not self.signing(payload, terra_signature_header ):
             return "Signature Error"
-        ff = api_responses.TerraWebhookResponse(request.get_json(), dtype="hook" )
-        print(ff.parsed_response)
+        ff = api_responses.TerraWebhookResponse(json, dtype="hook" )
         return ff
