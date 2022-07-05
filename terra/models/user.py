@@ -85,9 +85,9 @@ class User(TerraDataModel):
         """
         if self._client:
             user_info = self._client.get_user_info(self)
-            print(user_info)
-            # self.provider = user_info.json['user']['provider']
-            # self.last_webhook_update = user_info.json['user']['provider']
+            
+            self.provider = user_info.json['user']['provider']
+            self.last_webhook_update = user_info.json['user']['provider']
             
 
     @check_has_client
