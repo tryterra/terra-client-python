@@ -276,6 +276,34 @@ class Terra:
             end_date=int(end_date.timestamp()) if end_date is not None else None,
             to_webhook=to_webhook,
         )
+    
+    def get_nutrition_for_user(
+        self,
+        user: user_.User,
+        start_date: datetime.datetime,
+        end_date: datetime.datetime = None,
+        to_webhook: bool = True,
+    ) -> api_responses.TerraApiResponse:
+        """
+        Retrieves daily summary data for a given User object. By default, data will be asynchronously sent to registered
+        webhook URL.
+
+        Args:
+            user (:obj:`models.user.User`): User for whom to fetch data
+            start_date (:obj:`datetime.datetime`): Datetime object for which to fetch data
+            end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will default to start_date + 24h according to current API specifications
+            to_webhook (:obj:`bool`): Whether to send data to registered webhook URL or return as a response body
+
+        Returns:
+            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
+
+        """
+        
+        return user.get_nutrition(
+            start_date=int(start_date.timestamp()),
+            end_date=int(end_date.timestamp()) if end_date is not None else None,
+            to_webhook=to_webhook,
+        )
 
     def generate_widget_session(
         self,

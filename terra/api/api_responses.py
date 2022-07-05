@@ -11,12 +11,11 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-from cgitb import Hook
+
 import dataclasses
-from email import message
-from email.policy import default
 import json.decoder
 import typing
+from attr import dataclass
 
 import requests
 
@@ -33,18 +32,28 @@ class TerraParsedApiResponse(base_model.TerraDataModel):
 def _parse_api_body(
     dtype: str, body: dict, user: models.user.User
 ) -> TerraParsedApiResponse:
-    user = models.user.User.from_dict(body["user"]) if body.get("user") else user
+    
+    Auser = user
+
+    if "user" in body : 
+        Auser = models.user.User.from_dict_api(body["user"])
+        
+    if "status" in body: 
+        if (body["status"] in STATUS.keys()):
+            return STATUS[body["status"]].from_dict_api(body, True)
+
 
     if dtype in USER_DATATYPES:
+        print(Auser)
         return DataReturned(
-            user=user,
+            user=Auser,
             data=[MODEL_MAPPING[dtype].from_dict(item) for item in body["data"]]
             if body.get("data") or body.get("data")==[]
-            else [MODEL_MAPPING[dtype].from_dict(body["athlete"])],
+            else [],
             type=dtype
         )
     elif dtype in DTYPE_TO_RESPONSE.keys():
-        return DTYPE_TO_RESPONSE[dtype]().from_dict_api(body, True)
+        return DTYPE_TO_RESPONSE[dtype]().from_dict(body, True)
     elif dtype in HOOK_RESPONSE.keys():
         return HOOK_RESPONSE[dtype]().from_dict_api(body, True)
     else:
@@ -75,7 +84,6 @@ class TerraWebhookResponse(TerraParsedApiResponse):
         body = resp
         self.json = body
         self.dtype = body.get("type", dtype)
-        
         self.parsed_response = _parse_api_body(self.dtype, body, user)
 
 
@@ -83,7 +91,6 @@ class TerraWebhookResponse(TerraParsedApiResponse):
 class GenericMessage(TerraParsedApiResponse):
     message : str = dataclasses.field(default=None)
     status: str = dataclasses.field(default=None)
-    type: str = dataclasses.field(default=None)
     
 
 
@@ -164,7 +171,7 @@ class RequestCompletedHookResponse(HookResponse):
 
 @dataclasses.dataclass
 class SubscribedUsers(TerraParsedApiResponse):
-    users: typing.Optional[typing.List[models.user.User]] = dataclasses.field(
+    users: typing.List[models.user.User] = dataclasses.field(
         default_factory=list
     )
 
@@ -172,16 +179,10 @@ class SubscribedUsers(TerraParsedApiResponse):
 @dataclasses.dataclass
 class UserAuthUrl(TerraParsedApiResponse):
     status: str = dataclasses.field(default=None)
-    user_id: str = dataclasses.field(default=None)
-    auth_url: str = dataclasses.field(default=None)
+    expires_in: int = dataclasses.field(default=900)
+    url: str = dataclasses.field(default=None)
+    session_id: str= dataclasses.field(default=None)
 
-
-@dataclasses.dataclass
-class RequestProcessing(TerraParsedApiResponse):
-    status: str = dataclasses.field(default="Request is processing, try again later")
-    auth_url: str = dataclasses.field(default=None)
-    retry_after_seconds: int = dataclasses.field(default=180)
-    type: str = dataclasses.field(default="processing")
 
 
 @dataclasses.dataclass
@@ -205,28 +206,6 @@ class NutritionDeletedData(TerraParsedApiResponse):
     type: typing.Optional[str] = dataclasses.field(default=None)
     processed_logs: typing.List[dict] = dataclasses.field(default_factory=list)
 
-
-@dataclasses.dataclass
-class RequestProcessing(TerraParsedApiResponse):
-    retry_after_seconds: float = dataclasses.field(default=180)
-    status: str = dataclasses.field(default="Request is processing, try again later")
-    type: str = dataclasses.field(default="processing")
-
-
-@dataclasses.dataclass
-class DataSentToWebhook(TerraParsedApiResponse):
-    reference: str = dataclasses.field(default=None)
-    message: str = dataclasses.field(default="Data sent to webhook")
-    type: str = dataclasses.field(default="sent_to_webhook")
-
-
-@dataclasses.dataclass
-class UserAuthenticated(TerraParsedApiResponse):
-    status: typing.Optional[str] = dataclasses.field(default=None)
-    widget_session_id: typing.Optional[str] = dataclasses.field(default=None)
-    reference_id: typing.Optional[str] = dataclasses.field(default=None)
-    message: str = dataclasses.field(default="User has successfully authenticated")
-    type: str = dataclasses.field(default="auth")
 
 
 @dataclasses.dataclass
@@ -268,7 +247,7 @@ __all__ = [
     "ConnectionDegraded",
 ]
 
-USER_DATATYPES = ["activity", "athlete", "body", "daily", "menstruation", "sleep"]
+USER_DATATYPES = ["activity", "athlete", "body", "daily", "menstruation", "sleep", "nutrition"]
 MODEL_MAPPING = {
     "activity": models.v2022_03_16.activity.Activity,
     "body": models.v2022_03_16.body.Body,
@@ -276,6 +255,7 @@ MODEL_MAPPING = {
     "sleep": models.v2022_03_16.sleep.Sleep,
     "menstruation": models.v2022_03_16.menstruation.Menstruation,
     "athlete": models.v2022_03_16.athlete.Athlete,
+    "nutrition": models.v2022_03_16.nutrition.Nutrition
 }
 
 
@@ -299,4 +279,10 @@ HOOK_RESPONSE = {
     "connexion_error": ConnectionErrorHookResponse,
     "request_completed": RequestCompletedHookResponse,
     "request_processing": RequestProcessingHookResponse
+}
+
+STATUS = {
+    "not_available": NoDataReturned,
+    "warning": ConnexionDegraded,
+    "error": ConnexionDegraded
 }

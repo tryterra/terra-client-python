@@ -130,32 +130,36 @@ class TerraDataModel:
             
                     z = {field.name : field.type for field in dataclasses.fields(cls())}
                   
+                    print(v)
                     for sub_model_dict in v:
 
-                    
+                        print(sub_model_dict.items())
 
                         sub_model = pydoc.locate(str(z[k]).split('[')[1].split(']')[0])()
 
-                        if (isinstance(sub_model, typing.List)):
-                            
-                            x.append([])
 
-                        else:
+
+                       
                         
-                            for k2,v2 in sub_model_dict.items():
+                        for k2,v2 in sub_model_dict.items():
+
+                                
 
                                 if (
                                     inner_item2 := getattr(sub_model, k2, *(("NOT_FOUND",) if safe else ()))
                                 ) in [None, []] or isinstance(inner_item2, TerraDataModel):
-                                    for k2,v2 in sub_model_dict.items():
-                                        
-                                        if isinstance(v2 , TerraDataModel) :
-                                            v2 = inner_item2.from_dict(v2)
-                                        
-                                        setattr(sub_model, k2, v2)
                                     
-                                x.append(sub_model)
+                                        
+                                    if isinstance(v2 , TerraDataModel) :
+                                        v2 = inner_item2.from_dict(v2)
 
+                                        
+                                        
+                                    setattr(sub_model, k2, v2)
+                                    
+                        x.append(sub_model)
+
+                    print(x)
                     v = x
                     setattr(data_model, k, v)
 
@@ -185,7 +189,7 @@ class TerraDataModel:
             ) in [None, []] or isinstance(inner_item, TerraDataModel):
                 if isinstance(inner_item , TerraDataModel) :
              
-                    v = inner_item.from_dict(v)
+                    v = inner_item.from_dict_api(v)
                 
                 
                 setattr(data_model, k, v)
