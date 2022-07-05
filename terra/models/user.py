@@ -16,7 +16,7 @@ from __future__ import annotations
 import datetime
 import typing as t
 
-import requests
+
 
 from terra import checks
 from terra import exceptions
@@ -43,7 +43,7 @@ def check_has_client(f) -> None:
         Returns:
             ``None``
         """
-    
+
         if args[0]._client is None:
                 raise exceptions.NoClientAvailable
             
@@ -65,20 +65,13 @@ class User(TerraDataModel):
         self._client = client
         self._resource = None
 
+
     def _has_client(self):
         return self._client is not None
 
    
 
     def fill_in_user_info(self):
-        if self._client:
-            user_info = self._client.get_user_info(self)
-            self.provider = user_info["resource"]
-            self.last_webhook_update = user_info["last_webhook_update"]
-
-    def _get_arbitrary_data(
-        self, dtype: str, **kwargs
-    ) -> models.api_responses.TerraApiResponse:
         """
         Internal method used to retrieve data for User
 
@@ -87,17 +80,16 @@ class User(TerraDataModel):
             **kwargs: optional additional parameters for the request
 
         Returns:
-            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
-
+            None
         """
-        params = {"user_id": self.user_id}
-        params = utils.update_if_not_none(params, kwargs)
-        data_resp = requests.get(
-            f"{constants.BASE_URL}/{dtype}",
-            params=params,
-            headers=self._client._auth_headers,
-        )
-        return models.api_responses.TerraApiResponse(data_resp, self)
+        if self._client:
+            user_info = self._client.get_user_info(self)
+            self.provider = user_info.json['user']['provider']
+            self.last_webhook_update = user_info.json['user']['provider']
+            
+
+
+    
 
     @check_has_client
     def get_activity(
@@ -120,8 +112,9 @@ class User(TerraDataModel):
             :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
 
         """
-        return self._get_arbitrary_data(
-            "activity",
+        return self._client._get_arbitrary_data(
+            dtype="activity",
+            user=self,
             start_date=int(start_date.timestamp()),
             end_date=int(end_date.timestamp()) if end_date is not None else None,
             to_webhook=to_webhook,
@@ -147,10 +140,11 @@ class User(TerraDataModel):
             :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
 
         """
-        return self._get_arbitrary_data(
-            "body",
-            start_date=start_date,
-            end_date=end_date,
+        return self._client._get_arbitrary_data(
+            dtype="body",
+            user=self,
+            start_date=int(start_date.timestamp()),
+            end_date=int(end_date.timestamp()) if end_date is not None else None,
             to_webhook=to_webhook,
         )
 
@@ -174,10 +168,11 @@ class User(TerraDataModel):
             :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
 
         """
-        return self._get_arbitrary_data(
-            "daily",
-            start_date=start_date,
-            end_date=end_date,
+        return self._client._get_arbitrary_data(
+            dtype="daily",
+            user=self,
+            start_date=int(start_date.timestamp()),
+            end_date=int(end_date.timestamp()) if end_date is not None else None,
             to_webhook=to_webhook,
         )
 
@@ -202,10 +197,11 @@ class User(TerraDataModel):
             :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
 
         """
-        return self._get_arbitrary_data(
-            "sleep",
-            start_date=start_date,
-            end_date=end_date,
+        return self._client._get_arbitrary_data(
+            dtype="sleep",
+            user=self,
+            start_date=int(start_date.timestamp()),
+            end_date=int(end_date.timestamp()) if end_date is not None else None,
             to_webhook=to_webhook,
         )
 
@@ -224,7 +220,7 @@ class User(TerraDataModel):
             :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
 
         """
-        return self._get_arbitrary_data(self, "athlete", to_webhook=to_webhook)
+        return self._client._get_arbitrary_data("athlete",self, to_webhook=to_webhook)
 
     @check_has_client
     def get_menstruation(
@@ -246,9 +242,10 @@ class User(TerraDataModel):
             :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
 
         """
-        return self._get_arbitrary_data(
-            "menstruation",
-            start_date=start_date,
-            end_date=end_date,
+        return self._client._get_arbitrary_data(
+            dtype="menstruation",
+            user=self,
+            start_date=int(start_date.timestamp()),
+            end_date=int(end_date.timestamp()) if end_date is not None else None,
             to_webhook=to_webhook,
         )

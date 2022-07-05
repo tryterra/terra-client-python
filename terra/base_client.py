@@ -14,6 +14,11 @@
 import datetime
 import typing as t
 
+from flask import request
+
+import hashlib
+import hmac
+
 import requests
 
 from terra import constants
@@ -32,9 +37,10 @@ class Terra:
 
     """
 
-    def __init__(self, api_key: str, dev_id: str) -> None:
+    def __init__(self, api_key: str, dev_id: str, secret: str) -> None:
         self.api_key = api_key
         self.dev_id = dev_id
+        self.secret = secret
 
     @property
     def _auth_headers(self) -> t.Dict[str, str]:
@@ -58,7 +64,12 @@ class Terra:
             :obj:`User`: Created User instance
 
         """
+
+        
+
         return user_.User(user_id=user_id, client=self)
+
+    
 
     def _get_arbitrary_data(
         self, user: user_.User, dtype: str, **kwargs: t.Any
@@ -106,9 +117,7 @@ class Terra:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
 
         """
-        return self._get_arbitrary_data(
-            user,
-            "activity",
+        return user.get_activity(
             start_date=int(start_date.timestamp()),
             end_date=int(end_date.timestamp()) if end_date is not None else None,
             to_webhook=to_webhook,
@@ -135,11 +144,9 @@ class Terra:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
 
         """
-        return self._get_arbitrary_data(
-            user,
-            "body",
-            start_date=start_date,
-            end_date=end_date,
+        return user.get_body(
+            start_date=int(start_date.timestamp()),
+            end_date=int(end_date.timestamp()) if end_date is not None else None,
             to_webhook=to_webhook,
         )
 
@@ -164,13 +171,12 @@ class Terra:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
 
         """
-        return self._get_arbitrary_data(
-            user,
-            "daily",
-            start_date=start_date,
-            end_date=end_date,
+        return user.get_daily(
+            start_date=int(start_date.timestamp()),
+            end_date=int(end_date.timestamp()) if end_date is not None else None,
             to_webhook=to_webhook,
         )
+        
 
     def get_sleep_for_user(
         self,
@@ -193,11 +199,9 @@ class Terra:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
 
         """
-        return self._get_arbitrary_data(
-            user,
-            "sleep",
-            start_date=start_date,
-            end_date=end_date,
+        return user.get_sleep(
+            start_date=int(start_date.timestamp()),
+            end_date=int(end_date.timestamp()) if end_date is not None else None,
             to_webhook=to_webhook,
         )
 
@@ -240,11 +244,10 @@ class Terra:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
 
         """
-        return self._get_arbitrary_data(
-            user,
-            "menstruation",
-            start_date=start_date,
-            end_date=end_date,
+        
+        return user.get_menstruation(
+            start_date=int(start_date.timestamp()),
+            end_date=int(end_date.timestamp()) if end_date is not None else None,
             to_webhook=to_webhook,
         )
 
@@ -346,6 +349,8 @@ class Terra:
             headers=self._auth_headers,
         )
         return api_responses.TerraApiResponse(user_resp, dtype="user_info")
+    
+ 
 
     def deauthenticate_user(
         self, user: user_.User
@@ -393,3 +398,39 @@ class Terra:
             f'{constants.BASE_URL}/integrations' , headers=self._auth_headers
         )
         return api_responses.TerraApiResponse(providers_resp , dtype="providers")
+    
+
+    def signing(self, body: str, header: str) -> bool:
+      
+        
+    
+        t, sig = (pair.split("=")[-1] for pair in header.split(","))
+
+        computed_signature = hmac.new(
+            bytes(self.secret, "utf-8"), 
+            msg=bytes(f"{t}.{body}", "utf-8"),
+            digestmod=hashlib.sha256
+        ).hexdigest() 
+
+        if computed_signature != sig:
+            return False
+        # Signature was validated
+        return True
+    
+
+
+    def flask_hooks(self, request: request):
+
+        if not self.signing(request.get_data().decode("utf-8"), request.headers["terra-signature"] ):
+            return "Signature Error"
+        # print(request.get_json())
+        ff = api_responses.TerraWebhookResponse(request.get_json(), dtype="hook" )
+        print(ff.parsed_response)
+        return ff
+    
+    def hooks(self, payload: str, terra_signature_header: str):
+        if not self.signing(payload, terra_signature_header ):
+            return "Signature Error"
+        ff = api_responses.TerraWebhookResponse(request.get_json(), dtype="hook" )
+        print(ff.parsed_response)
+        return ff

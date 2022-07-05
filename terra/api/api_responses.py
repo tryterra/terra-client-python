@@ -11,6 +11,7 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+from cgitb import Hook
 import dataclasses
 from email.policy import default
 import json.decoder
@@ -23,6 +24,7 @@ from terra.models import base_model
 from terra.models import user as user_
 
 
+
 class TerraParsedApiResponse(base_model.TerraDataModel):
     pass
 
@@ -33,14 +35,18 @@ def _parse_api_body(
     user = models.user.User.from_dict(body["user"]) if body.get("user") else user
 
     if dtype in USER_DATATYPES:
-        return models.api_responses.DataReturned(
+        return DataReturned(
             user=user,
             data=[MODEL_MAPPING[dtype].from_dict(item) for item in body["data"]]
-            if body.get("data")
+            if body.get("data") or body.get("data")==[]
             else [MODEL_MAPPING[dtype].from_dict(body["athlete"])],
+            type=dtype
         )
     elif dtype in DTYPE_TO_RESPONSE.keys():
+        print("here")
         return DTYPE_TO_RESPONSE[dtype]().from_dict(body, True)
+
+
 
 
 class TerraApiResponse(TerraParsedApiResponse):
@@ -58,6 +64,15 @@ class TerraApiResponse(TerraParsedApiResponse):
         except json.decoder.JSONDecodeError:
             resp.raise_for_status()
 
+class TerraWebhookResponse(TerraParsedApiResponse):
+    def __init__(self, resp,user=None, dtype=None):
+        self.dtype = dtype
+        body = resp
+        self.json = body
+        self.dtype = body.get("type", dtype)
+        
+        self.parsed_response = _parse_api_body(self.dtype, body, user)
+
 
 @dataclasses.dataclass
 class WidgetSession(TerraParsedApiResponse):
@@ -69,6 +84,7 @@ class WidgetSession(TerraParsedApiResponse):
 
 @dataclasses.dataclass
 class UserInfo(TerraParsedApiResponse):
+    status: str = dataclasses.field(default=None)
     user: typing.Optional[models.user.User] = dataclasses.field(default=None)
     is_authenticated: bool = dataclasses.field(default=True)
 
@@ -76,6 +92,12 @@ class UserInfo(TerraParsedApiResponse):
 @dataclasses.dataclass
 class UserDeauthResp(TerraParsedApiResponse):
     status: str = dataclasses.field(default="success")
+
+@dataclasses.dataclass
+class HookResponse(TerraParsedApiResponse):
+    status: str = dataclasses.field(default="success")
+    type: str = dataclasses.field(default=None)
+    user: user_.User = dataclasses.field(default=None)
 
 
 @dataclasses.dataclass
@@ -168,6 +190,9 @@ class ProvidersResponse(TerraParsedApiResponse):
     status: str = dataclasses.field(default="warning")
     providers: typing.Optional[typing.List[str]] = dataclasses.field(default=None)
 
+
+
+
 __all__ = [
     "NoDataReturned",
     "DataReturned",
@@ -194,5 +219,17 @@ DTYPE_TO_RESPONSE = {
     "auth_url": UserAuthUrl,
     "user_info": UserInfo,
     "subscriptions": SubscribedUsers,
-    "providers" : ProvidersResponse
+    "providers" : ProvidersResponse,
+
+}
+
+HOOK_TYPES = ["auth", "user_reauth", "access_revoked", "deauth", "google_no_datasource", "connexion_error"]
+
+HOOK_RESPONSE = {
+    "auth":HookResponse, 
+    "user_reauth":HookResponse,
+    "access_revoked":HookResponse,
+    "deauth":HookResponse, 
+    "google_no_datasource":HookResponse, 
+    "connexion_error":HookResponse
 }
