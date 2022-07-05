@@ -12,37 +12,22 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 import dataclasses
-from dataclasses import dataclass, is_dataclass
 import enum
-from operator import sub
-import typing
-
 import pydoc
+import typing
+import typing as t
 
 
 PRIMITIVES = (str, int, bool, float, type(None), dict)
 
 
 class ImplementsToDict(typing.Protocol):
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         ...
 
-from dataclasses import dataclass, is_dataclass
-
-def nested_dataclass(*args, **kwargs):
-    def wrapper(cls):
-        cls = dataclass(cls, **kwargs)
-        original_init = cls.__init__
-        def __init__(self, *args, **kwargs):
-            for name, value in kwargs.items():
-                field_type = cls.__annotations__.get(name, None)
-                if is_dataclass(field_type) and isinstance(value, dict):
-                     new_obj = field_type(**value)
-                     kwargs[name] = new_obj
-            original_init(self, *args, **kwargs)
-        cls.__init__ = __init__
-        return cls
-    return wrapper(args[0]) if args else wrapper
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from terra.models.base_model import TerraDataModel as _TerraDataModel
 
 
 
@@ -70,7 +55,7 @@ class TerraDataModel:
         for attr in attrs:
             yield attr, getattr(self, attr)
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """
         Get the dictionary (json) representation of the data model.
 
@@ -99,7 +84,7 @@ class TerraDataModel:
         return output
 
     @classmethod
-    def from_dict(cls, model_dict: dict, safe: bool = False):
+    def from_dict(cls, model_dict: typing.Dict[str, typing.Any], safe: bool = False)-> '_TerraDataModel':
         """
         Return the Class data model representation of the dictionary (json).
 
@@ -118,57 +103,46 @@ class TerraDataModel:
             if (
                 inner_item := getattr(data_model, k, *(("NOT_FOUND",) if safe else ()))
             ) in [None, []] or isinstance(inner_item, TerraDataModel):
-                if isinstance(inner_item , TerraDataModel) :
+                if isinstance(inner_item, TerraDataModel):
                     v = inner_item.from_dict(v)
-                
+
                 setattr(data_model, k, v)
 
+            z = {field.name: field.type for field in dataclasses.fields(cls())}
 
             # parse each element of a list
-            if v!=[] and isinstance(v , list) : 
+            if v != [] and isinstance(v, list):
+
+                if str(z[k]).split("[")[1].split("]")[0] != "float":
                     x = []
-            
-                    z = {field.name : field.type for field in dataclasses.fields(cls())}
-                  
-                    print(v)
+
                     for sub_model_dict in v:
 
-                        print(sub_model_dict.items())
-
-                        sub_model = pydoc.locate(str(z[k]).split('[')[1].split(']')[0])()
-
-
-
-                       
                         
-                        for k2,v2 in sub_model_dict.items():
+                        sub_model = pydoc.locate(
+                            str(z[k]).split("[")[1].split("]")[0]
+                        )()
 
+                        for k2, v2 in sub_model_dict.items():
+
+                            if (
+                                inner_item2 := getattr(
+                                    sub_model, k2, *(("NOT_FOUND",) if safe else ())
+                                )
+                            ) in [None, []] or isinstance(inner_item2, TerraDataModel):
+
+                                if isinstance(inner_item2, TerraDataModel):
+                                    v2 = inner_item2.from_dict(v2)
                                 
-
-                                if (
-                                    inner_item2 := getattr(sub_model, k2, *(("NOT_FOUND",) if safe else ()))
-                                ) in [None, []] or isinstance(inner_item2, TerraDataModel):
-                                    
-                                        
-                                    if isinstance(v2 , TerraDataModel) :
-                                        v2 = inner_item2.from_dict(v2)
-
-                                        
-                                        
-                                    setattr(sub_model, k2, v2)
-                                    
+                                setattr(sub_model, k2, v2)
                         x.append(sub_model)
-
-                    print(x)
                     v = x
                     setattr(data_model, k, v)
-
-                    
 
         return data_model
 
     @classmethod
-    def from_dict_api(cls, model_dict: dict, safe: bool = False):
+    def from_dict_api(cls, model_dict: typing.Dict[str, typing.Any], safe: bool = False)-> '_TerraDataModel':
         """
         Return the Class data model representation of the dictionary (json).
 
@@ -187,17 +161,15 @@ class TerraDataModel:
             if (
                 inner_item := getattr(data_model, k, *(("NOT_FOUND",) if safe else ()))
             ) in [None, []] or isinstance(inner_item, TerraDataModel):
-                if isinstance(inner_item , TerraDataModel) :
-             
-                    v = inner_item.from_dict_api(v)
-                
-                
-                setattr(data_model, k, v)
+                if isinstance(inner_item, TerraDataModel):
 
+                    v = inner_item.from_dict_api(v)
+
+                setattr(data_model, k, v)
 
         return data_model
 
-    def populate_from_dict(self, model_dict: dict, safe: bool = False):
+    def populate_from_dict(self, model_dict: typing.Dict[str, typing.Any], safe: bool = False)-> '_TerraDataModel':
         """
         Populates missing data fields in the class given a dictionary (json).
 
@@ -217,4 +189,4 @@ class TerraDataModel:
 
         return self
 
-    
+

@@ -12,20 +12,17 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 import datetime
-import json
-import typing as t
-
-from flask import request
-
 import hashlib
 import hmac
+import typing
 
 import requests
+from flask import request
 
 from terra import constants
 from terra import models
-from terra.api import api_responses
 from terra import utils
+from terra.api import api_responses
 from terra.models import user as user_
 
 
@@ -44,7 +41,7 @@ class Terra:
         self.secret = secret
 
     @property
-    def _auth_headers(self) -> t.Dict[str, str]:
+    def _auth_headers(self) -> typing.Dict[str, str]:
         """
         Internal method used to fill in authentication headers for all requests to the API
 
@@ -66,14 +63,10 @@ class Terra:
 
         """
 
-        
-
         return user_.User(user_id=user_id, client=self)
 
-    
-
     def _get_arbitrary_data(
-        self, user: user_.User, dtype: str, **kwargs: t.Any
+        self, user: user_.User, dtype: str, **kwargs: typing.Any
     ) -> api_responses.TerraApiResponse:
         """
         Internal method used to retrieve data for a given User
@@ -98,7 +91,7 @@ class Terra:
         return api_responses.TerraApiResponse(data_resp, user)
 
     def _get_bulk_data(
-        self, users:  t.Optional[user_.User], dtype: str, **kwargs: t.Any
+        self, users: typing.Optional[user_.User], dtype: str, **kwargs: typing.Any
     ) -> api_responses.TerraApiResponse:
         """
         Internal method used to retrieve data for a given User
@@ -126,7 +119,7 @@ class Terra:
         self,
         user: user_.User,
         start_date: datetime.datetime,
-        end_date: datetime.datetime = None,
+        end_date: typing.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
     ) -> api_responses.TerraApiResponse:
         """
@@ -153,7 +146,7 @@ class Terra:
         self,
         user: user_.User,
         start_date: datetime.datetime,
-        end_date: datetime.datetime = None,
+        end_date:  typing.Optional[datetime.datetime]  = None,
         to_webhook: bool = True,
     ) -> api_responses.TerraApiResponse:
         """
@@ -180,7 +173,7 @@ class Terra:
         self,
         user: user_.User,
         start_date: datetime.datetime,
-        end_date: datetime.datetime = None,
+        end_date: typing.Optional[datetime.datetime]  = None,
         to_webhook: bool = True,
     ) -> api_responses.TerraApiResponse:
         """
@@ -202,13 +195,12 @@ class Terra:
             end_date=int(end_date.timestamp()) if end_date is not None else None,
             to_webhook=to_webhook,
         )
-        
 
     def get_sleep_for_user(
         self,
         user: user_.User,
         start_date: datetime.datetime,
-        end_date: datetime.datetime = None,
+        end_date: typing.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
     ) -> api_responses.TerraApiResponse:
         """
@@ -253,7 +245,7 @@ class Terra:
         self,
         user: user_.User,
         start_date: datetime.datetime,
-        end_date: datetime.datetime = None,
+        end_date: typing.Optional[datetime.datetime]  = None,
         to_webhook: bool = True,
     ) -> api_responses.TerraApiResponse:
         """
@@ -270,18 +262,18 @@ class Terra:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
 
         """
-        
+
         return user.get_menstruation(
             start_date=int(start_date.timestamp()),
             end_date=int(end_date.timestamp()) if end_date is not None else None,
             to_webhook=to_webhook,
         )
-    
+
     def get_nutrition_for_user(
         self,
         user: user_.User,
         start_date: datetime.datetime,
-        end_date: datetime.datetime = None,
+        end_date: typing.Optional[datetime.datetime]  = None,
         to_webhook: bool = True,
     ) -> api_responses.TerraApiResponse:
         """
@@ -298,7 +290,7 @@ class Terra:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
 
         """
-        
+
         return user.get_nutrition(
             start_date=int(start_date.timestamp()),
             end_date=int(end_date.timestamp()) if end_date is not None else None,
@@ -307,12 +299,12 @@ class Terra:
 
     def generate_widget_session(
         self,
-        providers: t.Optional[t.List[str]] = None,
-        auth_success_redirect_url: t.Optional[str] = None,
-        auth_failure_redirect_url: t.Optional[str] = None,
-        language: t.Optional[str] = None,
-        reference_id: t.Optional[str] = None,
-        **kwargs: t.Any,
+        providers:typing.Optional[typing.List[str]] = None,
+        auth_success_redirect_url: typing.Optional[str] = None,
+        auth_failure_redirect_url: typing.Optional[str] = None,
+        language: typing.Optional[str] = None,
+        reference_id: typing.Optional[str] = None,
+        **kwargs: typing.Any,
     ) -> api_responses.TerraApiResponse:
         """
         Generates a widget session used to allow an end user to authenticate through the API. Users should be
@@ -349,10 +341,10 @@ class Terra:
     def generate_authentication_url(
         self,
         resource: str,
-        auth_success_redirect_url: t.Optional[str] = None,
-        auth_failure_redirect_url: t.Optional[str] = None,
-        reference_id: t.Optional[str] = None,
-        **kwargs: t.Any,
+        auth_success_redirect_url: typing.Optional[str] = None,
+        auth_failure_redirect_url: typing.Optional[str] = None,
+        reference_id: typing.Optional[str] = None,
+        **kwargs: typing.Any,
     ) -> api_responses.TerraApiResponse:
         """
         Generates an authentication URL to allow an end user to authenticate through the API. Users should be
@@ -403,12 +395,8 @@ class Terra:
             headers=self._auth_headers,
         )
         return api_responses.TerraApiResponse(user_resp, dtype="user_info")
-    
- 
 
-    def deauthenticate_user(
-        self, user: user_.User
-    ) -> api_responses.TerraApiResponse:
+    def deauthenticate_user(self, user: user_.User) -> api_responses.TerraApiResponse:
         """
         Deauthenticates given User from the Api
         Note: If successful, this triggers a User Deauthentication webhook event
@@ -438,57 +426,81 @@ class Terra:
             f"{constants.BASE_URL}/subscriptions", headers=self._auth_headers
         )
         return api_responses.TerraApiResponse(users_resp, dtype="subscriptions")
-    
+
     def list_providers(self) -> api_responses.TerraApiResponse:
-        
+
         """
         Lists all providers on the API
 
         Returns:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing ProvidersResponse parsed response object if no error has occured
         """
-    
+
         providers_resp = requests.get(
-            f'{constants.BASE_URL}/integrations' , headers=self._auth_headers
+            f"{constants.BASE_URL}/integrations", headers=self._auth_headers
         )
-        return api_responses.TerraApiResponse(providers_resp , dtype="providers")
-    
+        return api_responses.TerraApiResponse(providers_resp, dtype="providers")
 
     def signing(self, body: str, header: str) -> bool:
-      
+
         """
-        Lists all providers on the API
+        Function to test if the body of an API response comes from terra using SHA256
+
+        Args:
+        body (:obj:`str`): The body from API response as a string
+        header (:obj:`str`): The header from API response as a string
 
         Returns:
-            :obj:`models.api_responses.TerraApiResponse`: API response object containing ProvidersResponse parsed response object if no error has occured
+            :obj:`bool`: True if the API response comes from Terra
         """
-    
+
         t, sig = (pair.split("=")[-1] for pair in header.split(","))
 
         computed_signature = hmac.new(
-            bytes(self.secret, "utf-8"), 
+            bytes(self.secret, "utf-8"),
             msg=bytes(f"{t}.{body}", "utf-8"),
-            digestmod=hashlib.sha256
-        ).hexdigest() 
+            digestmod=hashlib.sha256,
+        ).hexdigest()
 
         if computed_signature != sig:
             return False
         # Signature was validated
         return True
-    
 
+    def flask_hooks(self, request: request) -> typing.Optional[api_responses.TerraParsedApiResponse]:
 
-    def flask_hooks(self, request: request):
+        """
+        Parses Terra webhooks from a flask request
 
-        if not self.signing(request.get_data().decode("utf-8"), request.headers["terra-signature"] ):
-            return "Signature Error"
-        ff = api_responses.TerraWebhookResponse(request.get_json(), dtype="hook" )
-       
+        Args:
+        request (:obj:`flask.request`): the flask request object
+
+        Returns:
+            :obj:`models.api_responses.TerraApiResponse`: API response object containing ProvidersResponse parsed response object if no error has occured
+        """
+
+        if not self.signing(
+            request.get_data().decode("utf-8"), request.headers["terra-signature"]
+        ):
+            return None
+        ff = api_responses.TerraWebhookResponse(request.get_json(), dtype="hook")
+
         return ff
-    
-    
-    def hooks(self, payload: str, terra_signature_header: str, json: json):
-        if not self.signing(payload, terra_signature_header ):
-            return "Signature Error"
-        ff = api_responses.TerraWebhookResponse(json, dtype="hook" )
-        return ff
+
+    def hooks(self, payload: str, terra_signature_header: str, json: str) -> typing.Optional[api_responses.TerraParsedApiResponse]:
+
+        
+        """
+        Function to Parse web hooks from Terra
+
+        Args:
+        payload (:obj:`str`): The body from API response as a string
+        terra_signature_header (:obj:`str`): The terra_signature header from API response as a string
+
+        Returns:
+            :obj:`models.api_responses.TerraApiResponse`: API response object containing ProvidersResponse parsed response object if no error has occured
+        """
+
+        if not self.signing(payload, terra_signature_header):
+            return None
+        return api_responses.TerraWebhookResponse(json, dtype="hook")

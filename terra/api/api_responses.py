@@ -15,14 +15,13 @@
 import dataclasses
 import json.decoder
 import typing
-from attr import dataclass
 
 import requests
+from attr import dataclass
 
 from terra import models
 from terra.models import base_model
 from terra.models import user as user_
-
 
 
 class TerraParsedApiResponse(base_model.TerraDataModel):
@@ -30,37 +29,32 @@ class TerraParsedApiResponse(base_model.TerraDataModel):
 
 
 def _parse_api_body(
-    dtype: str, body: dict, user: models.user.User
+    dtype: str, body: typing.Dict[str, typing.Any], user: models.user.User
 ) -> TerraParsedApiResponse:
-    
-    Auser = user
 
-    if "user" in body : 
+    Auser = user
+    if "user" in body:
         Auser = models.user.User.from_dict_api(body["user"])
-        
-    if "status" in body: 
-        if (body["status"] in STATUS.keys()):
+
+    if "status" in body:
+        if body["status"] in STATUS.keys():
             return STATUS[body["status"]].from_dict_api(body, True)
 
-
     if dtype in USER_DATATYPES:
-        print(Auser)
         return DataReturned(
             user=Auser,
             data=[MODEL_MAPPING[dtype].from_dict(item) for item in body["data"]]
-            if body.get("data") or body.get("data")==[]
+            if body.get("data") or body.get("data") == []
             else [],
-            type=dtype
+            type=dtype,
         )
     elif dtype in DTYPE_TO_RESPONSE.keys():
         return DTYPE_TO_RESPONSE[dtype]().from_dict(body, True)
     elif dtype in HOOK_RESPONSE.keys():
         return HOOK_RESPONSE[dtype]().from_dict_api(body, True)
     else:
-        
-        return GenericMessage().from_dict_api(body,True)
 
-
+        return GenericMessage().from_dict_api(body, True)
 
 
 class TerraApiResponse(TerraParsedApiResponse):
@@ -78,8 +72,9 @@ class TerraApiResponse(TerraParsedApiResponse):
         except json.decoder.JSONDecodeError:
             resp.raise_for_status()
 
+
 class TerraWebhookResponse(TerraParsedApiResponse):
-    def __init__(self, resp,user=None, dtype=None):
+    def __init__(self, resp, user=None, dtype=None):
         self.dtype = dtype
         body = resp
         self.json = body
@@ -89,114 +84,119 @@ class TerraWebhookResponse(TerraParsedApiResponse):
 
 @dataclasses.dataclass
 class GenericMessage(TerraParsedApiResponse):
-    message : str = dataclasses.field(default=None)
-    status: str = dataclasses.field(default=None)
-    
+    message: typing.Optional[str] = dataclasses.field(default=None)
+    status: typing.Optional[str] = dataclasses.field(default=None)
 
 
 @dataclasses.dataclass
 class WidgetSession(TerraParsedApiResponse):
-    expires_in : int = dataclasses.field(default=900)
-    status: str = dataclasses.field(default=None)
-    session_id: str = dataclasses.field(default=None)
-    url: str = dataclasses.field(default=None)
+    expires_in: int = dataclasses.field(default=900)
+    status: typing.Optional[str] = dataclasses.field(default=None)
+    session_id: typing.Optional[str] = dataclasses.field(default=None)
+    url: typing.Optional[str] = dataclasses.field(default=None)
 
 
 @dataclasses.dataclass
 class UserInfo(TerraParsedApiResponse):
-    status: str = dataclasses.field(default=None)
+    status: typing.Optional[str] = dataclasses.field(default=None)
     user: typing.Optional[models.user.User] = dataclasses.field(default=None)
     is_authenticated: bool = dataclasses.field(default=True)
 
 
 @dataclasses.dataclass
 class UserDeauthResp(TerraParsedApiResponse):
-    status: str = dataclasses.field(default="success")
+    status: typing.Optional[str] = dataclasses.field(default="success")
+
 
 @dataclasses.dataclass
 class HookResponse(TerraParsedApiResponse):
-    status: str = dataclasses.field(default="success")
-    type: str = dataclasses.field(default=None)
-   
+    status: typing.Optional[str] = dataclasses.field(default="success")
+    type: typing.Optional[str] = dataclasses.field(default=None)
+
+
 @dataclasses.dataclass
 class AuthHookResponse(HookResponse):
-    reference_id: str = dataclasses.field(default=None)
-    user: user_.User = dataclasses.field(default=None)
-    widget_session_id: str = dataclasses.field(default=None)
+    reference_id: typing.Optional[str] = dataclasses.field(default=None)
+    user: typing.Optional[models.user.User] = dataclasses.field(default=None)
+    widget_session_id: typing.Optional[str] = dataclasses.field(default=None)
+
 
 @dataclasses.dataclass
 class UserReauthHookResponse(HookResponse):
-    message: str = dataclasses.field(default=None)
-    old_user: user_.User = dataclasses.field(default=None)
-    new_user: user_.User = dataclasses.field(default=None)
+    message: typing.Optional[str] = dataclasses.field(default=None)
+    old_user: typing.Optional[models.user.User] = dataclasses.field(default=None)
+    new_user: typing.Optional[models.user.User] = dataclasses.field(default=None)
+
 
 @dataclasses.dataclass
 class UserDeauthHookResponse(HookResponse):
-    message: str = dataclasses.field(default=None)
-    user: user_.User = dataclasses.field(default=None)
-    
+    message: typing.Optional[str] = dataclasses.field(default=None)
+    user: typing.Optional[models.user.User] = dataclasses.field(default=None)
+
 
 @dataclasses.dataclass
 class AccessRevokedHookResponse(HookResponse):
-    message: str = dataclasses.field(default=None)
-    user: user_.User = dataclasses.field(default=None)
+    message: typing.Optional[str] = dataclasses.field(default=None)
+    user: typing.Optional[models.user.User] = dataclasses.field(default=None)
+
 
 @dataclasses.dataclass
 class GoogleNoDataSourceHookResponse(HookResponse):
-    message: str = dataclasses.field(default=None)
-    user: user_.User = dataclasses.field(default=None)
+    message: typing.Optional[str] = dataclasses.field(default=None)
+    user: typing.Optional[models.user.User] = dataclasses.field(default=None)
+
 
 @dataclasses.dataclass
 class ConnectionErrorHookResponse(HookResponse):
-    message: str = dataclasses.field(default=None)
-    user: user_.User = dataclasses.field(default=None)
+    message: typing.Optional[str] = dataclasses.field(default=None)
+    user: typing.Optional[models.user.User] = dataclasses.field(default=None)
+
 
 @dataclasses.dataclass
 class RequestProcessingHookResponse(HookResponse):
-    message: str = dataclasses.field(default=None)
-    user: user_.User = dataclasses.field(default=None)
+    message: typing.Optional[str] = dataclasses.field(default=None)
+    user: typing.Optional[models.user.User] = dataclasses.field(default=None)
+
 
 @dataclasses.dataclass
 class RequestProcessingHookResponse(HookResponse):
-    message: str = dataclasses.field(default=None)
-    reference: str = dataclasses.field(default=None)
-    user: user_.User = dataclasses.field(default=None)
+    message: typing.Optional[str] = dataclasses.field(default=None)
+    reference: typing.Optional[str] = dataclasses.field(default=None)
+    user: typing.Optional[models.user.User] = dataclasses.field(default=None)
+
 
 @dataclasses.dataclass
 class RequestCompletedHookResponse(HookResponse):
-    message: str = dataclasses.field(default=None)
-    reference: str = dataclasses.field(default=None)
-    user: user_.User = dataclasses.field(default=None)
+    message: typing.Optional[str] = dataclasses.field(default=None)
+    reference: typing.Optional[str] = dataclasses.field(default=None)
+    user: typing.Optional[models.user.User] = dataclasses.field(default=None)
 
 
 @dataclasses.dataclass
 class SubscribedUsers(TerraParsedApiResponse):
-    users: typing.List[models.user.User] = dataclasses.field(
-        default_factory=list
-    )
+    users: typing.List[models.user.User] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
 class UserAuthUrl(TerraParsedApiResponse):
-    status: str = dataclasses.field(default=None)
+    status: typing.Optional[str] = dataclasses.field(default=None)
     expires_in: int = dataclasses.field(default=900)
-    url: str = dataclasses.field(default=None)
-    session_id: str= dataclasses.field(default=None)
-
+    url: typing.Optional[str] = dataclasses.field(default=None)
+    session_id: typing.Optional[str] = dataclasses.field(default=None)
 
 
 @dataclasses.dataclass
 class NoDataReturned(TerraParsedApiResponse):
-    user: user_.User = dataclasses.field(default=None)
-    status: str = dataclasses.field(default="not_available")
-    message: str = dataclasses.field(
+    user: typing.Optional[models.user.User] = dataclasses.field(default=None)
+    status: typing.Optional[str] = dataclasses.field(default="not_available")
+    message: typing.Optional[str] = dataclasses.field(
         default="Data type requested not available from provider"
     )
 
 
 @dataclasses.dataclass
 class DataReturned(TerraParsedApiResponse):
-    user: user_.User = dataclasses.field(default=None)
+    user: typing.Optional[models.user.User] = dataclasses.field(default=None)
     type: typing.Optional[str] = dataclasses.field(default=None)
     data: typing.List[TerraParsedApiResponse] = dataclasses.field(default_factory=list)
 
@@ -207,13 +207,12 @@ class NutritionDeletedData(TerraParsedApiResponse):
     processed_logs: typing.List[dict] = dataclasses.field(default_factory=list)
 
 
-
 @dataclasses.dataclass
 class AuthenticationFailed(TerraParsedApiResponse):
     status: str = dataclasses.field(default="error")
     widget_session_id: typing.Optional[str] = dataclasses.field(default=None)
     reference_id: typing.Optional[str] = dataclasses.field(default=None)
-    message: str = dataclasses.field(
+    message: typing.Optional[str] = dataclasses.field(
         default="User failed to authenticate and has been deleted"
     )
     type: str = dataclasses.field(default="auth")
@@ -222,19 +221,21 @@ class AuthenticationFailed(TerraParsedApiResponse):
 
 @dataclasses.dataclass
 class ConnexionDegraded(TerraParsedApiResponse):
-    status: str = dataclasses.field(default="warning")
-    message: str = dataclasses.field(default="User connection degraded")
-    type: str = dataclasses.field(default="connection_error")
+    status: typing.Optional[str] = dataclasses.field(default="warning")
+    message: typing.Optional[str] = dataclasses.field(default="User connection degraded")
+    type: typing.Optional[str] = dataclasses.field(default="connection_error")
+
 
 @dataclasses.dataclass
 class ProvidersResponse(TerraParsedApiResponse):
-    status: str = dataclasses.field(default="warning")
+    status: typing.Optional[str] = dataclasses.field(default="warning")
     providers: typing.Optional[typing.List[str]] = dataclasses.field(default=None)
+
 
 @dataclasses.dataclass
 class SentToWebhook(TerraParsedApiResponse):
     status: typing.Optional[str] = dataclasses.field(default=None)
-    message: str = dataclasses.field(default=None)
+    message: typing.Optional[str] = dataclasses.field(default=None)
 
 
 __all__ = [
@@ -247,7 +248,15 @@ __all__ = [
     "ConnectionDegraded",
 ]
 
-USER_DATATYPES = ["activity", "athlete", "body", "daily", "menstruation", "sleep", "nutrition"]
+USER_DATATYPES = [
+    "activity",
+    "athlete",
+    "body",
+    "daily",
+    "menstruation",
+    "sleep",
+    "nutrition",
+]
 MODEL_MAPPING = {
     "activity": models.v2022_03_16.activity.Activity,
     "body": models.v2022_03_16.body.Body,
@@ -255,7 +264,7 @@ MODEL_MAPPING = {
     "sleep": models.v2022_03_16.sleep.Sleep,
     "menstruation": models.v2022_03_16.menstruation.Menstruation,
     "athlete": models.v2022_03_16.athlete.Athlete,
-    "nutrition": models.v2022_03_16.nutrition.Nutrition
+    "nutrition": models.v2022_03_16.nutrition.Nutrition,
 }
 
 
@@ -264,25 +273,34 @@ DTYPE_TO_RESPONSE = {
     "auth_url": UserAuthUrl,
     "user_info": UserInfo,
     "subscriptions": SubscribedUsers,
-    "providers" : ProvidersResponse,
-    "sent_to_webhook" : SentToWebhook
+    "providers": ProvidersResponse,
+    "sent_to_webhook": SentToWebhook,
 }
 
-HOOK_TYPES = {"auth", "user_reauth", "access_revoked", "deauth", "google_no_datasource", "connexion_error","request_processing", "request_completed"}
+HOOK_TYPES = {
+    "auth",
+    "user_reauth",
+    "access_revoked",
+    "deauth",
+    "google_no_datasource",
+    "connexion_error",
+    "request_processing",
+    "request_completed",
+}
 
 HOOK_RESPONSE = {
-    "auth":AuthHookResponse, 
-    "user_reauth":UserReauthHookResponse,
-    "access_revoked":AccessRevokedHookResponse,
-    "deauth":UserDeauthHookResponse, 
-    "google_no_datasource":GoogleNoDataSourceHookResponse, 
+    "auth": AuthHookResponse,
+    "user_reauth": UserReauthHookResponse,
+    "access_revoked": AccessRevokedHookResponse,
+    "deauth": UserDeauthHookResponse,
+    "google_no_datasource": GoogleNoDataSourceHookResponse,
     "connexion_error": ConnectionErrorHookResponse,
     "request_completed": RequestCompletedHookResponse,
-    "request_processing": RequestProcessingHookResponse
+    "request_processing": RequestProcessingHookResponse,
 }
 
 STATUS = {
     "not_available": NoDataReturned,
     "warning": ConnexionDegraded,
-    "error": ConnexionDegraded
+    "error": ConnexionDegraded,
 }

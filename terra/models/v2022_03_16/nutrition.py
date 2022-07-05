@@ -85,7 +85,7 @@ class Meal(base_model.TerraDataModel):
     name: typing.Optional[str] = dataclasses.field(default=None)
     id: typing.Optional[str] = dataclasses.field(default=None)
     type: typing.Optional[int] = dataclasses.field(default=0)
-    quantity: Quantity = dataclasses.field(default=Quantity)
+    quantity: Quantity = dataclasses.field(default_factory=Quantity)
     macros: Macros = dataclasses.field(default_factory=Macros)
     micros: Micros = dataclasses.field(default_factory=Micros)
 
