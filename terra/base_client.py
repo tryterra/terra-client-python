@@ -90,31 +90,7 @@ class Terra:
 
         return api_responses.TerraApiResponse(data_resp, user)
 
-    # def _get_bulk_data(
-    #     self, users: typing.Optional[user_.User], dtype: str, **kwargs: typing.Any
-    # ) -> api_responses.TerraApiResponse:
-    #     """
-    #     Internal method used to retrieve data for a given User
-
-    #     Args:
-    #         user (:obj:`models.user.User`):
-    #         dtype (:obj:`str`): datatype to be fetched
-    #         **kwargs: optional additional parameters for the request
-
-    #     Returns:
-    #         :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
-
-    #     """
-    #     params = {"RAW_BODY": [user.user_id for user in users]}
-    #     params = utils.update_if_not_none(params, kwargs)
-    #     data_resp = requests.get(
-    #         f"{constants.BASE_URL}/{dtype}",
-    #         params=params,
-    #         headers=self._auth_headers,
-    #     )
-
-    #     return api_responses.TerraApiResponse(data_resp, "bulkUserInfo")
-
+ 
     def get_activity_for_user(
         self,
         user: user_.User,

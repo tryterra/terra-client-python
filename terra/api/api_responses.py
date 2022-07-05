@@ -196,12 +196,6 @@ class DataReturned(TerraParsedApiResponse):
     data: typing.List[TerraParsedApiResponse] = dataclasses.field(default_factory=list)
 
 
-# @dataclasses.dataclass
-# class NutritionDeletedData(TerraParsedApiResponse):
-#     type: typing.Optional[str] = dataclasses.field(default=None)
-#     processed_logs: typing.List[typing.Dict(str,typing.Any)] = dataclasses.field(default_factory=list)
-
-
 @dataclasses.dataclass
 class AuthenticationFailed(TerraParsedApiResponse):
     status: str = dataclasses.field(default="error")
