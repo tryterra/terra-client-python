@@ -36,11 +36,14 @@ def _parse_api_body(
     if "user" in body:
         Auser = models.user.User.from_dict_api(body["user"])
 
-    if "status" in body:
-        if body["status"] in STATUS.keys():
-            return STATUS[body["status"]]().from_dict_api(body, True)
+    global response
+    response = None
+    if ("status" in body) and  (body["status"] in STATUS.keys()):
+    
+        response = STATUS[body["status"]]().from_dict_api(body, True)
+            
 
-    if dtype in USER_DATATYPES:
+    elif dtype in USER_DATATYPES:
         return DataReturned(
             user=Auser,
             data=[MODEL_MAPPING[dtype]().from_dict(item) for item in body["data"]]
@@ -49,12 +52,29 @@ def _parse_api_body(
             type=dtype,
         )
     elif dtype in DTYPE_TO_RESPONSE.keys():
-        return DTYPE_TO_RESPONSE[dtype]().from_dict(body, True)
+        
+        response = DTYPE_TO_RESPONSE[dtype]().from_dict(body, True)
+           
     elif dtype in HOOK_RESPONSE.keys():
-        return HOOK_RESPONSE[dtype]().from_dict_api(body, True)
+        response = HOOK_RESPONSE[dtype]().from_dict_api(body, True)
+        
     else:
 
-        return GenericMessage().from_dict_api(body, True)
+        response = GenericMessage().from_dict_api(body, True)
+    
+    
+    try:
+        setattr(response, 'user',Auser)
+        
+    finally:
+        try:
+            if "old_user" in body:
+                setattr(response, 'old_user',models.user.User.from_dict_api(body["old_user"]))
+            if "new_user" in body:
+                setattr(response, 'new_user',models.user.User.from_dict_api(body["new_user"]))
+        finally:
+            return response
+   
 
 
 class TerraApiResponse(TerraParsedApiResponse):
