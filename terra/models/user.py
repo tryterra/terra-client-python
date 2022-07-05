@@ -28,7 +28,7 @@ if t.TYPE_CHECKING:
 __all__ = ["User"]
 
 
-def check_has_client(f : function) -> function:
+def check_has_client(f: function) -> function:
     def wrapper(*args, **kwargs) -> function:
         """
         Check used on a User object's methods which require it to be initialized from a Client instance
@@ -82,8 +82,6 @@ class User(TerraDataModel):
 
             self.provider = user_info.json["user"]["provider"]
             self.last_webhook_update = user_info.json["user"]["provider"]
-
- 
 
     @check_has_client
     def get_activity(

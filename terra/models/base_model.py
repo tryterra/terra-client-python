@@ -16,7 +16,6 @@ import enum
 import pydoc
 import typing
 
-
 PRIMITIVES = (str, int, bool, float, type(None), dict)
 
 
@@ -24,11 +23,11 @@ class ImplementsToDict(typing.Protocol):
     def to_dict(self) -> typing.Dict[str, typing.Any]:
         ...
 
+
 from typing import TYPE_CHECKING
+
 if TYPE_CHECKING:
     from terra.models.base_model import TerraDataModel as _TerraDataModel
-
-
 
 
 class TerraDataModel:
@@ -83,7 +82,9 @@ class TerraDataModel:
         return output
 
     @classmethod
-    def from_dict(cls, model_dict: typing.Dict[str, typing.Any], safe: bool = False)-> '_TerraDataModel':
+    def from_dict(
+        cls, model_dict: typing.Dict[str, typing.Any], safe: bool = False
+    ) -> "_TerraDataModel":
         """
         Return the Class data model representation of the dictionary (json).
 
@@ -117,7 +118,6 @@ class TerraDataModel:
 
                     for sub_model_dict in v:
 
-                        
                         sub_model = pydoc.locate(
                             str(z[k]).split("[")[1].split("]")[0]
                         )()
@@ -132,7 +132,7 @@ class TerraDataModel:
 
                                 if isinstance(inner_item2, TerraDataModel):
                                     v2 = inner_item2.from_dict(v2)
-                                
+
                                 setattr(sub_model, k2, v2)
                         x.append(sub_model)
                     v = x
@@ -141,7 +141,9 @@ class TerraDataModel:
         return data_model
 
     @classmethod
-    def from_dict_api(cls, model_dict: typing.Dict[str, typing.Any], safe: bool = False)-> '_TerraDataModel':
+    def from_dict_api(
+        cls, model_dict: typing.Dict[str, typing.Any], safe: bool = False
+    ) -> "_TerraDataModel":
         """
         Return the Class data model representation of the dictionary (json).
 
@@ -168,7 +170,9 @@ class TerraDataModel:
 
         return data_model
 
-    def populate_from_dict(self, model_dict: typing.Dict[str, typing.Any], safe: bool = False)-> '_TerraDataModel':
+    def populate_from_dict(
+        self, model_dict: typing.Dict[str, typing.Any], safe: bool = False
+    ) -> "_TerraDataModel":
         """
         Populates missing data fields in the class given a dictionary (json).
 
@@ -187,5 +191,3 @@ class TerraDataModel:
                 setattr(self, k, v)
 
         return self
-
-

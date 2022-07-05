@@ -38,10 +38,9 @@ def _parse_api_body(
 
     global response
     response = None
-    if ("status" in body) and  (body["status"] in STATUS.keys()):
-    
+    if ("status" in body) and (body["status"] in STATUS.keys()):
+
         response = STATUS[body["status"]]().from_dict_api(body, True)
-            
 
     elif dtype in USER_DATATYPES:
         return DataReturned(
@@ -52,33 +51,39 @@ def _parse_api_body(
             type=dtype,
         )
     elif dtype in DTYPE_TO_RESPONSE.keys():
-        
+
         response = DTYPE_TO_RESPONSE[dtype]().from_dict(body, True)
-           
+
     elif dtype in HOOK_RESPONSE.keys():
         response = HOOK_RESPONSE[dtype]().from_dict_api(body, True)
-        
+
     else:
 
         response = GenericMessage().from_dict_api(body, True)
-    
-    
+
     try:
-        setattr(response, 'user',Auser)
-        
+        setattr(response, "user", Auser)
+
     finally:
         try:
             if "old_user" in body:
-                setattr(response, 'old_user',models.user.User.from_dict_api(body["old_user"]))
+                setattr(
+                    response,
+                    "old_user",
+                    models.user.User.from_dict_api(body["old_user"]),
+                )
             if "new_user" in body:
-                setattr(response, 'new_user',models.user.User.from_dict_api(body["new_user"]))
+                setattr(
+                    response,
+                    "new_user",
+                    models.user.User.from_dict_api(body["new_user"]),
+                )
         finally:
             return response
-   
 
 
 class TerraApiResponse(TerraParsedApiResponse):
-    def __init__(self, resp: requests.Response, user=None, dtype=None)->None:
+    def __init__(self, resp: requests.Response, user=None, dtype=None) -> None:
         self.response_code = resp.status_code
         self.raw_body = resp.content.decode(resp.encoding)
         self.json = None
@@ -94,7 +99,7 @@ class TerraApiResponse(TerraParsedApiResponse):
 
 
 class TerraWebhookResponse(TerraParsedApiResponse):
-    def __init__(self, resp, user=None, dtype=None)->None:
+    def __init__(self, resp, user=None, dtype=None) -> None:
         self.dtype = dtype
         body = resp
         self.json = body
@@ -178,8 +183,6 @@ class RequestProcessingHookResponse(HookResponse):
     user: typing.Optional[models.user.User] = dataclasses.field(default=None)
 
 
-
-
 @dataclasses.dataclass
 class RequestCompletedHookResponse(HookResponse):
     message: typing.Optional[str] = dataclasses.field(default=None)
@@ -231,7 +234,9 @@ class AuthenticationFailed(TerraParsedApiResponse):
 @dataclasses.dataclass
 class ConnexionDegraded(TerraParsedApiResponse):
     status: typing.Optional[str] = dataclasses.field(default="warning")
-    message: typing.Optional[str] = dataclasses.field(default="User connection degraded")
+    message: typing.Optional[str] = dataclasses.field(
+        default="User connection degraded"
+    )
     type: typing.Optional[str] = dataclasses.field(default="connection_error")
 
 

@@ -90,7 +90,6 @@ class Terra:
 
         return api_responses.TerraApiResponse(data_resp, user)
 
- 
     def get_activity_for_user(
         self,
         user: user_.User,
@@ -122,7 +121,7 @@ class Terra:
         self,
         user: user_.User,
         start_date: datetime.datetime,
-        end_date:  typing.Optional[datetime.datetime]  = None,
+        end_date: typing.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
     ) -> api_responses.TerraApiResponse:
         """
@@ -149,7 +148,7 @@ class Terra:
         self,
         user: user_.User,
         start_date: datetime.datetime,
-        end_date: typing.Optional[datetime.datetime]  = None,
+        end_date: typing.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
     ) -> api_responses.TerraApiResponse:
         """
@@ -221,7 +220,7 @@ class Terra:
         self,
         user: user_.User,
         start_date: datetime.datetime,
-        end_date: typing.Optional[datetime.datetime]  = None,
+        end_date: typing.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
     ) -> api_responses.TerraApiResponse:
         """
@@ -249,7 +248,7 @@ class Terra:
         self,
         user: user_.User,
         start_date: datetime.datetime,
-        end_date: typing.Optional[datetime.datetime]  = None,
+        end_date: typing.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
     ) -> api_responses.TerraApiResponse:
         """
@@ -275,7 +274,7 @@ class Terra:
 
     def generate_widget_session(
         self,
-        providers:typing.Optional[typing.List[str]] = None,
+        providers: typing.Optional[typing.List[str]] = None,
         auth_success_redirect_url: typing.Optional[str] = None,
         auth_failure_redirect_url: typing.Optional[str] = None,
         language: typing.Optional[str] = None,
@@ -443,7 +442,9 @@ class Terra:
         # Signature was validated
         return True
 
-    def flask_hooks(self, request: request) -> typing.Optional[api_responses.TerraParsedApiResponse]:
+    def flask_hooks(
+        self, request: request
+    ) -> typing.Optional[api_responses.TerraParsedApiResponse]:
 
         """
         Parses Terra webhooks from a flask request
@@ -463,9 +464,10 @@ class Terra:
 
         return ff
 
-    def hooks(self, payload: str, terra_signature_header: str, json: str) -> typing.Optional[api_responses.TerraParsedApiResponse]:
+    def hooks(
+        self, payload: str, terra_signature_header: str, json: str
+    ) -> typing.Optional[api_responses.TerraParsedApiResponse]:
 
-        
         """
         Function to Parse web hooks from Terra
 
