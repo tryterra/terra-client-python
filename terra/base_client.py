@@ -88,7 +88,7 @@ class Terra:
             headers=self._auth_headers,
         )
 
-        return api_responses.TerraApiResponse(data_resp, user)
+        return api_responses.TerraApiResponse(data_resp, user=user, dtype=dtype)
 
     def get_activity_for_user(
         self,
@@ -112,8 +112,8 @@ class Terra:
 
         """
         return user.get_activity(
-            start_date=int(start_date.timestamp()),
-            end_date=int(end_date.timestamp()) if end_date is not None else None,
+            start_date=start_date,
+            end_date=end_date if end_date is not None else None,
             to_webhook=to_webhook,
         )
 
@@ -139,8 +139,8 @@ class Terra:
 
         """
         return user.get_body(
-            start_date=int(start_date.timestamp()),
-            end_date=int(end_date.timestamp()) if end_date is not None else None,
+            start_date=start_date,
+            end_date=end_date if end_date is not None else None,
             to_webhook=to_webhook,
         )
 
@@ -166,8 +166,8 @@ class Terra:
 
         """
         return user.get_daily(
-            start_date=int(start_date.timestamp()),
-            end_date=int(end_date.timestamp()) if end_date is not None else None,
+            start_date=start_date,
+            end_date=end_date if end_date is not None else None,
             to_webhook=to_webhook,
         )
 
@@ -193,8 +193,8 @@ class Terra:
 
         """
         return user.get_sleep(
-            start_date=int(start_date.timestamp()),
-            end_date=int(end_date.timestamp()) if end_date is not None else None,
+            start_date=start_date,
+            end_date=end_date if end_date is not None else None,
             to_webhook=to_webhook,
         )
 
@@ -239,8 +239,8 @@ class Terra:
         """
 
         return user.get_menstruation(
-            start_date=int(start_date.timestamp()),
-            end_date=int(end_date.timestamp()) if end_date is not None else None,
+            start_date=start_date,
+            end_date=end_date if end_date is not None else None,
             to_webhook=to_webhook,
         )
 
@@ -267,8 +267,8 @@ class Terra:
         """
 
         return user.get_nutrition(
-            start_date=int(start_date.timestamp()),
-            end_date=int(end_date.timestamp()) if end_date is not None else None,
+            start_date=start_date,
+            end_date=end_date if end_date is not None else None,
             to_webhook=to_webhook,
         )
 

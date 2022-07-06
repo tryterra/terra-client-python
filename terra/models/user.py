@@ -28,34 +28,14 @@ if t.TYPE_CHECKING:
 __all__ = ["User"]
 
 
-def check_has_client(f: function) -> function:
-    def wrapper(*args, **kwargs) -> function:
-        """
-        Check used on a User object's methods which require it to be initialized from a Client instance
-
-        Args:
-            user (:obj:`models.User`): User object
-
-        Returns:
-            ``None``
-        """
-
-        if args[0]._client is None:
-            raise exceptions.NoClientAvailable
-
-        return f(*args, **kwargs)
-
-    return wrapper
-
-
 @dataclasses.dataclass
 class User(TerraDataModel):
     def __init__(
         self,
+        client: t.Optional[base_client.Terra] = None,
         user_id: t.Optional[str] = None,
         provider: t.Optional[str] = None,
         last_webhook_update: t.Optional[str] = None,
-        client: t.Optional[base_client.Terra] = None,
     ) -> None:
         self.user_id = user_id
         self.provider = provider
@@ -79,16 +59,26 @@ class User(TerraDataModel):
         """
         if self._client:
             user_info = self._client.get_user_info(self)
-
+            if not user_info.json:
+                raise exceptions.NoUserInfoException
             self.provider = user_info.json["user"]["provider"]
-            self.last_webhook_update = user_info.json["user"]["provider"]
+            self.last_webhook_update = user_info.json["user"]["last_webhook_update"]
 
-    @check_has_client
+    def _check_client(self) -> None:
+        """
+        Internal method used to check if user is connected to a client
+
+        Returns:
+            None
+        """
+        if self._client is None:
+            raise exceptions.NoClientAvailable
+
     def get_activity(
         self,
         start_date: datetime.datetime,
-        end_date: datetime.datetime = None,
-        to_webhook=True,
+        end_date: t.Optional[datetime.datetime] = None,
+        to_webhook: bool = True,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves workouts/activity data for a given User object. By default, data will be asynchronously sent to registered
@@ -104,6 +94,10 @@ class User(TerraDataModel):
             :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
 
         """
+
+        if self._client is None:
+            raise exceptions.NoClientAvailable
+
         return self._client._get_arbitrary_data(
             dtype="activity",
             user=self,
@@ -112,12 +106,11 @@ class User(TerraDataModel):
             to_webhook=to_webhook,
         )
 
-    @check_has_client
     def get_body(
         self,
         start_date: datetime.datetime,
-        end_date: datetime.datetime = None,
-        to_webhook=True,
+        end_date: t.Optional[datetime.datetime] = None,
+        to_webhook: bool = True,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves body metrics data for a given User object. By default, data will be asynchronously sent to registered
@@ -132,6 +125,10 @@ class User(TerraDataModel):
             :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
 
         """
+
+        if self._client is None:
+            raise exceptions.NoClientAvailable
+
         return self._client._get_arbitrary_data(
             dtype="body",
             user=self,
@@ -140,12 +137,11 @@ class User(TerraDataModel):
             to_webhook=to_webhook,
         )
 
-    @check_has_client
     def get_nutrition(
         self,
         start_date: datetime.datetime,
-        end_date: datetime.datetime = None,
-        to_webhook=True,
+        end_date: t.Optional[datetime.datetime] = None,
+        to_webhook: bool = True,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves nutrition data for a given User object. By default, data will be asynchronously sent to registered
@@ -160,6 +156,9 @@ class User(TerraDataModel):
             :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
 
         """
+        if self._client is None:
+            raise exceptions.NoClientAvailable
+
         return self._client._get_arbitrary_data(
             dtype="nutrition",
             user=self,
@@ -168,12 +167,11 @@ class User(TerraDataModel):
             to_webhook=to_webhook,
         )
 
-    @check_has_client
     def get_daily(
         self,
         start_date: datetime.datetime,
-        end_date: datetime.datetime = None,
-        to_webhook=True,
+        end_date: t.Optional[datetime.datetime] = None,
+        to_webhook: bool = True,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves daily summary data for a given User object. By default, data will be asynchronously sent to registered
@@ -188,6 +186,9 @@ class User(TerraDataModel):
             :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
 
         """
+        if self._client is None:
+            raise exceptions.NoClientAvailable
+
         return self._client._get_arbitrary_data(
             dtype="daily",
             user=self,
@@ -196,12 +197,11 @@ class User(TerraDataModel):
             to_webhook=to_webhook,
         )
 
-    @check_has_client
     def get_sleep(
         self,
         start_date: datetime.datetime,
-        end_date: datetime.datetime = None,
-        to_webhook=True,
+        end_date: t.Optional[datetime.datetime] = None,
+        to_webhook: bool = True,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves sleep data for a given User object. By default, data will be asynchronously sent to registered
@@ -217,6 +217,9 @@ class User(TerraDataModel):
             :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
 
         """
+        if self._client is None:
+            raise exceptions.NoClientAvailable
+
         return self._client._get_arbitrary_data(
             dtype="sleep",
             user=self,
@@ -225,10 +228,9 @@ class User(TerraDataModel):
             to_webhook=to_webhook,
         )
 
-    @check_has_client
     def get_athlete(
         self,
-        to_webhook=True,
+        to_webhook: bool = True,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves profile info/athlete data for a given User object. By default, data will be asynchronously sent to
@@ -240,15 +242,19 @@ class User(TerraDataModel):
             :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
 
         """
-        return self._client._get_arbitrary_data("athlete", self, to_webhook=to_webhook)
+        if self._client is None:
+            raise exceptions.NoClientAvailable
 
-    @check_has_client
+        return self._client._get_arbitrary_data(
+            dtype="athlete", user=self, to_webhook=to_webhook
+        )
+
     def get_menstruation(
         self,
         start_date: datetime.datetime,
-        end_date: datetime.datetime = None,
-        to_webhook=True,
-    ) -> t.Optional[api_responses.TerraApiResponse]:
+        end_date: t.Optional[datetime.datetime] = None,
+        to_webhook: bool = True,
+    ) -> api_responses.TerraApiResponse:
         """
         Retrieves daily summary data for a given User object. By default, data will be asynchronously sent to registered
         webhook URL.
@@ -262,6 +268,9 @@ class User(TerraDataModel):
             :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
 
         """
+        if self._client is None:
+            raise exceptions.NoClientAvailable
+
         return self._client._get_arbitrary_data(
             dtype="menstruation",
             user=self,

@@ -15,10 +15,12 @@
 import dataclasses
 import json.decoder
 import typing
+from typing import cast
 
 import requests
 from attr import dataclass
 
+from terra import exceptions
 from terra import models
 from terra.models import base_model
 from terra.models import user as user_
@@ -29,20 +31,27 @@ class TerraParsedApiResponse(base_model.TerraDataModel):
 
 
 def _parse_api_body(
-    dtype: str, body: typing.Dict[str, typing.Any], user: models.user.User
+    dtype: typing.Optional[str],
+    body: typing.Optional[typing.Dict[str, typing.Any]],
+    user: typing.Optional[models.user.User],
 ) -> TerraParsedApiResponse:
+
+    if not body:
+        raise exceptions.NoBodyException
 
     Auser = user
     if "user" in body:
-        Auser = models.user.User.from_dict_api(body["user"])
+        Auser = cast(user_.User, models.user.User.from_dict_api(body["user"]))
 
-    global response
     response = None
     if ("status" in body) and (body["status"] in STATUS.keys()):
-
         response = STATUS[body["status"]]().from_dict_api(body, True)
 
     elif dtype in USER_DATATYPES:
+
+        if not dtype:
+            raise exceptions.NoDtypeException
+
         return DataReturned(
             user=Auser,
             data=[MODEL_MAPPING[dtype]().from_dict(item) for item in body["data"]]
@@ -52,9 +61,15 @@ def _parse_api_body(
         )
     elif dtype in DTYPE_TO_RESPONSE.keys():
 
+        if not dtype:
+            raise exceptions.NoDtypeException
+
         response = DTYPE_TO_RESPONSE[dtype]().from_dict(body, True)
 
     elif dtype in HOOK_RESPONSE.keys():
+
+        if not dtype:
+            raise exceptions.NoDtypeException
         response = HOOK_RESPONSE[dtype]().from_dict_api(body, True)
 
     else:
@@ -79,32 +94,46 @@ def _parse_api_body(
                     models.user.User.from_dict_api(body["new_user"]),
                 )
         finally:
-            return response
+            return cast(TerraParsedApiResponse, response)
 
 
 class TerraApiResponse(TerraParsedApiResponse):
-    def __init__(self, resp: requests.Response, user=None, dtype=None) -> None:
-        self.response_code = resp.status_code
-        self.raw_body = resp.content.decode(resp.encoding)
-        self.json = None
-        self.dtype = dtype
+    def __init__(
+        self,
+        resp: requests.Response,
+        dtype: str,
+        user: typing.Optional[user_.User] = None,
+    ) -> None:
+        self.response_code: typing.Optional[str] = resp.status_code
+        self.raw_body: typing.Optional[str] = resp.content.decode(resp.encoding)
+        self.json: typing.Optional[typing.Dict[str, typing.Any]] = None
+        self.dtype: typing.Optional[str] = dtype
         try:
-            body = resp.json()
+            body: typing.Dict[str, typing.Any] = resp.json()
             self.json = body
             self.dtype = body.get("type", dtype)
-            self.parsed_response = _parse_api_body(self.dtype, body, user)
+            self.parsed_response: TerraParsedApiResponse = _parse_api_body(
+                self.dtype, body, user
+            )
 
         except json.decoder.JSONDecodeError:
             resp.raise_for_status()
 
 
 class TerraWebhookResponse(TerraParsedApiResponse):
-    def __init__(self, resp, user=None, dtype=None) -> None:
-        self.dtype = dtype
-        body = resp
-        self.json = body
+    def __init__(
+        self,
+        resp: requests.Response,
+        user: typing.Optional[user_.User] = None,
+        dtype: typing.Optional[str] = None,
+    ) -> None:
+        self.dtype: typing.Optional[str] = dtype
+        body: typing.Dict[str, typing.Any] = resp
+        self.json: typing.Optional[typing.Dict[str, typing.Any]] = body
         self.dtype = body.get("type", dtype)
-        self.parsed_response = _parse_api_body(self.dtype, body, user)
+        self.parsed_response: TerraParsedApiResponse = _parse_api_body(
+            self.dtype, body, user
+        )
 
 
 @dataclasses.dataclass

@@ -16,3 +16,21 @@ class NoClientAvailable(Exception):
     Exception raised when a TerraUser object has no Terra client set,
     but a method requiring it is called.
     """
+
+
+class NoBodyException(Exception):
+    """
+    Exception raised when a TerraApi object has no body
+    """
+
+
+class NoUserInfoException(Exception):
+    """
+    Exception raised when a UserInfoDict is None
+    """
+
+
+class NoDtypeException(Exception):
+    """
+    Exception raised when a TerraPi object has no dtype
+    """

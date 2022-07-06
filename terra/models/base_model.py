@@ -65,7 +65,7 @@ class TerraDataModel:
         """
         attrs = self._get_attrs()
 
-        output = {}
+        output: typing.Dict[typing.Any, typing.Any] = {}
         for attr in attrs:
             attr_val = getattr(self, attr)
             if isinstance(attr_val, enum.IntEnum):
@@ -118,9 +118,12 @@ class TerraDataModel:
 
                     for sub_model_dict in v:
 
-                        sub_model = pydoc.locate(
-                            str(z[k]).split("[")[1].split("]")[0]
-                        )()
+                        temp = typing.cast(
+                            typing.Type[TerraDataModel],
+                            pydoc.locate(str(z[k]).split("[")[1].split("]")[0]),
+                        )
+
+                        sub_model = temp()
 
                         for k2, v2 in sub_model_dict.items():
 
