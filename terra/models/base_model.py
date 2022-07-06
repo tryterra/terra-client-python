@@ -97,51 +97,50 @@ class TerraDataModel:
         """
         data_model = cls()
         for k, v in model_dict.items():
-            if (inner_item := getattr(data_model, k, *(("NOT_FOUND",) if safe else ()))) in [None, []] or isinstance(
-                inner_item, TerraDataModel
+            if (
+                (inner_item := getattr(data_model, k, *(("NOT_FOUND",) if safe else ()))) in [None, []]
+                or isinstance(inner_item, TerraDataModel)
+                or isinstance(v, list)
             ):
+
                 if isinstance(inner_item, TerraDataModel):
                     v = inner_item.from_dict(v)
 
+                # if it's a list
+                if isinstance(v, list):
+
+                    if v != []:
+
+                        # getting all the field types of the current class
+                        z = {field.name: field.type for field in dataclasses.fields(cls())}
+
+                        # getting the current field name
+                        current_field_name = str(z[k]).split("[")[1].split("]")[0]
+
+                        # adding terra before the name
+                        if current_field_name.split(".")[0] == "models":
+                            current_field_name = "terra." + current_field_name
+
+                        # checking if the elements of the list are Terra Data Models
+                        if current_field_name.split(".")[0] == "terra":
+
+                            result = []
+
+                            # for each dictionnary inside the list
+                            for inner_dict in v:
+
+                                # the type of the item inside the list
+                                inner_data_model = typing.cast(
+                                    typing.Type[TerraDataModel], pydoc.locate(current_field_name)
+                                )()
+                                # fill up the model
+                                inner_data_model = inner_data_model.from_dict(inner_dict)
+                                # append the model to the result list
+                                result.append(inner_data_model)
+
+                            v = result
+
                 setattr(data_model, k, v)
-
-            z = {field.name: field.type for field in dataclasses.fields(cls())}
-
-            # parse each element of a list
-
-            if v != [] and isinstance(v, list):
-
-                if str(z[k]).split("[")[1].split("]")[0] != "float":
-                    x = []
-
-                    name = str(z[k]).split("[")[1].split("]")[0]
-
-                    if name.split(".")[0] == "models":
-                        name = "terra." + name
-
-                    for sub_model_dict in v:
-
-                        temp = typing.cast(
-                            typing.Type[TerraDataModel],
-                            pydoc.locate(name),
-                        )
-
-                        sub_model = temp()
-
-                        for k2, v2 in sub_model_dict.items():
-
-                            if (inner_item2 := getattr(sub_model, k2, *(("NOT_FOUND",) if safe else ()))) in [
-                                None,
-                                [],
-                            ] or isinstance(inner_item2, TerraDataModel):
-
-                                if isinstance(inner_item2, TerraDataModel):
-                                    v2 = inner_item2.from_dict(v2)
-
-                                setattr(sub_model, k2, v2)
-                        x.append(sub_model)
-                    v = x
-                    setattr(data_model, k, v)
 
         return data_model
 
