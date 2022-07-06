@@ -37,6 +37,6 @@ Now you can call the following functions from the instance:
 - `flask_hooks`
 - `hooks`
 
-In addition, all the data models documented on https://docs.tryterra.co/data-models are available to import and use. For example
+In addition, all the data models documented on https://docs.tryterra.co/data-models are available to import and use.
 
 The models support autocompleting the types to manipulate data coming from Terra
