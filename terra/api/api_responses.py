@@ -11,14 +11,40 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+from __future__ import annotations
+
+__all__ = [
+    "NoDataReturned",
+    "DataReturned",
+    "AuthenticationFailed",
+    "TerraParsedApiResponse",
+    "TerraWebhookResponse",
+    "TerraApiResponse",
+    "GenericMessage",
+    "GoogleNoDataSourceHookResponse",
+    "WidgetSession",
+    "SentToWebhook",
+    "SubscribedUsers",
+    "UserDeauthResp",
+    "AuthHookResponse",
+    "AccessRevokedHookResponse",
+    "UserAuthUrl",
+    "UserDeauthHookResponse",
+    "UserReauthHookResponse",
+    "ConnectionDegraded",
+    "ProvidersResponse",
+    "RequestProcessingHookResponse",
+    "ConnectionErrorHookResponse",
+    "HookResponse",
+    "RequestCompletedHookResponse",
+    "UserInfo",
+]
 
 import dataclasses
 import json.decoder
 import typing
-from typing import cast
 
 import requests
-from attr import dataclass
 
 from terra import exceptions
 from terra import models
@@ -41,9 +67,8 @@ def _parse_api_body(
 
     Auser = user
     if "user" in body:
-        Auser = cast(user_.User, models.user.User.from_dict_api(body["user"]))
+        Auser = models.user.User.from_dict_api(body["user"])
 
-    response = None
     if ("status" in body) and (body["status"] in STATUS.keys()):
         response = STATUS[body["status"]]().from_dict_api(body, True)
 
@@ -94,7 +119,7 @@ def _parse_api_body(
                     models.user.User.from_dict_api(body["new_user"]),
                 )
         finally:
-            return cast(TerraParsedApiResponse, response)
+            return typing.cast(TerraParsedApiResponse, response)
 
 
 class TerraApiResponse(TerraParsedApiResponse):
@@ -104,18 +129,15 @@ class TerraApiResponse(TerraParsedApiResponse):
         dtype: str,
         user: typing.Optional[user_.User] = None,
     ) -> None:
-        self.response_code: typing.Optional[str] = resp.status_code
-        self.raw_body: typing.Optional[str] = resp.content.decode(resp.encoding)
+        self.response_code: int = resp.status_code
+        self.raw_body: typing.Optional[str] = resp.text
         self.json: typing.Optional[typing.Dict[str, typing.Any]] = None
         self.dtype: typing.Optional[str] = dtype
         try:
             body: typing.Dict[str, typing.Any] = resp.json()
             self.json = body
             self.dtype = body.get("type", dtype)
-            self.parsed_response: TerraParsedApiResponse = _parse_api_body(
-                self.dtype, body, user
-            )
-
+            self.parsed_response: TerraParsedApiResponse = _parse_api_body(self.dtype, body, user)
         except json.decoder.JSONDecodeError:
             resp.raise_for_status()
 
@@ -123,17 +145,13 @@ class TerraApiResponse(TerraParsedApiResponse):
 class TerraWebhookResponse(TerraParsedApiResponse):
     def __init__(
         self,
-        resp: requests.Response,
+        resp: typing.Union[typing.Dict[str, typing.Any], requests.Response],
         user: typing.Optional[user_.User] = None,
         dtype: typing.Optional[str] = None,
     ) -> None:
-        self.dtype: typing.Optional[str] = dtype
-        body: typing.Dict[str, typing.Any] = resp
-        self.json: typing.Optional[typing.Dict[str, typing.Any]] = body
-        self.dtype = body.get("type", dtype)
-        self.parsed_response: TerraParsedApiResponse = _parse_api_body(
-            self.dtype, body, user
-        )
+        self.json: typing.Dict[str, typing.Any] = resp.json() if isinstance(resp, requests.Response) else resp
+        self.dtype: typing.Optional[str] = self.json.get("type", dtype)
+        self.parsed_response: TerraParsedApiResponse = _parse_api_body(self.dtype, self.json, user)
 
 
 @dataclasses.dataclass
@@ -236,9 +254,7 @@ class UserAuthUrl(TerraParsedApiResponse):
 class NoDataReturned(TerraParsedApiResponse):
     user: typing.Optional[models.user.User] = dataclasses.field(default=None)
     status: typing.Optional[str] = dataclasses.field(default="not_available")
-    message: typing.Optional[str] = dataclasses.field(
-        default="Data type requested not available from provider"
-    )
+    message: typing.Optional[str] = dataclasses.field(default="Data type requested not available from provider")
 
 
 @dataclasses.dataclass
@@ -253,19 +269,15 @@ class AuthenticationFailed(TerraParsedApiResponse):
     status: str = dataclasses.field(default="error")
     widget_session_id: typing.Optional[str] = dataclasses.field(default=None)
     reference_id: typing.Optional[str] = dataclasses.field(default=None)
-    message: typing.Optional[str] = dataclasses.field(
-        default="User failed to authenticate and has been deleted"
-    )
+    message: typing.Optional[str] = dataclasses.field(default="User failed to authenticate and has been deleted")
     type: str = dataclasses.field(default="auth")
     reason: str = dataclasses.field(default="auth_cancelled")
 
 
 @dataclasses.dataclass
-class ConnexionDegraded(TerraParsedApiResponse):
+class ConnectionDegraded(TerraParsedApiResponse):
     status: typing.Optional[str] = dataclasses.field(default="warning")
-    message: typing.Optional[str] = dataclasses.field(
-        default="User connection degraded"
-    )
+    message: typing.Optional[str] = dataclasses.field(default="User connection degraded")
     type: typing.Optional[str] = dataclasses.field(default="connection_error")
 
 
@@ -280,16 +292,6 @@ class SentToWebhook(TerraParsedApiResponse):
     status: typing.Optional[str] = dataclasses.field(default=None)
     message: typing.Optional[str] = dataclasses.field(default=None)
 
-
-__all__ = [
-    "NoDataReturned",
-    "DataReturned",
-    "RequestProcessing",
-    "DataSentToWebhook",
-    "UserAuthenticated",
-    "AuthenticationFailed",
-    "ConnectionDegraded",
-]
 
 USER_DATATYPES = [
     "activity",
@@ -344,6 +346,6 @@ HOOK_RESPONSE = {
 
 STATUS = {
     "not_available": NoDataReturned,
-    "warning": ConnexionDegraded,
-    "error": ConnexionDegraded,
+    "warning": ConnectionDegraded,
+    "error": ConnectionDegraded,
 }

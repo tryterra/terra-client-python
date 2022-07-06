@@ -52,5 +52,5 @@ def format_fix(session):
 @nox.session()
 def mypy(session):
     session.install("-Ur", "requirements.txt")
-    session.install("-U", "mypy")
+    session.install("-Ur", "mypy_requirements.txt")
     session.run("python", "-m", "mypy", "terra")

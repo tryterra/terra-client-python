@@ -36,88 +36,56 @@ class DeviceData(base_model.TerraDataModel):
     serial_number: typing.Optional[str] = dataclasses.field(default=None)
     software_version: typing.Optional[str] = dataclasses.field(default=None)
     hardware_version: typing.Optional[str] = dataclasses.field(default=None)
-    other_devices: typing.List[samples_.OtherDeviceData] = dataclasses.field(
-        default_factory=list
-    )
+    other_devices: typing.List[samples_.OtherDeviceData] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
 class MeasurementsData(base_model.TerraDataModel):
-    measurements: typing.List[samples_.MeasurementDataSample] = dataclasses.field(
-        default_factory=list
-    )
+    measurements: typing.List[samples_.MeasurementDataSample] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
 class TemperatureData(base_model.TerraDataModel):
-    ambient_temperature_samples: typing.List[
-        samples_.TemperatureSample
-    ] = dataclasses.field(default_factory=list)
-    body_temperature_samples: typing.List[
-        samples_.TemperatureSample
-    ] = dataclasses.field(default_factory=list)
-    skin_temperature_samples: typing.List[
-        samples_.TemperatureSample
-    ] = dataclasses.field(default_factory=list)
+    ambient_temperature_samples: typing.List[samples_.TemperatureSample] = dataclasses.field(default_factory=list)
+    body_temperature_samples: typing.List[samples_.TemperatureSample] = dataclasses.field(default_factory=list)
+    skin_temperature_samples: typing.List[samples_.TemperatureSample] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
 class HydrationData(base_model.TerraDataModel):
-    hydration_amount_samples: typing.List[
-        samples_.HydrationMeasurementSample
-    ] = dataclasses.field(default_factory=list)
-    day_total_water_consumption_ml: typing.Optional[float] = dataclasses.field(
-        default=None
-    )
+    hydration_amount_samples: typing.List[samples_.HydrationMeasurementSample] = dataclasses.field(default_factory=list)
+    day_total_water_consumption_ml: typing.Optional[float] = dataclasses.field(default=None)
 
 
 @dataclasses.dataclass
 class HeartData(base_model.TerraDataModel):
-    heart_rate_data: activity.HeartRateData = dataclasses.field(
-        default_factory=activity.HeartRateData
+    heart_rate_data: activity.HeartRateData = dataclasses.field(default_factory=activity.HeartRateData)
+    pulse_wave_velocity_samples: typing.List[samples_.PulseVelocitySample] = dataclasses.field(default_factory=list)
+    afib_classification_samples: typing.List[samples_.AFibClassificationSample] = dataclasses.field(
+        default_factory=list
     )
-    pulse_wave_velocity_samples: typing.List[
-        samples_.PulseVelocitySample
-    ] = dataclasses.field(default_factory=list)
-    afib_classification_samples: typing.List[
-        samples_.AFibClassificationSample
-    ] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
 class BloodPressureData(base_model.TerraDataModel):
-    blood_pressure_samples: typing.List[
-        samples_.BloodPressureSample
-    ] = dataclasses.field(default_factory=list)
+    blood_pressure_samples: typing.List[samples_.BloodPressureSample] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
 class GlucoseData(base_model.TerraDataModel):
-    day_avg_blood_glucose_mg_per_dL: typing.Optional[float] = dataclasses.field(
-        default=None
-    )
-    blood_glucose_samples: typing.List[samples_.GlucoseDataSample] = dataclasses.field(
-        default_factory=list
-    )
-    detailed_blood_glucose_samples: typing.List[
-        samples_.GlucoseDataSample
-    ] = dataclasses.field(default_factory=list)
+    day_avg_blood_glucose_mg_per_dL: typing.Optional[float] = dataclasses.field(default=None)
+    blood_glucose_samples: typing.List[samples_.GlucoseDataSample] = dataclasses.field(default_factory=list)
+    detailed_blood_glucose_samples: typing.List[samples_.GlucoseDataSample] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
 class Body(base_model.TerraDataModel):
     metadata: Metadata = dataclasses.field(default_factory=Metadata)
-    measurements_data: MeasurementsData = dataclasses.field(
-        default_factory=MeasurementsData
-    )
-    temperature_data: TemperatureData = dataclasses.field(
-        default_factory=TemperatureData
-    )
+    measurements_data: MeasurementsData = dataclasses.field(default_factory=MeasurementsData)
+    temperature_data: TemperatureData = dataclasses.field(default_factory=TemperatureData)
     hydration_data: HydrationData = dataclasses.field(default_factory=HydrationData)
     oxygen_data: OxygenData = dataclasses.field(default_factory=OxygenData)
     heart_data: HeartData = dataclasses.field(default_factory=HeartData)
-    blood_pressure_data: BloodPressureData = dataclasses.field(
-        default_factory=BloodPressureData
-    )
+    blood_pressure_data: BloodPressureData = dataclasses.field(default_factory=BloodPressureData)
     glucose_data: GlucoseData = dataclasses.field(default_factory=GlucoseData)
     device_data: DeviceData = dataclasses.field(default_factory=DeviceData)

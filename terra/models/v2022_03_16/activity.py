@@ -71,22 +71,14 @@ class DistanceDataSummary(base_model.TerraDataModel):
 
 @dataclasses.dataclass
 class DistanceDataDetailed(base_model.TerraDataModel):
-    distance_samples: typing.List[samples_.DistanceSample] = dataclasses.field(
-        default_factory=list
-    )
-    elevation_samples: typing.List[samples_.ElevationSample] = dataclasses.field(
-        default_factory=list
-    )
+    distance_samples: typing.List[samples_.DistanceSample] = dataclasses.field(default_factory=list)
+    elevation_samples: typing.List[samples_.ElevationSample] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
 class DistanceData(base_model.TerraDataModel):
-    summary: DistanceDataSummary = dataclasses.field(
-        default_factory=DistanceDataSummary
-    )
-    detailed: DistanceDataDetailed = dataclasses.field(
-        default_factory=DistanceDataDetailed
-    )
+    summary: DistanceDataSummary = dataclasses.field(default_factory=DistanceDataSummary)
+    detailed: DistanceDataDetailed = dataclasses.field(default_factory=DistanceDataDetailed)
 
 
 @dataclasses.dataclass
@@ -94,9 +86,7 @@ class PositionData(base_model.TerraDataModel):
     start_pos_lat_lng: typing.List[float] = dataclasses.field(default_factory=list)
     centre_pos_lat_lng: typing.List[float] = dataclasses.field(default_factory=list)
     end_pos_lat_lng: typing.List[float] = dataclasses.field(default_factory=list)
-    position_samples: typing.List[samples_.PositionSample] = dataclasses.field(
-        default_factory=list
-    )
+    position_samples: typing.List[samples_.PositionSample] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
@@ -107,12 +97,8 @@ class ActiveDurationsData(base_model.TerraDataModel):
     low_intensity_seconds: typing.Optional[float] = dataclasses.field(default=None)
     moderate_intensity_seconds: typing.Optional[float] = dataclasses.field(default=None)
     vigorous_intensity_seconds: typing.Optional[float] = dataclasses.field(default=None)
-    num_continuous_inactive_periods: typing.Optional[int] = dataclasses.field(
-        default=None
-    )
-    activity_levels_samples: typing.List[
-        samples_.ActivityLevelSample
-    ] = dataclasses.field(default_factory=list)
+    num_continuous_inactive_periods: typing.Optional[int] = dataclasses.field(default=None)
+    activity_levels_samples: typing.List[samples_.ActivityLevelSample] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
@@ -120,48 +106,26 @@ class METData(base_model.TerraDataModel):
     avg_level: typing.Optional[float] = dataclasses.field(default=None)
     num_inactive_minutes: typing.Optional[float] = dataclasses.field(default=None)
     num_low_intensity_minutes: typing.Optional[float] = dataclasses.field(default=None)
-    num_moderate_intensity_minutes: typing.Optional[float] = dataclasses.field(
-        default=None
-    )
+    num_moderate_intensity_minutes: typing.Optional[float] = dataclasses.field(default=None)
     num_high_intensity_minutes: typing.Optional[float] = dataclasses.field(default=None)
-    MET_samples: typing.List[samples_.METSample] = dataclasses.field(
-        default_factory=list
-    )
+    MET_samples: typing.List[samples_.METSample] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
 class MovementData(base_model.TerraDataModel):
-    avg_speed_meters_per_second: typing.Optional[float] = dataclasses.field(
-        default=None
-    )
-    max_speed_meters_per_second: typing.Optional[float] = dataclasses.field(
-        default=None
-    )
-    normalized_speed_meters_per_second: typing.Optional[float] = dataclasses.field(
-        default=None
-    )
-    avg_pace_minutes_per_kilometer: typing.Optional[float] = dataclasses.field(
-        default=None
-    )
-    max_pace_minutes_per_kilometer: typing.Optional[float] = dataclasses.field(
-        default=None
-    )
-    avg_velocity_meters_per_second: typing.Optional[float] = dataclasses.field(
-        default=None
-    )
-    max_velocity_meters_per_second: typing.Optional[float] = dataclasses.field(
-        default=None
-    )
+    avg_speed_meters_per_second: typing.Optional[float] = dataclasses.field(default=None)
+    max_speed_meters_per_second: typing.Optional[float] = dataclasses.field(default=None)
+    normalized_speed_meters_per_second: typing.Optional[float] = dataclasses.field(default=None)
+    avg_pace_minutes_per_kilometer: typing.Optional[float] = dataclasses.field(default=None)
+    max_pace_minutes_per_kilometer: typing.Optional[float] = dataclasses.field(default=None)
+    avg_velocity_meters_per_second: typing.Optional[float] = dataclasses.field(default=None)
+    max_velocity_meters_per_second: typing.Optional[float] = dataclasses.field(default=None)
     avg_cadence_rpm: typing.Optional[float] = dataclasses.field(default=None)
     max_cadence_rpm: typing.Optional[float] = dataclasses.field(default=None)
     avg_torque_newton_meters: typing.Optional[float] = dataclasses.field(default=None)
     max_torque_newton_meters: typing.Optional[float] = dataclasses.field(default=None)
-    cadence_samples: typing.List[samples_.CadenceSample] = dataclasses.field(
-        default_factory=list
-    )
-    speed_samples: typing.List[samples_.SpeedSample] = dataclasses.field(
-        default_factory=list
-    )
+    cadence_samples: typing.List[samples_.CadenceSample] = dataclasses.field(default_factory=list)
+    speed_samples: typing.List[samples_.SpeedSample] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
@@ -181,9 +145,7 @@ class WorkData(base_model.TerraDataModel):
 class PowerData(base_model.TerraDataModel):
     avg_watts: typing.Optional[float] = dataclasses.field(default=None)
     max_watts: typing.Optional[float] = dataclasses.field(default=None)
-    power_samples: typing.List[samples_.PowerSample] = dataclasses.field(
-        default_factory=list
-    )
+    power_samples: typing.List[samples_.PowerSample] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
@@ -194,9 +156,7 @@ class EnergyData(base_model.TerraDataModel):
 
 @dataclasses.dataclass
 class TSSData(base_model.TerraDataModel):
-    TSS_samples: typing.List[samples_.TSSSample] = dataclasses.field(
-        default_factory=list
-    )
+    TSS_samples: typing.List[samples_.TSSSample] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
@@ -215,37 +175,25 @@ class HeartRateDataSummary(base_model.TerraDataModel):
 
 @dataclasses.dataclass
 class HeartRateDataDetailed(base_model.TerraDataModel):
-    hr_samples: typing.List[samples_.HeartRateDataSample] = dataclasses.field(
+    hr_samples: typing.List[samples_.HeartRateDataSample] = dataclasses.field(default_factory=list)
+    hrv_samples_rmssd: typing.List[samples_.HeartRateVariabilityDataSampleRMSSD] = dataclasses.field(
         default_factory=list
     )
-    hrv_samples_rmssd: typing.List[
-        samples_.HeartRateVariabilityDataSampleRMSSD
-    ] = dataclasses.field(default_factory=list)
-    hrv_samples_sdnn: typing.List[
-        samples_.HeartRateVariabilityDataSampleSDNN
-    ] = dataclasses.field(default_factory=list)
+    hrv_samples_sdnn: typing.List[samples_.HeartRateVariabilityDataSampleSDNN] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
 class HeartRateData(base_model.TerraDataModel):
-    summary: HeartRateDataSummary = dataclasses.field(
-        default_factory=HeartRateDataSummary
-    )
-    detailed: HeartRateDataDetailed = dataclasses.field(
-        default_factory=HeartRateDataDetailed
-    )
+    summary: HeartRateDataSummary = dataclasses.field(default_factory=HeartRateDataSummary)
+    detailed: HeartRateDataDetailed = dataclasses.field(default_factory=HeartRateDataDetailed)
 
 
 @dataclasses.dataclass
 class OxygenData(base_model.TerraDataModel):
     vo2max_ml_per_min_per_kg: typing.Optional[float] = dataclasses.field(default=None)
     avg_saturation_percentage: typing.Optional[float] = dataclasses.field(default=None)
-    saturation_samples: typing.List[
-        samples_.OxygenSaturationSample
-    ] = dataclasses.field(default_factory=list)
-    vo2_samples: typing.List[samples_.Vo2MaxSample] = dataclasses.field(
-        default_factory=list
-    )
+    saturation_samples: typing.List[samples_.OxygenSaturationSample] = dataclasses.field(default_factory=list)
+    vo2_samples: typing.List[samples_.Vo2MaxSample] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
@@ -261,9 +209,7 @@ class DeviceData(base_model.TerraDataModel):
     serial_number: typing.Optional[str] = dataclasses.field(default=None)
     software_version: typing.Optional[str] = dataclasses.field(default=None)
     hardware_version: typing.Optional[str] = dataclasses.field(default=None)
-    other_devices: typing.List[samples_.OtherDeviceData] = dataclasses.field(
-        default_factory=list
-    )
+    other_devices: typing.List[samples_.OtherDeviceData] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
@@ -272,9 +218,7 @@ class Activity(base_model.TerraDataModel):
     lap_data: LapData = dataclasses.field(default_factory=LapData)
     distance_data: DistanceData = dataclasses.field(default_factory=DistanceData)
     position_data: PositionData = dataclasses.field(default_factory=PositionData)
-    active_durations_data: ActiveDurationsData = dataclasses.field(
-        default_factory=ActiveDurationsData
-    )
+    active_durations_data: ActiveDurationsData = dataclasses.field(default_factory=ActiveDurationsData)
     MET_data: METData = dataclasses.field(default_factory=METData)
     movement_data: MovementData = dataclasses.field(default_factory=MovementData)
     calories_data: CaloriesData = dataclasses.field(default_factory=CaloriesData)
@@ -285,7 +229,5 @@ class Activity(base_model.TerraDataModel):
     heart_rate_data: HeartRateData = dataclasses.field(default_factory=HeartRateData)
     strain_data: StrainData = dataclasses.field(default_factory=StrainData)
     oxygen_data: OxygenData = dataclasses.field(default_factory=OxygenData)
-    polyline_map_data: PolylineMapData = dataclasses.field(
-        default_factory=PolylineMapData
-    )
+    polyline_map_data: PolylineMapData = dataclasses.field(default_factory=PolylineMapData)
     device_data: DeviceData = dataclasses.field(default_factory=DeviceData)

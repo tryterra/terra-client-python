@@ -11,13 +11,15 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+from __future__ import annotations
+
 import datetime
 import hashlib
 import hmac
+import json
 import typing
 
 import requests
-from flask import request
 
 from terra import constants
 from terra import models
@@ -25,14 +27,17 @@ from terra import utils
 from terra.api import api_responses
 from terra.models import user as user_
 
+if typing.TYPE_CHECKING:
+    import flask
+
 
 class Terra:
     """
     constructor of the Terra class
 
-    api_key (:obj:`str`)
-    dev_id (:obj:`str`)
-
+    Args:
+        api_key (:obj:`str`)
+        dev_id (:obj:`str`)
     """
 
     def __init__(self, api_key: str, dev_id: str, secret: str) -> None:
@@ -65,9 +70,7 @@ class Terra:
 
         return user_.User(user_id=user_id, client=self)
 
-    def _get_arbitrary_data(
-        self, user: user_.User, dtype: str, **kwargs: typing.Any
-    ) -> api_responses.TerraApiResponse:
+    def _get_arbitrary_data(self, user: user_.User, dtype: str, **kwargs: typing.Any) -> api_responses.TerraApiResponse:
         """
         Internal method used to retrieve data for a given User
 
@@ -210,6 +213,7 @@ class Terra:
         Args:
             user (:obj:`models.user.User`): User for whom to fetch data
             to_webhook (:obj:`bool`): Whether to send data to registered webhook URL or return as a response body
+
         Returns:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
 
@@ -332,6 +336,7 @@ class Terra:
             auth_failure_redirect_url (:obj:`t.Optional[str]`): URL to redirect to upon unsuccessful authentication
             reference_id (:obj:`t.Optional[str]`): ID of a user in your app, which will be returned at the end of a successful auth
             **kwargs: Optional additional arguments to be passed in to the body of the request
+
         Returns:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing UserAuthUrl parsed response object if no error has occured
 
@@ -397,9 +402,7 @@ class Terra:
         Returns:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing SubscribedUsers parsed response object if no error has occured
         """
-        users_resp = requests.get(
-            f"{constants.BASE_URL}/subscriptions", headers=self._auth_headers
-        )
+        users_resp = requests.get(f"{constants.BASE_URL}/subscriptions", headers=self._auth_headers)
         return api_responses.TerraApiResponse(users_resp, dtype="subscriptions")
 
     def list_providers(self) -> api_responses.TerraApiResponse:
@@ -411,9 +414,7 @@ class Terra:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing ProvidersResponse parsed response object if no error has occured
         """
 
-        providers_resp = requests.get(
-            f"{constants.BASE_URL}/integrations", headers=self._auth_headers
-        )
+        providers_resp = requests.get(f"{constants.BASE_URL}/integrations", headers=self._auth_headers)
         return api_responses.TerraApiResponse(providers_resp, dtype="providers")
 
     def signing(self, body: str, header: str) -> bool:
@@ -422,8 +423,8 @@ class Terra:
         Function to test if the body of an API response comes from terra using SHA256
 
         Args:
-        body (:obj:`str`): The body from API response as a string
-        header (:obj:`str`): The header from API response as a string
+            body (:obj:`str`): The body from API response as a string
+            header (:obj:`str`): The header from API response as a string
 
         Returns:
             :obj:`bool`: True if the API response comes from Terra
@@ -442,38 +443,32 @@ class Terra:
         # Signature was validated
         return True
 
-    def flask_hooks(
-        self, request: request
-    ) -> typing.Optional[api_responses.TerraParsedApiResponse]:
+    def flask_hooks(self, request: flask.Request) -> typing.Optional[api_responses.TerraParsedApiResponse]:
 
         """
         Parses Terra webhooks from a flask request
 
         Args:
-        request (:obj:`flask.request`): the flask request object
+            request (:obj:`flask.request`): the flask request object
 
         Returns:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing ProvidersResponse parsed response object if no error has occured
         """
 
-        if not self.signing(
-            request.get_data().decode("utf-8"), request.headers["terra-signature"]
-        ):
+        if not self.signing(request.get_data().decode("utf-8"), request.headers["terra-signature"]):
             return None
         ff = api_responses.TerraWebhookResponse(request.get_json(), dtype="hook")
 
         return ff
 
-    def hooks(
-        self, payload: str, terra_signature_header: str, json: str
-    ) -> typing.Optional[api_responses.TerraParsedApiResponse]:
+    def hooks(self, payload: str, terra_signature_header: str) -> typing.Optional[api_responses.TerraParsedApiResponse]:
 
         """
         Function to Parse web hooks from Terra
 
         Args:
-        payload (:obj:`str`): The body from API response as a string
-        terra_signature_header (:obj:`str`): The terra_signature header from API response as a string
+            payload (:obj:`str`): The body from API response as a string
+            terra_signature_header (:obj:`str`): The terra_signature header from API response as a string
 
         Returns:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing ProvidersResponse parsed response object if no error has occured
@@ -481,4 +476,4 @@ class Terra:
 
         if not self.signing(payload, terra_signature_header):
             return None
-        return api_responses.TerraWebhookResponse(json, dtype="hook")
+        return api_responses.TerraWebhookResponse(json.loads(payload), dtype="hook")
