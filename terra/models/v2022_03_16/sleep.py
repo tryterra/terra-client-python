@@ -50,93 +50,59 @@ class HeartRateDataSummary(base_model.TerraDataModel):
 
 @dataclasses.dataclass
 class HeartRateDataDetailed(base_model.TerraDataModel):
-    hr_samples: typing.List[samples_.HeartRateDataSample] = dataclasses.field(
+    hr_samples: typing.List[samples_.HeartRateDataSample] = dataclasses.field(default_factory=list)
+    hrv_samples_rmssd: typing.List[samples_.HeartRateVariabilityDataSampleRMSSD] = dataclasses.field(
         default_factory=list
     )
-    hrv_samples_rmssd: typing.List[
-        samples_.HeartRateVariabilityDataSampleRMSSD
-    ] = dataclasses.field(default_factory=list)
-    hrv_samples_sdnn: typing.List[
-        samples_.HeartRateVariabilityDataSampleSDNN
-    ] = dataclasses.field(default_factory=list)
+    hrv_samples_sdnn: typing.List[samples_.HeartRateVariabilityDataSampleSDNN] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
 class HeartRateData(base_model.TerraDataModel):
-    summary: HeartRateDataSummary = dataclasses.field(
-        default_factory=HeartRateDataSummary
-    )
-    detailed: HeartRateDataDetailed = dataclasses.field(
-        default_factory=HeartRateDataDetailed
-    )
+    summary: HeartRateDataSummary = dataclasses.field(default_factory=HeartRateDataSummary)
+    detailed: HeartRateDataDetailed = dataclasses.field(default_factory=HeartRateDataDetailed)
 
 
 @dataclasses.dataclass
 class SleepDurationsAwakeData(base_model.TerraDataModel):
     sleep_latency_seconds: typing.Optional[float] = dataclasses.field(default=None)
     wake_up_latency_seconds: typing.Optional[float] = dataclasses.field(default=None)
-    duration_awake_state_seconds: typing.Optional[float] = dataclasses.field(
-        default=None
-    )
-    duration_short_interruption_seconds: typing.Optional[float] = dataclasses.field(
-        default=None
-    )
-    duration_long_interruption_seconds: typing.Optional[float] = dataclasses.field(
-        default=None
-    )
+    duration_awake_state_seconds: typing.Optional[float] = dataclasses.field(default=None)
+    duration_short_interruption_seconds: typing.Optional[float] = dataclasses.field(default=None)
+    duration_long_interruption_seconds: typing.Optional[float] = dataclasses.field(default=None)
     num_out_of_bed_events: typing.Optional[int] = dataclasses.field(default=None)
     num_wakeup_events: typing.Optional[int] = dataclasses.field(default=None)
 
 
 @dataclasses.dataclass
 class SleepDurationsAsleepData(base_model.TerraDataModel):
-    duration_asleep_state_seconds: typing.Optional[float] = dataclasses.field(
-        default=None
-    )
-    duration_deep_sleep_state_seconds: typing.Optional[float] = dataclasses.field(
-        default=None
-    )
-    duration_light_sleep_state_seconds: typing.Optional[float] = dataclasses.field(
-        default=None
-    )
-    duration_REM_sleep_state_seconds: typing.Optional[float] = dataclasses.field(
-        default=None
-    )
+    duration_asleep_state_seconds: typing.Optional[float] = dataclasses.field(default=None)
+    duration_deep_sleep_state_seconds: typing.Optional[float] = dataclasses.field(default=None)
+    duration_light_sleep_state_seconds: typing.Optional[float] = dataclasses.field(default=None)
+    duration_REM_sleep_state_seconds: typing.Optional[float] = dataclasses.field(default=None)
     num_REM_events: typing.Optional[int] = dataclasses.field(default=None)
 
 
 @dataclasses.dataclass
 class SleepDurationsOtherData(base_model.TerraDataModel):
-    duration_unmeasurable_sleep_seconds: typing.Optional[float] = dataclasses.field(
-        default=None
-    )
+    duration_unmeasurable_sleep_seconds: typing.Optional[float] = dataclasses.field(default=None)
     duration_in_bed_seconds: typing.Optional[float] = dataclasses.field(default=None)
 
 
 @dataclasses.dataclass
 class SleepDurationsData(base_model.TerraDataModel):
     sleep_efficiency: typing.Optional[float] = dataclasses.field(default=None)
-    awake: SleepDurationsAwakeData = dataclasses.field(
-        default_factory=SleepDurationsAwakeData
-    )
-    asleep: SleepDurationsAsleepData = dataclasses.field(
-        default_factory=SleepDurationsAsleepData
-    )
-    other: SleepDurationsOtherData = dataclasses.field(
-        default_factory=SleepDurationsOtherData
-    )
-    hypnogram_samples: typing.List[samples_.SleepHypnogramSample] = dataclasses.field(
-        default_factory=list
-    )
+    awake: SleepDurationsAwakeData = dataclasses.field(default_factory=SleepDurationsAwakeData)
+    asleep: SleepDurationsAsleepData = dataclasses.field(default_factory=SleepDurationsAsleepData)
+    other: SleepDurationsOtherData = dataclasses.field(default_factory=SleepDurationsOtherData)
+    hypnogram_samples: typing.List[samples_.SleepHypnogramSample] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
 class OxygenSaturationData(base_model.TerraDataModel):
     start_time: typing.Optional[str] = dataclasses.field(default=None)
     end_time: typing.Optional[str] = dataclasses.field(default=None)
-    samples: typing.List[samples_.OxygenSaturationSample] = dataclasses.field(
-        default_factory=list
-    )
+    samples: typing.List[samples_.OxygenSaturationSample] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
@@ -147,29 +113,21 @@ class BreathsData(base_model.TerraDataModel):
     avg_breaths_per_min: typing.Optional[float] = dataclasses.field(default=None)
     max_breaths_per_min: typing.Optional[float] = dataclasses.field(default=None)
     min_breaths_per_min: typing.Optional[float] = dataclasses.field(default=None)
-    samples: typing.List[samples_.BreathSample] = dataclasses.field(
-        default_factory=list
-    )
+    samples: typing.List[samples_.BreathSample] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
 class SnoringData(base_model.TerraDataModel):
     start_time: typing.Optional[str] = dataclasses.field(default=None)
     end_time: typing.Optional[str] = dataclasses.field(default=None)
-    total_snoring_duration_seconds: typing.Optional[float] = dataclasses.field(
-        default=None
-    )
+    total_snoring_duration_seconds: typing.Optional[float] = dataclasses.field(default=None)
     num_snoring_events: typing.Optional[int] = dataclasses.field(default=None)
-    samples: typing.List[samples_.SnoringSample] = dataclasses.field(
-        default_factory=list
-    )
+    samples: typing.List[samples_.SnoringSample] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
 class RespirationData(base_model.TerraDataModel):
-    oxygen_saturation_data: OxygenSaturationData = dataclasses.field(
-        default_factory=OxygenSaturationData
-    )
+    oxygen_saturation_data: OxygenSaturationData = dataclasses.field(default_factory=OxygenSaturationData)
     breaths_data: BreathsData = dataclasses.field(default_factory=BreathsData)
     snoring_data: SnoringData = dataclasses.field(default_factory=SnoringData)
 
@@ -177,14 +135,8 @@ class RespirationData(base_model.TerraDataModel):
 @dataclasses.dataclass
 class Sleep(base_model.TerraDataModel):
     metadata: Metadata = dataclasses.field(default_factory=Metadata)
-    temperature_data: TemperatureData = dataclasses.field(
-        default_factory=TemperatureData
-    )
+    temperature_data: TemperatureData = dataclasses.field(default_factory=TemperatureData)
     readiness_data: ReadinessData = dataclasses.field(default_factory=ReadinessData)
     heart_rate_data: HeartRateData = dataclasses.field(default_factory=HeartRateData)
-    sleep_durations_data: SleepDurationsData = dataclasses.field(
-        default_factory=SleepDurationsData
-    )
-    respiration_data: RespirationData = dataclasses.field(
-        default_factory=RespirationData
-    )
+    sleep_durations_data: SleepDurationsData = dataclasses.field(default_factory=SleepDurationsData)
+    respiration_data: RespirationData = dataclasses.field(default_factory=RespirationData)

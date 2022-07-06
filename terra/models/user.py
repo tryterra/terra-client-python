@@ -245,9 +245,7 @@ class User(TerraDataModel):
         if self._client is None:
             raise exceptions.NoClientAvailable
 
-        return self._client._get_arbitrary_data(
-            dtype="athlete", user=self, to_webhook=to_webhook
-        )
+        return self._client._get_arbitrary_data(dtype="athlete", user=self, to_webhook=to_webhook)
 
     def get_menstruation(
         self,

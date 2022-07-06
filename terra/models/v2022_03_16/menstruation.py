@@ -42,6 +42,4 @@ class MenstruationData(base_model.TerraDataModel):
 @dataclasses.dataclass
 class Menstruation(base_model.TerraDataModel):
     metadata: Metadata = dataclasses.field(default_factory=Metadata)
-    menstruation_data: MenstruationData = dataclasses.field(
-        default_factory=MenstruationData
-    )
+    menstruation_data: MenstruationData = dataclasses.field(default_factory=MenstruationData)

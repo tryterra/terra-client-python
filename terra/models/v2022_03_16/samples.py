@@ -225,9 +225,7 @@ class Vo2MaxSample(base_model.TerraDataModel):
 @dataclasses.dataclass
 class PulseVelocitySample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
-    pulse_wave_velocity_meters_per_second: typing.Optional[float] = dataclasses.field(
-        default=None
-    )
+    pulse_wave_velocity_meters_per_second: typing.Optional[float] = dataclasses.field(default=None)
 
 
 @dataclasses.dataclass

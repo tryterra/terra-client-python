@@ -37,15 +37,9 @@ class Metadata(base_model.TerraDataModel):
 
 @dataclasses.dataclass
 class DistanceDataDetailed(base_model.TerraDataModel):
-    step_samples: typing.List[samples_.StepSample] = dataclasses.field(
-        default_factory=list
-    )
-    distance_samples: typing.List[samples_.DistanceSample] = dataclasses.field(
-        default_factory=list
-    )
-    elevation_samples: typing.List[samples_.ElevationSample] = dataclasses.field(
-        default_factory=list
-    )
+    step_samples: typing.List[samples_.StepSample] = dataclasses.field(default_factory=list)
+    distance_samples: typing.List[samples_.DistanceSample] = dataclasses.field(default_factory=list)
+    elevation_samples: typing.List[samples_.ElevationSample] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
@@ -55,42 +49,26 @@ class DistanceData(base_model.TerraDataModel):
     floors_climbed: typing.Optional[int] = dataclasses.field(default=None)
     swimming: SwimmingSummary = dataclasses.field(default_factory=SwimmingSummary)
     elevation: ElevationSummary = dataclasses.field(default_factory=ElevationSummary)
-    detailed: DistanceDataDetailed = dataclasses.field(
-        default_factory=DistanceDataDetailed
-    )
+    detailed: DistanceDataDetailed = dataclasses.field(default_factory=DistanceDataDetailed)
 
 
 @dataclasses.dataclass
 class StressData(base_model.TerraDataModel):
     stress_duration_seconds: typing.Optional[float] = dataclasses.field(default=None)
-    rest_stress_duration_seconds: typing.Optional[float] = dataclasses.field(
-        default=None
-    )
-    activity_stress_duration_seconds: typing.Optional[float] = dataclasses.field(
-        default=None
-    )
-    low_stress_duration_seconds: typing.Optional[float] = dataclasses.field(
-        default=None
-    )
-    medium_stress_duration_seconds: typing.Optional[float] = dataclasses.field(
-        default=None
-    )
-    high_stress_duration_seconds: typing.Optional[float] = dataclasses.field(
-        default=None
-    )
+    rest_stress_duration_seconds: typing.Optional[float] = dataclasses.field(default=None)
+    activity_stress_duration_seconds: typing.Optional[float] = dataclasses.field(default=None)
+    low_stress_duration_seconds: typing.Optional[float] = dataclasses.field(default=None)
+    medium_stress_duration_seconds: typing.Optional[float] = dataclasses.field(default=None)
+    high_stress_duration_seconds: typing.Optional[float] = dataclasses.field(default=None)
     avg_stress_level: typing.Optional[float] = dataclasses.field(default=None)
     max_stress_level: typing.Optional[float] = dataclasses.field(default=None)
-    samples: typing.List[samples_.StressSample] = dataclasses.field(
-        default_factory=list
-    )
+    samples: typing.List[samples_.StressSample] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
 class Daily(base_model.TerraDataModel):
     metadata: Metadata = dataclasses.field(default_factory=Metadata)
-    active_durations_data: ActiveDurationsData = dataclasses.field(
-        default_factory=ActiveDurationsData
-    )
+    active_durations_data: ActiveDurationsData = dataclasses.field(default_factory=ActiveDurationsData)
     distance_data: DistanceData = dataclasses.field(default_factory=DistanceData)
     heart_rate_data: HeartRateData = dataclasses.field(default_factory=HeartRateData)
     calories_data: CaloriesData = dataclasses.field(default_factory=CaloriesData)

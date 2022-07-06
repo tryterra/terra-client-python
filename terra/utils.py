@@ -14,9 +14,7 @@
 import typing as t
 
 
-def update_if_not_none(
-    to_update: t.Dict[str, t.Any], new_values: t.Dict[str, t.Any]
-) -> t.Dict[str, t.Any]:
+def update_if_not_none(to_update: t.Dict[str, t.Any], new_values: t.Dict[str, t.Any]) -> t.Dict[str, t.Any]:
     """
     Insert all values from ``new_values`` into ``to_update``, overwriting the values
     for any keys already present, unless the value is ``None``, in which case do nothing.

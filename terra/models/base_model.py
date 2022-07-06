@@ -11,23 +11,20 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+from __future__ import annotations
+
 import dataclasses
 import enum
 import pydoc
 import typing
 
 PRIMITIVES = (str, int, bool, float, type(None), dict)
+datamodelT = typing.TypeVar("datamodelT", bound="TerraDataModel")
 
 
 class ImplementsToDict(typing.Protocol):
     def to_dict(self) -> typing.Dict[str, typing.Any]:
         ...
-
-
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from terra.models.base_model import TerraDataModel as _TerraDataModel
 
 
 class TerraDataModel:
@@ -83,8 +80,8 @@ class TerraDataModel:
 
     @classmethod
     def from_dict(
-        cls, model_dict: typing.Dict[str, typing.Any], safe: bool = False
-    ) -> "_TerraDataModel":
+        cls: typing.Type[datamodelT], model_dict: typing.Dict[str, typing.Any], safe: bool = False
+    ) -> datamodelT:
         """
         Return the Class data model representation of the dictionary (json).
 
@@ -100,9 +97,9 @@ class TerraDataModel:
         """
         data_model = cls()
         for k, v in model_dict.items():
-            if (
-                inner_item := getattr(data_model, k, *(("NOT_FOUND",) if safe else ()))
-            ) in [None, []] or isinstance(inner_item, TerraDataModel):
+            if (inner_item := getattr(data_model, k, *(("NOT_FOUND",) if safe else ()))) in [None, []] or isinstance(
+                inner_item, TerraDataModel
+            ):
                 if isinstance(inner_item, TerraDataModel):
                     v = inner_item.from_dict(v)
 
@@ -127,11 +124,10 @@ class TerraDataModel:
 
                         for k2, v2 in sub_model_dict.items():
 
-                            if (
-                                inner_item2 := getattr(
-                                    sub_model, k2, *(("NOT_FOUND",) if safe else ())
-                                )
-                            ) in [None, []] or isinstance(inner_item2, TerraDataModel):
+                            if (inner_item2 := getattr(sub_model, k2, *(("NOT_FOUND",) if safe else ()))) in [
+                                None,
+                                [],
+                            ] or isinstance(inner_item2, TerraDataModel):
 
                                 if isinstance(inner_item2, TerraDataModel):
                                     v2 = inner_item2.from_dict(v2)
@@ -145,8 +141,8 @@ class TerraDataModel:
 
     @classmethod
     def from_dict_api(
-        cls, model_dict: typing.Dict[str, typing.Any], safe: bool = False
-    ) -> "_TerraDataModel":
+        cls: typing.Type[datamodelT], model_dict: typing.Dict[str, typing.Any], safe: bool = False
+    ) -> datamodelT:
         """
         Return the Class data model representation of the dictionary (json).
 
@@ -162,9 +158,9 @@ class TerraDataModel:
         """
         data_model = cls()
         for k, v in model_dict.items():
-            if (
-                inner_item := getattr(data_model, k, *(("NOT_FOUND",) if safe else ()))
-            ) in [None, []] or isinstance(inner_item, TerraDataModel):
+            if (inner_item := getattr(data_model, k, *(("NOT_FOUND",) if safe else ()))) in [None, []] or isinstance(
+                inner_item, TerraDataModel
+            ):
                 if isinstance(inner_item, TerraDataModel):
 
                     v = inner_item.from_dict_api(v)
@@ -174,8 +170,8 @@ class TerraDataModel:
         return data_model
 
     def populate_from_dict(
-        self, model_dict: typing.Dict[str, typing.Any], safe: bool = False
-    ) -> "_TerraDataModel":
+        self: datamodelT, model_dict: typing.Dict[str, typing.Any], safe: bool = False
+    ) -> datamodelT:
         """
         Populates missing data fields in the class given a dictionary (json).
 

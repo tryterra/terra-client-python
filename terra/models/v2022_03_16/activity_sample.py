@@ -30,16 +30,10 @@ class ActivitySample(base_model.TerraDataModel):
     coordinates_lat_lng: typing.List[float] = dataclasses.field(default_factory=list)
     rep_count: typing.Optional[int] = dataclasses.field(default=None)
     resting_duration_seconds: typing.Optional[int] = dataclasses.field(default=None)
-    speed_in_meters_per_seconds: typing.Optional[float] = dataclasses.field(
-        default=None
-    )
+    speed_in_meters_per_seconds: typing.Optional[float] = dataclasses.field(default=None)
     spo2_percentage: typing.Optional[float] = dataclasses.field(default=None)
     status: typing.Optional[str] = dataclasses.field(default=None)
     swimming_laps: typing.Optional[float] = dataclasses.field(default=None)
     swimming_strokes: typing.Optional[int] = dataclasses.field(default=None)
-    vo2_volume_ml_per_min_per_kg: typing.Optional[float] = dataclasses.field(
-        default=None
-    )
-    vo2_max_volume_ml_per_min_per_kg: typing.Optional[float] = dataclasses.field(
-        default=None
-    )
+    vo2_volume_ml_per_min_per_kg: typing.Optional[float] = dataclasses.field(default=None)
+    vo2_max_volume_ml_per_min_per_kg: typing.Optional[float] = dataclasses.field(default=None)
