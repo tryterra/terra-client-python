@@ -1,14 +1,12 @@
-# Terra Javascript Package
+# Terra Python Package
 
-A wrapper in javascript for the Terra endpoints and models.
+A wrapper in python for the Terra endpoints and models.
 
-Check the example server with a webhook in `/example`!
-## Usage
 
 Install using
 
 ```sh
-npm i terra-api
+pip install terra-api
 ```
 
 Then import the default `Terra` package from `terra-api`.
