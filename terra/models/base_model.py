@@ -18,8 +18,11 @@ import enum
 import pydoc
 import typing
 
+
+
 PRIMITIVES = (str, int, bool, float, type(None), dict)
 datamodelT = typing.TypeVar("datamodelT", bound="TerraDataModel")
+
 
 
 class ImplementsToDict(typing.Protocol):
@@ -108,18 +111,27 @@ class TerraDataModel:
             z = {field.name: field.type for field in dataclasses.fields(cls())}
 
             # parse each element of a list
+            
+            
             if v != [] and isinstance(v, list):
 
                 if str(z[k]).split("[")[1].split("]")[0] != "float":
                     x = []
 
+                    name = str(z[k]).split("[")[1].split("]")[0]
+
+                    if name.split('.')[0] == 'models':
+                        name = 'terra.'+name
+                    
                     for sub_model_dict in v:
 
+                        
                         temp = typing.cast(
                             typing.Type[TerraDataModel],
-                            pydoc.locate(str(z[k]).split("[")[1].split("]")[0]),
+                            pydoc.locate(name),
                         )
 
+                        
                         sub_model = temp()
 
                         for k2, v2 in sub_model_dict.items():
