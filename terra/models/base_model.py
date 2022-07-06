@@ -112,29 +112,31 @@ class TerraDataModel:
                     if v != []:
 
                         # getting all the field types of the current class
-                        z = {field.name: field.type for field in dataclasses.fields(cls())}
+                        fields_dict = {field.name: field.type for field in dataclasses.fields(cls())}
 
-                        # getting the current field name
-                        current_field_name = str(z[k]).split("[")[1].split("]")[0]
+                        # getting the current field type as a string and removing the 't.optional'
+                        current_field_type = str(fields_dict[k]).split("[")[1].split("]")[0]
 
-                        # adding terra before the name
-                        if current_field_name.split(".")[0] == "models":
-                            current_field_name = "terra." + current_field_name
+                        # adding terra before the models name
+                        if current_field_type.split(".")[0] == "models":
+                            current_field_type = "terra." + current_field_type
 
-                        # checking if the elements of the list are Terra Data Models
-                        if current_field_name.split(".")[0] == "terra":
+                        # check if the elements of the list are Terra Data Models
+                        if current_field_type.split(".")[0] == "terra":
 
                             result = []
 
-                            # for each dictionnary inside the list
+                            # for each json object inside the list
                             for inner_dict in v:
 
-                                # the type of the item inside the list
+                                # an instance of a data model of the type of items inside the list
                                 inner_data_model = typing.cast(
-                                    typing.Type[TerraDataModel], pydoc.locate(current_field_name)
+                                    typing.Type[TerraDataModel], pydoc.locate(current_field_type)
                                 )()
+
                                 # fill up the model
                                 inner_data_model = inner_data_model.from_dict(inner_dict)
+
                                 # append the model to the result list
                                 result.append(inner_data_model)
 

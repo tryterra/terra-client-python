@@ -61,6 +61,7 @@ class User(TerraDataModel):
             user_info = self._client.get_user_info(self)
             if not user_info.json:
                 raise exceptions.NoUserInfoException
+
             self.provider = user_info.json["user"]["provider"]
             self.last_webhook_update = user_info.json["user"]["last_webhook_update"]
 
