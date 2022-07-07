@@ -37,8 +37,10 @@ class Terra:
     constructor of the Terra class
 
     Args:
-        api_key (:obj:`str`)
-        dev_id (:obj:`str`)
+        api_key (:obj:`str`) : Your API Key
+        dev_id (:obj:`str`) : Your dev ID
+        secret (:obj:`str`) : Your terra secret (for web hooks)
+
     """
 
     def __init__(self, api_key: str, dev_id: str, secret: str) -> None:
