@@ -68,10 +68,10 @@ def _parse_api_body(
 
     Auser = user
     if "user" in body:
-        Auser = models.user.User.from_dict_api(body["user"])
+        Auser = models.user.User.from_dict(body["user"])
 
     if ("status" in body) and (body["status"] in STATUS.keys()):
-        response = STATUS[body["status"]]().from_dict_api(body, True)
+        response = STATUS[body["status"]]().from_dict(body, True)
 
     elif dtype in USER_DATATYPES:
 
@@ -96,11 +96,11 @@ def _parse_api_body(
 
         if not dtype:
             raise exceptions.NoDtypeException
-        response = HOOK_RESPONSE[dtype]().from_dict_api(body, True)
+        response = HOOK_RESPONSE[dtype]().from_dict(body, True)
 
     else:
 
-        response = GenericMessage().from_dict_api(body, True)
+        response = GenericMessage().from_dict(body, True)
 
     try:
         setattr(response, "user", Auser)

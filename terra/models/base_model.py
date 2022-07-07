@@ -75,8 +75,58 @@ class TerraDataModel:
                 output[attr] = attr_val.to_dict()
         return output
 
+
+
+    def filter_data(self: TerraDataModel, term: str) -> typing.Generator[datamodelT, None, None]:
+        """
+        Retruns a generator of all the data models that match the filter
+
+        Args:
+            term:obj:`str`: the word to filter with
+
+
+        Returns:
+            :obj:`typing.Generator[datamodelT]`
+        """
+
+        fields_dict = {field.name: field.type for field in dataclasses.fields(self)}
+        # print(fields_dict)
+
+        for field_name, field_type in fields_dict.items():
+
+            try:
+
+                if isinstance(getattr(self, field_name, None), TerraDataModel):
+
+                    for sub_term in field_name.lower().split("_"):
+                        if sub_term.lower() == term.lower():
+
+                            yield typing.cast(datamodelT, getattr(self, field_name, None))
+                    # print(getattr(self, field_name , None))
+                    typing.cast(datamodelT, getattr(self, field_name, None)).filter_data(term)
+
+            except Exception as e:
+
+                try:
+
+                    for sub_term in field_name.lower().split("_"):
+                        if sub_term.lower() == term.lower():
+
+                            yield typing.cast(datamodelT, getattr(self, field_name, None))
+
+                    for inner_item in typing.cast(typing.List[TerraDataModel], getattr(self, field_name, None)):
+                        # print(inner_item)
+                        inner_item.filter_data(term)
+
+                except Exception as e:
+                    # print(traceback.format_exc())
+                    pass
+
+
+
     # TODO - we might be able to condense all the below methods into a single one considering
     # TODO - they all do pretty much the same thing
+    
     @classmethod
     def from_dict(
         cls: typing.Type[datamodelT], model_dict: typing.Dict[str, typing.Any], safe: bool = False
