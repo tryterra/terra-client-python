@@ -54,6 +54,9 @@ class User(TerraDataModel):
 
 
         """
+        if self._client is None:
+            raise exceptions.NoClientAvailable
+
         if self._client:
             user_info = self._client.get_user_info(self)
             if not user_info.json:
