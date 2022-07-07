@@ -13,6 +13,8 @@
 #  limitations under the License.
 from __future__ import annotations
 
+__all__ = ["TerraDataModel"]
+
 import dataclasses
 import enum
 import pydoc
@@ -20,11 +22,6 @@ import typing
 
 PRIMITIVES = (str, int, bool, float, type(None), dict)
 datamodelT = typing.TypeVar("datamodelT", bound="TerraDataModel")
-
-
-class ImplementsToDict(typing.Protocol):
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        ...
 
 
 class TerraDataModel:
@@ -78,6 +75,8 @@ class TerraDataModel:
                 output[attr] = attr_val.to_dict()
         return output
 
+
+
     def filter_data(self: TerraDataModel, term: str) -> typing.Generator[datamodelT, None, None]:
         """
         Retruns a generator of all the data models that match the filter
@@ -123,6 +122,11 @@ class TerraDataModel:
                     # print(traceback.format_exc())
                     pass
 
+
+
+    # TODO - we might be able to condense all the below methods into a single one considering
+    # TODO - they all do pretty much the same thing
+    
     @classmethod
     def from_dict(
         cls: typing.Type[datamodelT], model_dict: typing.Dict[str, typing.Any], safe: bool = False
@@ -140,6 +144,7 @@ class TerraDataModel:
         Returns:
             :obj:`terrpython.models.base_model.TerraDataModel`
         """
+        # TODO - I don't like this function at all. It can definitely be more elegant
         data_model = cls()
         for k, v in model_dict.items():
             if (
@@ -210,6 +215,7 @@ class TerraDataModel:
         """
         data_model = cls()
         for k, v in model_dict.items():
+            # TODO - not super readable, this can probably be more elegant
             if (inner_item := getattr(data_model, k, *(("NOT_FOUND",) if safe else ()))) in [None, []] or isinstance(
                 inner_item, TerraDataModel
             ):

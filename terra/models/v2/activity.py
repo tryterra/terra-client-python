@@ -15,8 +15,9 @@ import dataclasses
 import typing
 
 from terra.models import base_model
-from terra.models.v2022_03_16 import samples as samples_
+from terra.models.v2 import samples as samples_
 
+# TODO - populate the __all__
 __all__ = ["Activity"]
 
 

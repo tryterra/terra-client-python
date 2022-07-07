@@ -11,9 +11,12 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-from terra import exceptions
-
-# from .models import user as user_
-
-
-# there was a circular import error
+from terra.models.v2 import activity
+from terra.models.v2 import activity_sample
+from terra.models.v2 import athlete
+from terra.models.v2 import body
+from terra.models.v2 import daily
+from terra.models.v2 import menstruation
+from terra.models.v2 import nutrition
+from terra.models.v2 import samples
+from terra.models.v2 import sleep
