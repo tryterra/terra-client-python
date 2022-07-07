@@ -16,7 +16,7 @@ Initialise a new Terra instance with:
 ```py
 from terra.base_client import Terra
 
-terra = Terra(api_key='YOUR API KEY', dev_id='YOUR DEV ID');
+terra = Terra(api_key='YOUR API KEY', dev_id='YOUR DEV ID', secret='YOUR TERRA SECRET');
 ```
 
 Now you can call the following functions from the instance:
