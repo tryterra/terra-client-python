@@ -6,7 +6,7 @@ A wrapper in python for the Terra endpoints and models.
 Install using
 
 ```sh
-pip install terra-api
+pip install terra
 ```
 
 Then import the default `Terra` package from `terra-api`.
