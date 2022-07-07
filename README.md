@@ -33,9 +33,9 @@ Now you can call the following functions from the instance:
 - `deauthenticate_user`
 - `list_users`
 - `list_providers`
-- `signing`
-- `flask_hooks`
-- `hooks`
+- `check_terra_signature`
+- `catch_flask_webhooks`
+- `catch_webhooks`
 
 In addition, all the data models documented on https://docs.tryterra.co/data-models are available to import and use.
 
