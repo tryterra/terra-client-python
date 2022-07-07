@@ -433,7 +433,7 @@ class Terra:
         providers_resp = requests.get(f"{constants.BASE_URL}/integrations", headers=self._auth_headers)
         return api_responses.TerraApiResponse(providers_resp, dtype="providers")
 
-    def signing(self, body: str, header: str) -> bool:  # TODO - bad method name
+    def check_terra_signature(self, body: str, header: str) -> bool:  # TODO - bad method name
         """
         Function to test if the body of an API response comes from terra using SHA256
 
@@ -458,8 +458,7 @@ class Terra:
         # Signature was validated
         return True
 
-
-    def flask_hooks(self, request: flask.Request) -> typing.Optional[api_responses.TerraWebhookResponse]:
+    def catch_flask_webhooks(self, request: flask.Request) -> typing.Optional[api_responses.TerraWebhookResponse]:
 
         """
         Parses Terra webhooks from a flask request
@@ -472,14 +471,15 @@ class Terra:
                 response object if no error has occurred
         """
 
-        if not self.signing(request.get_data().decode("utf-8"), request.headers["terra-signature"]):
+        if not self.check_terra_signature(request.get_data().decode("utf-8"), request.headers["terra-signature"]):
             return None
         ff = api_responses.TerraWebhookResponse(request.get_json(), dtype="hook")
 
         return ff
 
-
-    def hooks(self, payload: str, terra_signature_header: str) -> typing.Optional[api_responses.TerraWebhookResponse]:
+    def catch_webhooks(
+        self, payload: str, terra_signature_header: str
+    ) -> typing.Optional[api_responses.TerraWebhookResponse]:
 
         """
         Function to Parse web hooks from Terra
@@ -493,6 +493,6 @@ class Terra:
                 response object if no error has occurred
         """
 
-        if not self.signing(payload, terra_signature_header):
+        if not self.check_terra_signature(payload, terra_signature_header):
             return None
         return api_responses.TerraWebhookResponse(json.loads(payload), dtype="hook")

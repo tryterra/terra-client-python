@@ -75,8 +75,6 @@ class TerraDataModel:
                 output[attr] = attr_val.to_dict()
         return output
 
-
-
     def filter_data(self: TerraDataModel, term: str) -> typing.Generator[datamodelT, None, None]:
         """
         Retruns a generator of all the data models that match the filter
@@ -122,11 +120,9 @@ class TerraDataModel:
                     # print(traceback.format_exc())
                     pass
 
-
-
     # TODO - we might be able to condense all the below methods into a single one considering
     # TODO - they all do pretty much the same thing
-    
+
     @classmethod
     def from_dict(
         cls: typing.Type[datamodelT], model_dict: typing.Dict[str, typing.Any], safe: bool = False
