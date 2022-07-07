@@ -46,7 +46,7 @@ class User(TerraDataModel):
         return self._client is not None
 
     def fill_in_user_info(self) -> None:
-        """ # TODO - incorrect docstring
+        """# TODO - incorrect docstring
         Internal method used to retrieve data for User
 
         Args:

@@ -27,12 +27,12 @@ __all__ = [
     "NoUserInfoException",
 ]
 
-from terra import utils
-from terra import exceptions
-from terra import constants
-from terra import base_client
-from terra import models
 from terra import api
+from terra import base_client
+from terra import constants
+from terra import exceptions
+from terra import models
+from terra import utils
 from terra.base_client import *
 from terra.exceptions import *
 
