@@ -16,8 +16,7 @@ import typing
 
 from terra.models import base_model
 
-# TODO - populate the __all__
-__all__ = ["Menstruation"]
+__all__ = ["Menstruation", "Metadata", "MenstruationData"]
 
 
 @dataclasses.dataclass

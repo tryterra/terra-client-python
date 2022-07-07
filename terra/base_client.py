@@ -433,7 +433,7 @@ class Terra:
         providers_resp = requests.get(f"{constants.BASE_URL}/integrations", headers=self._auth_headers)
         return api_responses.TerraApiResponse(providers_resp, dtype="providers")
 
-    def check_terra_signature(self, body: str, header: str) -> bool:  # TODO - bad method name
+    def check_terra_signature(self, body: str, header: str) -> bool:
         """
         Function to test if the body of an API response comes from terra using SHA256
 

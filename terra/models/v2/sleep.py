@@ -17,8 +17,23 @@ import typing
 from terra.models import base_model
 from terra.models.v2 import samples as samples_
 
-# TODO - populate the __all__
-__all__ = ["Sleep"]
+__all__ = [
+    "Sleep",
+    "Metadata",
+    "ReadinessData",
+    "TemperatureData",
+    "HeartRateDataSummary",
+    "HeartRateDataDetailed",
+    "HeartRateData",
+    "SleepDurationsAwakeData",
+    "SleepDurationsAsleepData",
+    "SleepDurationsOtherData",
+    "SleepDurationsData",
+    "OxygenSaturationData",
+    "BreathsData",
+    "SnoringData",
+    "RespirationData",
+]
 
 
 @dataclasses.dataclass

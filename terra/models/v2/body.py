@@ -19,8 +19,17 @@ from terra.models.v2 import activity
 from terra.models.v2 import samples as samples_
 from terra.models.v2.activity import OxygenData
 
-# TODO - populate the __all__
-__all__ = ["Body"]
+__all__ = [
+    "Body",
+    "BloodPressureData",
+    "GlucoseData",
+    "Metadata",
+    "DeviceData",
+    "MeasurementsData",
+    "TemperatureData",
+    "HydrationData",
+    "HeartData",
+]
 
 
 @dataclasses.dataclass

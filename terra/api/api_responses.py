@@ -111,13 +111,13 @@ def _parse_api_body(
                 setattr(
                     response,
                     "old_user",
-                    models.user.User.from_dict_api(body["old_user"]),
+                    models.user.User.from_dict(body["old_user"]),
                 )
             if "new_user" in body:
                 setattr(
                     response,
                     "new_user",
-                    models.user.User.from_dict_api(body["new_user"]),
+                    models.user.User.from_dict(body["new_user"]),
                 )
         finally:
             return typing.cast(TerraParsedApiResponse, response)

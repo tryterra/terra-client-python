@@ -16,7 +16,39 @@ import typing
 
 from terra.models import base_model
 
-# TODO - populate the __all__
+__all__ = [
+    "GlucoseDataSample",
+    "HeartRateDataSample",
+    "LapSample",
+    "HeartRateVariabilityDataSampleRMSSD",
+    "HeartRateVariabilityDataSampleSDNN",
+    "DistanceSample",
+    "StepSample",
+    "ElevationSample",
+    "PositionSample",
+    "PowerSample",
+    "SpeedSample",
+    "CadenceSample",
+    "ActivityLevelSample",
+    "METSample",
+    "TSSSample",
+    "SleepHypnogramSample",
+    "OxygenSaturationSample",
+    "BreathSample",
+    "SnoringSample",
+    "StressSample",
+    "BloodPressureSample",
+    "MeasurementDataSample",
+    "BodyTemperatureSample",
+    "SkinTemperatureSample",
+    "AmbientTemperatureSample",
+    "TemperatureSample",
+    "OtherDeviceData",
+    "HydrationMeasurementSample",
+    "Vo2MaxSample",
+    "PulseVelocitySample",
+    "AFibClassificationSample",
+]
 
 
 @dataclasses.dataclass

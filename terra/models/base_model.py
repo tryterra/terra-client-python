@@ -120,9 +120,6 @@ class TerraDataModel:
                     # print(traceback.format_exc())
                     pass
 
-    # TODO - we might be able to condense all the below methods into a single one considering
-    # TODO - they all do pretty much the same thing
-
     @classmethod
     def from_dict(
         cls: typing.Type[datamodelT], model_dict: typing.Dict[str, typing.Any], safe: bool = False
@@ -187,37 +184,6 @@ class TerraDataModel:
                                 result.append(inner_data_model)
 
                             v = result
-
-                setattr(data_model, k, v)
-
-        return data_model
-
-    @classmethod
-    def from_dict_api(
-        cls: typing.Type[datamodelT], model_dict: typing.Dict[str, typing.Any], safe: bool = False
-    ) -> datamodelT:
-        """
-        Return the Class data model representation of the dictionary (json).
-
-        This method inspects the attributes of the class that it is being called on
-        to determine how to build the correct payload from the data stored.
-
-        Args:
-            model_dict:obj:`dict`:
-            safe:obj:`bool`:
-
-        Returns:
-            :obj:`terrpython.models.base_model.TerraDataModel`
-        """
-        data_model = cls()
-        for k, v in model_dict.items():
-            # TODO - not super readable, this can probably be more elegant
-            if (inner_item := getattr(data_model, k, *(("NOT_FOUND",) if safe else ()))) in [None, []] or isinstance(
-                inner_item, TerraDataModel
-            ):
-                if isinstance(inner_item, TerraDataModel):
-
-                    v = inner_item.from_dict_api(v)
 
                 setattr(data_model, k, v)
 

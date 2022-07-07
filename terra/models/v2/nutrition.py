@@ -16,8 +16,7 @@ import typing
 
 from terra.models import base_model
 
-# TODO - populate the __all__
-__all__ = ["Nutrition"]
+__all__ = ["Nutrition", "Metadata", "Macros", "Micros", "Quantity", "Meal", "NutritionSummary"]
 
 
 @dataclasses.dataclass

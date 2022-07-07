@@ -46,15 +46,13 @@ class User(TerraDataModel):
         return self._client is not None
 
     def fill_in_user_info(self) -> None:
-        """# TODO - incorrect docstring
+        """
         Internal method used to retrieve data for User
 
         Args:
             dtype (:obj:`str`): datatype to be fetched
-            **kwargs: optional additional parameters for the request
 
-        Returns:
-            None
+
         """
         if self._client:
             user_info = self._client.get_user_info(self)

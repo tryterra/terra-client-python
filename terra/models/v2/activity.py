@@ -17,8 +17,32 @@ import typing
 from terra.models import base_model
 from terra.models.v2 import samples as samples_
 
-# TODO - populate the __all__
-__all__ = ["Activity"]
+__all__ = [
+    "Activity",
+    "Metadata",
+    "LapData",
+    "StrainData",
+    "SwimmingSummary",
+    "ElevationSummary",
+    "DistanceDataSummary",
+    "DistanceDataDetailed",
+    "DistanceData",
+    "PositionData",
+    "ActiveDurationsData",
+    "METData",
+    "MovementData",
+    "CaloriesData",
+    "WorkData",
+    "PowerData",
+    "EnergyData",
+    "TSSData",
+    "HeartRateDataSummary",
+    "HeartRateDataDetailed",
+    "HeartRateData",
+    "OxygenData",
+    "PolylineMapData",
+    "DeviceData",
+]
 
 
 @dataclasses.dataclass

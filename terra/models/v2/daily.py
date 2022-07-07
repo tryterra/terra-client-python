@@ -25,8 +25,7 @@ from terra.models.v2.activity import METData
 from terra.models.v2.activity import OxygenData
 from terra.models.v2.activity import SwimmingSummary
 
-# TODO - populate the __all__
-__all__ = ["Daily"]
+__all__ = ["Daily", "Metadata", "DistanceDataDetailed", "DistanceData", "StressData", "Daily"]
 
 
 @dataclasses.dataclass
