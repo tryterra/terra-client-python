@@ -140,6 +140,7 @@ class TerraApiResponse(TerraParsedApiResponse):
             self.dtype = body.get("type", dtype)
             self.parsed_response: TerraParsedApiResponse = _parse_api_body(self.dtype, body, user)
         except json.decoder.JSONDecodeError:
+
             resp.raise_for_status()
 
 

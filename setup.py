@@ -50,7 +50,7 @@ def parse_requirements_file(path):
 meta = parse_meta()
 
 setup(
-    name="terra-client",
+    name="terra",
     version=meta.version,
     description="A simple to use command handler for Hikari",
     long_description=long_description(),

@@ -87,6 +87,7 @@ class Terra:
         """
         params = {"user_id": user.user_id}
         params = utils.update_if_not_none(params, kwargs)
+
         data_resp = requests.get(
             f"{constants.BASE_URL}/{dtype}",
             params=params,

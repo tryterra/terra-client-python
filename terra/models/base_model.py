@@ -159,10 +159,14 @@ class TerraDataModel:
 
                         # getting the current field type as a string and removing the 't.optional'
                         current_field_type = str(fields_dict[k]).split("[")[1].split("]")[0]
+                        current_field_type2 = str(fields_dict[k]).split("[")[1].split("]")[0]
 
                         # adding terra before the models name
                         if current_field_type.split(".")[0] == "models":
                             current_field_type = "terra." + current_field_type
+
+                        if current_field_type2.split(".")[0] == "models":
+                            current_field_type2 = "terra-client." + current_field_type2
 
                         # check if the elements of the list are Terra Data Models
                         if current_field_type.split(".")[0] == "terra":
