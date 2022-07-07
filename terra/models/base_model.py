@@ -77,14 +77,14 @@ class TerraDataModel:
 
     def filter_data(self: TerraDataModel, term: str) -> typing.Generator[datamodelT, None, None]:
         """
-            Returns a generator of all the data models that match the filter
+        Returns a generator of all the data models that match the filter
 
-            Args:
-                term:obj:`str`: the word to filter with
+        Args:
+            term:obj:`str`: the word to filter with
 
 
-            Returns:
-                :obj:`typing.Generator[datamodelT]`
+        Returns:
+            :obj:`typing.Generator[datamodelT]`
         """
 
         fields_dict = {field.name: field.type for field in dataclasses.fields(self)}
