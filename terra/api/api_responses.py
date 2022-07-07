@@ -52,6 +52,7 @@ from terra.models import base_model
 from terra.models import user as user_
 
 
+# TODO - should use a mixin/trait here instead of a redundant subclass probably
 class TerraParsedApiResponse(base_model.TerraDataModel):
     pass
 
@@ -303,13 +304,13 @@ USER_DATATYPES = [
     "nutrition",
 ]
 MODEL_MAPPING = {
-    "activity": models.v2022_03_16.activity.Activity,
-    "body": models.v2022_03_16.body.Body,
-    "daily": models.v2022_03_16.daily.Daily,
-    "sleep": models.v2022_03_16.sleep.Sleep,
-    "menstruation": models.v2022_03_16.menstruation.Menstruation,
-    "athlete": models.v2022_03_16.athlete.Athlete,
-    "nutrition": models.v2022_03_16.nutrition.Nutrition,
+    "activity": models.v2.activity.Activity,
+    "body": models.v2.body.Body,
+    "daily": models.v2.daily.Daily,
+    "sleep": models.v2.sleep.Sleep,
+    "menstruation": models.v2.menstruation.Menstruation,
+    "athlete": models.v2.athlete.Athlete,
+    "nutrition": models.v2.nutrition.Nutrition,
 }
 
 

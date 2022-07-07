@@ -13,6 +13,10 @@
 #  limitations under the License.
 from __future__ import annotations
 
+__all__ = [
+    "Terra"
+]
+
 import datetime
 import hashlib
 import hmac
@@ -22,7 +26,6 @@ import typing
 import requests
 
 from terra import constants
-from terra import models
 from terra import utils
 from terra.api import api_responses
 from terra.models import user as user_
@@ -80,7 +83,8 @@ class Terra:
             **kwargs: optional additional parameters for the request
 
         Returns:
-            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
+            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed
+                response object if no error has occured
 
         """
         params = {"user_id": user.user_id}
@@ -107,11 +111,13 @@ class Terra:
         Args:
             user (:obj:`models.user.User`): User for whom to fetch data
             start_date (:obj:`datetime.datetime`): Datetime object for which to fetch data
-            end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will default to start_date + 24h according to current API specifications
+            end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will
+                default to start_date + 24h according to current API specifications
             to_webhook (:obj:`bool`): Whether to send data to registered webhook URL or return as a response body
 
         Returns:
-            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
+            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed
+                response object if no error has occured
 
         """
         return user.get_activity(
@@ -134,11 +140,13 @@ class Terra:
         Args:
             user (:obj:`models.user.User`): User for whom to fetch data
             start_date (:obj:`datetime.datetime`): Datetime object for which to fetch data
-            end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will default to start_date + 24h according to current API specifications
+            end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will
+                default to start_date + 24h according to current API specifications
             to_webhook (:obj:`bool`): Whether to send data to registered webhook URL or return as a response body
 
         Returns:
-            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
+            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed
+                response object if no error has occured
 
         """
         return user.get_body(
@@ -161,11 +169,13 @@ class Terra:
         Args:
             user (:obj:`models.user.User`): User for whom to fetch data
             start_date (:obj:`datetime.datetime`): Datetime object for which to fetch data
-            end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will default to start_date + 24h according to current API specifications
+            end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will
+                default to start_date + 24h according to current API specifications
             to_webhook (:obj:`bool`): Whether to send data to registered webhook URL or return as a response body
 
         Returns:
-            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
+            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed
+                response object if no error has occured
 
         """
         return user.get_daily(
@@ -188,11 +198,13 @@ class Terra:
         Args:
             user (:obj:`models.user.User`): User for whom to fetch data
             start_date (:obj:`datetime.datetime`): Datetime object for which to fetch data
-            end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will default to start_date + 24h according to current API specifications
+            end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will
+                default to start_date + 24h according to current API specifications
             to_webhook (:obj:`bool`): Whether to send data to registered webhook URL or return as a response body
 
         Returns:
-            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
+            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed
+                response object if no error has occured
 
         """
         return user.get_sleep(
@@ -215,7 +227,8 @@ class Terra:
             to_webhook (:obj:`bool`): Whether to send data to registered webhook URL or return as a response body
 
         Returns:
-            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
+            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed
+                response object if no error has occured
 
         """
         return self._get_arbitrary_data(user, "athlete", to_webhook=to_webhook)
@@ -234,11 +247,13 @@ class Terra:
         Args:
             user (:obj:`models.user.User`): User for whom to fetch data
             start_date (:obj:`datetime.datetime`): Datetime object for which to fetch data
-            end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will default to start_date + 24h according to current API specifications
+            end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set,
+                will default to start_date + 24h according to current API specifications
             to_webhook (:obj:`bool`): Whether to send data to registered webhook URL or return as a response body
 
         Returns:
-            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
+            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed
+                response object if no error has occured
 
         """
 
@@ -262,11 +277,13 @@ class Terra:
         Args:
             user (:obj:`models.user.User`): User for whom to fetch data
             start_date (:obj:`datetime.datetime`): Datetime object for which to fetch data
-            end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will default to start_date + 24h according to current API specifications
+            end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will
+                default to start_date + 24h according to current API specifications
             to_webhook (:obj:`bool`): Whether to send data to registered webhook URL or return as a response body
 
         Returns:
-            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
+            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed
+                response object if no error has occured
 
         """
 
@@ -278,7 +295,7 @@ class Terra:
 
     def generate_widget_session(
         self,
-        providers: typing.Optional[typing.List[str]] = None,
+        providers: typing.List[str],
         auth_success_redirect_url: typing.Optional[str] = None,
         auth_failure_redirect_url: typing.Optional[str] = None,
         language: typing.Optional[str] = None,
@@ -290,11 +307,11 @@ class Terra:
         redirected to the given URL in order to complete authentication
 
         Args:
-            providers (:obj:`t.List[str]`): Providers to display on widget wearable selection screen
-            auth_success_redirect_url (:obj:`t.Optional[str]`): URL to redirect to upon successful authentication
-            auth_failure_redirect_url (:obj:`t.Optional[str]`): URL to redirect to upon unsuccessful authentication
-            language (:obj:`t.Optional[str]`): Language to display widget in
-            reference_id (:obj:`t.Optional[str]`): ID of a user in your app, which will be returned at the end of a successful auth
+            providers (List[:obj:`str`]): Providers to display on widget wearable selection screen
+            auth_success_redirect_url (Optional[:obj:`str`]): URL to redirect to upon successful authentication
+            auth_failure_redirect_url (Optional[:obj:`str`]): URL to redirect to upon unsuccessful authentication
+            language (Optional[:obj:`str`]): Language to display widget in
+            reference_id (Optional[:obj:`str`]): ID of a user in your app, which will be returned at the end of a successful auth
             **kwargs: Optional additional arguments to be passed in to the body of the request
 
         Returns:
@@ -332,13 +349,15 @@ class Terra:
 
         Args:
             resource (:obj:`str`): Provider to authenticate user with
-            auth_success_redirect_url (:obj:`t.Optional[str]`): URL to redirect to upon successful authentication
-            auth_failure_redirect_url (:obj:`t.Optional[str]`): URL to redirect to upon unsuccessful authentication
-            reference_id (:obj:`t.Optional[str]`): ID of a user in your app, which will be returned at the end of a successful auth
+            auth_success_redirect_url (Optional[:obj:`str`]): URL to redirect to upon successful authentication
+            auth_failure_redirect_url (Optional[:obj:`str`]): URL to redirect to upon unsuccessful authentication
+            reference_id (Optional[:obj:`str`]): ID of a user in your app, which will be returned at the
+                end of a successful auth
             **kwargs: Optional additional arguments to be passed in to the body of the request
 
         Returns:
-            :obj:`models.api_responses.TerraApiResponse`: API response object containing UserAuthUrl parsed response object if no error has occured
+            :obj:`models.api_responses.TerraApiResponse`: API response object containing UserAuthUrl parsed
+                response object if no error has occured
 
         """
 
@@ -367,7 +386,8 @@ class Terra:
             user (:obj:`models.user.User`): User to retrieve information for
 
         Returns:
-            :obj:`models.api_responses.TerraApiResponse`: API response object containing UserInfo parsed response object if no error has occured
+            :obj:`models.api_responses.TerraApiResponse`: API response object containing UserInfo parsed
+                response object if no error has occured
         """
         user_resp = requests.get(
             f"{constants.BASE_URL}/userInfo",
@@ -378,8 +398,8 @@ class Terra:
 
     def deauthenticate_user(self, user: user_.User) -> api_responses.TerraApiResponse:
         """
-        Deauthenticates given User from the Api
-        Note: If successful, this triggers a User Deauthentication webhook event
+        Deauthenticates the given User from the Api. If successful, this will trigger a `deauth`
+        webhook event.
 
         Args:
             user (:obj:`models.user.User`): User to Deauthenticate from the API
@@ -406,19 +426,16 @@ class Terra:
         return api_responses.TerraApiResponse(users_resp, dtype="subscriptions")
 
     def list_providers(self) -> api_responses.TerraApiResponse:
-
         """
         Lists all providers on the API
 
         Returns:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing ProvidersResponse parsed response object if no error has occured
         """
-
         providers_resp = requests.get(f"{constants.BASE_URL}/integrations", headers=self._auth_headers)
         return api_responses.TerraApiResponse(providers_resp, dtype="providers")
 
-    def signing(self, body: str, header: str) -> bool:
-
+    def signing(self, body: str, header: str) -> bool:  # TODO - bad method name
         """
         Function to test if the body of an API response comes from terra using SHA256
 
@@ -443,8 +460,7 @@ class Terra:
         # Signature was validated
         return True
 
-    def flask_hooks(self, request: flask.Request) -> typing.Optional[api_responses.TerraParsedApiResponse]:
-
+    def flask_hooks(self, request: flask.Request) -> typing.Optional[api_responses.TerraParsedApiResponse]:  # TODO - bad method name
         """
         Parses Terra webhooks from a flask request
 
@@ -452,7 +468,8 @@ class Terra:
             request (:obj:`flask.request`): the flask request object
 
         Returns:
-            :obj:`models.api_responses.TerraApiResponse`: API response object containing ProvidersResponse parsed response object if no error has occured
+            :obj:`models.api_responses.TerraApiResponse`: API response object containing ProvidersResponse parsed
+                response object if no error has occurred
         """
 
         if not self.signing(request.get_data().decode("utf-8"), request.headers["terra-signature"]):
@@ -461,8 +478,7 @@ class Terra:
 
         return ff
 
-    def hooks(self, payload: str, terra_signature_header: str) -> typing.Optional[api_responses.TerraParsedApiResponse]:
-
+    def hooks(self, payload: str, terra_signature_header: str) -> typing.Optional[api_responses.TerraParsedApiResponse]:  # TODO - bad method name
         """
         Function to Parse web hooks from Terra
 
@@ -471,7 +487,8 @@ class Terra:
             terra_signature_header (:obj:`str`): The terra_signature header from API response as a string
 
         Returns:
-            :obj:`models.api_responses.TerraApiResponse`: API response object containing ProvidersResponse parsed response object if no error has occured
+            :obj:`models.api_responses.TerraApiResponse`: API response object containing ProvidersResponse parsed
+                response object if no error has occurred
         """
 
         if not self.signing(payload, terra_signature_header):

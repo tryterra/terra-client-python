@@ -13,19 +13,18 @@
 #  limitations under the License.
 from __future__ import annotations
 
+__all__ = ["User"]
+
 import dataclasses
 import datetime
 import typing as t
 
 from terra import exceptions
-from terra import models
 from terra.models.base_model import TerraDataModel
 
 if t.TYPE_CHECKING:
     from terra import base_client
     from terra.api import api_responses
-
-__all__ = ["User"]
 
 
 @dataclasses.dataclass
@@ -47,7 +46,7 @@ class User(TerraDataModel):
         return self._client is not None
 
     def fill_in_user_info(self) -> None:
-        """
+        """ # TODO - incorrect docstring
         Internal method used to retrieve data for User
 
         Args:

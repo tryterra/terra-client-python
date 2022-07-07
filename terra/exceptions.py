@@ -11,26 +11,33 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-class NoClientAvailable(Exception):
+__all__ = ["TerraException", "NoDtypeException", "NoBodyException", "NoUserInfoException", "NoClientAvailable"]
+
+
+class TerraException(Exception):
+    """Base class for all exceptions raised by this library"""
+
+
+class NoClientAvailable(TerraException):
     """
     Exception raised when a TerraUser object has no Terra client set,
     but a method requiring it is called.
     """
 
 
-class NoBodyException(Exception):
+class NoBodyException(TerraException):
     """
     Exception raised when a TerraApi object has no body
     """
 
 
-class NoUserInfoException(Exception):
+class NoUserInfoException(TerraException):
     """
     Exception raised when a UserInfoDict is None
     """
 
 
-class NoDtypeException(Exception):
+class NoDtypeException(TerraException):
     """
     Exception raised when a TerraPi object has no dtype
     """

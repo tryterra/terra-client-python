@@ -13,4 +13,4 @@
 #  limitations under the License.
 from terra.models import base_model
 from terra.models import user
-from terra.models import v2022_03_16
+from terra.models import v2
