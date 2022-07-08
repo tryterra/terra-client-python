@@ -1,0 +1,4 @@
+pytest~=7.1.2
+mock~=4.0.3
+-r requirements.txt
+-r mypy_requirements.txt

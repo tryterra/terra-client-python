@@ -29,9 +29,7 @@ options.sessions = ["format_fix", "test"]
 
 @nox.session()
 def test(session):
-    session.install("-r", "prod_requirements.txt")
     session.install("-r", "test_requirements.txt")
-    session.run("/usr/bin/cp", ".env.prod", ".env", external=True)
     session.run("python", "-m", "pytest", "tests")
 
 

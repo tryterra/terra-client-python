@@ -461,8 +461,7 @@ class Terra:
         # Signature was validated
         return True
 
-    def catch_flask_webhooks(self, request: flask.Request) -> typing.Optional[api_responses.TerraWebhookResponse]:
-
+    def handle_flask_webhook(self, request: flask.Request) -> typing.Optional[api_responses.TerraWebhookResponse]:
         """
         Parses Terra webhooks from a flask request
 
@@ -480,10 +479,9 @@ class Terra:
 
         return ff
 
-    def catch_webhooks(
+    def handle_webhook(
         self, payload: str, terra_signature_header: str
     ) -> typing.Optional[api_responses.TerraWebhookResponse]:
-
         """
         Function to Parse web hooks from Terra
 
