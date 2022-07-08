@@ -36,8 +36,8 @@ Now you can call the following functions from the instance:
 - `list_users`
 - `list_providers`
 - `check_terra_signature`
-- `catch_flask_webhooks`
-- `catch_webhooks`
+- `handle_flask_webhooks`
+- `handle_webhooks`
 
 In addition, all the data models documented on https://docs.tryterra.co/data-models are available to import and use.
 
