@@ -6,10 +6,10 @@ A wrapper in python for the Terra endpoints and models.
 Install using
 
 ```sh
-pip install terra
+pip install terra-client
 ```
 
-Then import the default `Terra` package from `terra-api`.
+Then import the `Terra` class from terra.base_client
 
 Initialise a new Terra instance with:
 
