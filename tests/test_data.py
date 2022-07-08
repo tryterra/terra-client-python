@@ -31,9 +31,7 @@ def test_parsing_data():
         "type": "body",
     }
 
-    filled = api_responses.TerraWebhookResponse(
-        dc, User(None, "lmao", None, None)
-    ).parsed_response
+    filled = api_responses.TerraWebhookResponse(dc, User(None, "lmao", None, None)).parsed_response
     assert isinstance(filled, api_responses.DataReturned)
     assert filled.type == "body"
 
@@ -70,9 +68,7 @@ def test_parsing_integrations():
         ],
     }
 
-    filled = api_responses.TerraWebhookResponse(
-        dc, User(None, "lmao", None, None), "providers"
-    ).parsed_response
+    filled = api_responses.TerraWebhookResponse(dc, User(None, "lmao", None, None), "providers").parsed_response
     assert isinstance(filled, api_responses.ProvidersResponse)
     for p in filled.providers:
         assert p in dc["providers"]
