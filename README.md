@@ -1,5 +1,5 @@
 [![GitHub license](https://img.shields.io/github/license/tryterra/terra-client-python)](https://github.com/tryterra/terra-client-python/blob/master/LICENSE)
-[![docs]](https://tryterra.github.io/terra-client-python/)
+[![docs](https://github.com/tryterra/terra-client-java/actions/workflows/docs.yml/badge.svg)](https://tryterra.github.io/terra-client-python/)
 
 # Terra Python Package
 
