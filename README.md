@@ -39,6 +39,8 @@ Now you can call the following functions from the instance:
 - `handle_flask_webhooks`
 - `handle_webhooks`
 
+The documentation for the wrapper is available here: https://tryterra.github.io/terra-client-python/
+
 In addition, all the data models documented on https://docs.tryterra.co/data-models are available to import and use.
 
 The models support autocompleting the types to manipulate data coming from Terra
