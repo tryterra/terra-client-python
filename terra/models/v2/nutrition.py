@@ -15,6 +15,7 @@ import dataclasses
 import typing
 
 from terra.models import base_model
+from terra.models.v2.samples import DrinkSample
 
 __all__ = ["Nutrition", "Metadata", "Macros", "Micros", "Quantity", "Meal", "NutritionSummary"]
 
@@ -94,6 +95,7 @@ class Meal(base_model.TerraDataModel):
 class NutritionSummary(base_model.TerraDataModel):
     water_ml: typing.Optional[float] = dataclasses.field(default=None)
     macros: Macros = dataclasses.field(default_factory=Macros)
+    drink_ml: typing.Optional[float] = dataclasses.field(default=None)
     micros: Micros = dataclasses.field(default_factory=Micros)
 
 
@@ -102,3 +104,4 @@ class Nutrition(base_model.TerraDataModel):
     metadata: Metadata = dataclasses.field(default_factory=Metadata)
     summary: NutritionSummary = dataclasses.field(default_factory=NutritionSummary)
     meals: typing.List[Meal] = dataclasses.field(default_factory=list)
+    drink_samples: typing.List[DrinkSample] = dataclasses.field(default_factory=list)

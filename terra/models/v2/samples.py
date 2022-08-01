@@ -48,6 +48,7 @@ __all__ = [
     "Vo2MaxSample",
     "PulseVelocitySample",
     "AFibClassificationSample",
+    "DrinkSample",
 ]
 
 
@@ -266,3 +267,11 @@ class PulseVelocitySample(base_model.TerraDataModel):
 class AFibClassificationSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     afib_classification: typing.Optional[int] = dataclasses.field(default=None)
+
+
+@dataclasses.dataclass
+class DrinkSample(base_model.TerraDataModel):
+    drink_unit: typing.Optional[str] = dataclasses.field(default=None)
+    drink_volume: typing.Optional[str] = dataclasses.field(default=None)
+    drink_name: typing.Optional[str] = dataclasses.field(default=None)
+    timestamp: typing.Optional[str] = dataclasses.field(default=None)
