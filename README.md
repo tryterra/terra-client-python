@@ -6,13 +6,9 @@
 A wrapper in python for the Terra endpoints and models.
 
 
-Install using
+User Guide: https://docs.tryterra.co/docs/python-project-1
 
-```sh
-pip install terra-client
-```
 
-Then import the `Terra` class from terra.base_client
 
 Initialise a new Terra instance with:
 

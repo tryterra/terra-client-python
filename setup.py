@@ -50,9 +50,9 @@ def parse_requirements_file(path):
 meta = parse_meta()
 
 setup(
-    name="terra",
+    name="terra-python",
     version=meta.version,
-    description="A simple to use command handler for Hikari",
+    description="A python wrapper for the Terra API",
     long_description=long_description(),
     long_description_content_type="text/markdown",
     author="Terra Enabling Developers",
