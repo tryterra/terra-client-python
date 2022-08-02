@@ -71,7 +71,9 @@ class Terra:
 
         """
 
-        return user_.User(user_id=user_id, client=self)
+        user = user_.User(user_id=user_id, client=self)
+        user.fill_in_user_info()
+        return user
 
     def _get_arbitrary_data(self, user: user_.User, dtype: str, **kwargs: typing.Any) -> api_responses.TerraApiResponse:
         """
@@ -308,7 +310,7 @@ class Terra:
         redirected to the given URL in order to complete authentication
 
         Args:
-            providers (List[:obj:`str`]): Providers to display on widget wearable selection screen
+            providers (List[:obj:`str`]): Providers to display on widget wearable selection screen, by leaving it empty it will use all default providers
             auth_success_redirect_url (Optional[:obj:`str`]): URL to redirect to upon successful authentication
             auth_failure_redirect_url (Optional[:obj:`str`]): URL to redirect to upon unsuccessful authentication
             language (Optional[:obj:`str`]): Language to display widget in
@@ -319,7 +321,7 @@ class Terra:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing WidgetSession parsed response object if no error has occured
         """
         maybe_body_payload = {
-            "providers": providers,
+            "providers": ",".join(providers) if providers else None,
             "auth_success_redirect_url": auth_success_redirect_url,
             "auth_failure_redirect_url": auth_failure_redirect_url,
             "language": language,
@@ -371,10 +373,11 @@ class Terra:
         body_payload.update(kwargs)
 
         auth_resp = requests.post(
-            f"{constants.BASE_URL}/auth/generateWidgetSession",
+            f"{constants.BASE_URL}/auth/authenticateUser",
             headers=self._auth_headers,
             json=body_payload,
         )
+
         return api_responses.TerraApiResponse(auth_resp, dtype="auth_url")
 
     def get_user_info(self, user: user_.User) -> api_responses.TerraApiResponse:
@@ -424,7 +427,7 @@ class Terra:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing SubscribedUsers parsed response object if no error has occured
         """
         users_resp = requests.get(f"{constants.BASE_URL}/subscriptions", headers=self._auth_headers)
-        return api_responses.TerraApiResponse(users_resp, dtype="subscriptions")
+        return api_responses.TerraApiResponse(users_resp, dtype="subscriptions", client=self)
 
     def list_providers(self) -> api_responses.TerraApiResponse:
         """

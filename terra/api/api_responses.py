@@ -51,6 +51,8 @@ from terra import models
 from terra.models import base_model
 from terra.models import user as user_
 
+if typing.TYPE_CHECKING:
+    from terra.base_client import Terra
 
 # TODO - should use a mixin/trait here instead of a redundant subclass probably
 class TerraParsedApiResponse(base_model.TerraDataModel):
@@ -129,6 +131,7 @@ class TerraApiResponse(TerraParsedApiResponse):
         resp: requests.Response,
         dtype: str,
         user: typing.Optional[user_.User] = None,
+        client: typing.Optional[Terra] = None,
     ) -> None:
         self.response_code: int = resp.status_code
         self.raw_body: typing.Optional[str] = resp.text
@@ -139,9 +142,31 @@ class TerraApiResponse(TerraParsedApiResponse):
             self.json = body
             self.dtype = body.get("type", dtype)
             self.parsed_response: TerraParsedApiResponse = _parse_api_body(self.dtype, body, user)
+            if client:
+
+                for e in typing.cast(SubscribedUsers, self.parsed_response).users:
+                    e._client = client
         except json.decoder.JSONDecodeError:
 
             resp.raise_for_status()
+
+    def get_parsed_response(self) -> TerraParsedApiResponse:
+        """
+        Get the parsed representation of the api response.
+
+        Returns:
+            :obj:`TerraParsedApiResponse`: Parsed representation of the data model.
+        """
+        return self.parsed_response
+
+    def get_json(self) -> typing.Optional[typing.Dict[str, typing.Any]]:
+        """
+        Get the dictionary (json) representation of the api response.
+
+        Returns:
+            :obj:`dict`: Dictionary representation of the api response.
+        """
+        return self.json
 
 
 class TerraWebhookResponse(TerraParsedApiResponse):
@@ -154,6 +179,24 @@ class TerraWebhookResponse(TerraParsedApiResponse):
         self.json: typing.Dict[str, typing.Any] = resp.json() if isinstance(resp, requests.Response) else resp
         self.dtype: typing.Optional[str] = self.json.get("type", dtype)
         self.parsed_response: TerraParsedApiResponse = _parse_api_body(self.dtype, self.json, user)
+
+    def get_parsed_response(self) -> TerraParsedApiResponse:
+        """
+        Get the parsed representation of the api response.
+
+        Returns:
+            :obj:`TerraParsedApiResponse`: Parsed representation of the data model.
+        """
+        return self.parsed_response
+
+    def get_json(self) -> typing.Dict[str, typing.Any]:
+        """
+        Get the dictionary (json) representation of the api response.
+
+        Returns:
+            :obj:`dict`: Dictionary representation of the api response.
+        """
+        return self.json
 
 
 @dataclasses.dataclass
@@ -248,8 +291,8 @@ class SubscribedUsers(TerraParsedApiResponse):
 class UserAuthUrl(TerraParsedApiResponse):
     status: typing.Optional[str] = dataclasses.field(default=None)
     expires_in: int = dataclasses.field(default=900)
-    url: typing.Optional[str] = dataclasses.field(default=None)
-    session_id: typing.Optional[str] = dataclasses.field(default=None)
+    auth_url: typing.Optional[str] = dataclasses.field(default=None)
+    user_id: typing.Optional[str] = dataclasses.field(default=None)
 
 
 @dataclasses.dataclass
