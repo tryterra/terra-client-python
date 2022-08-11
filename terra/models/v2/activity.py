@@ -108,9 +108,9 @@ class DistanceData(base_model.TerraDataModel):
 
 @dataclasses.dataclass
 class PositionData(base_model.TerraDataModel):
-    start_pos_lat_lng: typing.List[float] = dataclasses.field(default_factory=list)
-    centre_pos_lat_lng: typing.List[float] = dataclasses.field(default_factory=list)
-    end_pos_lat_lng: typing.List[float] = dataclasses.field(default_factory=list)
+    start_pos_lat_lng_deg: typing.List[float] = dataclasses.field(default_factory=list)
+    center_pos_lat_lng_deg: typing.List[float] = dataclasses.field(default_factory=list)
+    end_pos_lat_lng_deg: typing.List[float] = dataclasses.field(default_factory=list)
     position_samples: typing.List[samples_.PositionSample] = dataclasses.field(default_factory=list)
 
 
