@@ -62,6 +62,7 @@ class HeartRateDataSummary(base_model.TerraDataModel):
     avg_hrv_rmssd: typing.Optional[int] = dataclasses.field(default=None)
     avg_hrv_sdnn: typing.Optional[int] = dataclasses.field(default=None)
     user_max_hr_bpm: typing.Optional[int] = dataclasses.field(default=None)
+    resting_hr_bpm: typing.Optional[float] = dataclasses.field(default=None)
 
 
 @dataclasses.dataclass
