@@ -64,10 +64,21 @@ class StressData(base_model.TerraDataModel):
     max_stress_level: typing.Optional[float] = dataclasses.field(default=None)
     samples: typing.List[samples_.StressSample] = dataclasses.field(default_factory=list)
 
+@dataclasses.dataclass
+class TagEntry(base_model.TerraDataModel):
+    tag_name: typing.Optional[str] = dataclasses.field(default=None)
+    timestamp: typing.Optional[str] = dataclasses.field(default=None)
+    notes: typing.Optional[str] = dataclasses.field(default=None)
+
+
+@dataclasses.dataclass
+class TagData(base_model.TerraDataModel):
+    tags: typing.List[TagEntry] = dataclasses.field(default_factory=list)
 
 @dataclasses.dataclass
 class Daily(base_model.TerraDataModel):
     metadata: Metadata = dataclasses.field(default_factory=Metadata)
+    tag_data: TagData = dataclasses.field(default_factory=list)
     active_durations_data: ActiveDurationsData = dataclasses.field(default_factory=ActiveDurationsData)
     distance_data: DistanceData = dataclasses.field(default_factory=DistanceData)
     heart_rate_data: HeartRateData = dataclasses.field(default_factory=HeartRateData)
