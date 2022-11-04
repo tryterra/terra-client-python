@@ -16,6 +16,7 @@ import typing
 
 from terra.models import base_model
 from terra.models.v2 import samples as samples_
+from terra.models.v2.activity import DeviceData
 
 __all__ = [
     "Sleep",
@@ -41,6 +42,7 @@ class Metadata(base_model.TerraDataModel):
     start_time: typing.Optional[str] = dataclasses.field(default=None)
     end_time: typing.Optional[str] = dataclasses.field(default=None)
     upload_type: typing.Optional[int] = dataclasses.field(default=None)
+    is_nap: bool = dataclasses.field(default=False)
 
 
 @dataclasses.dataclass
@@ -119,6 +121,7 @@ class SleepDurationsData(base_model.TerraDataModel):
 class OxygenSaturationData(base_model.TerraDataModel):
     start_time: typing.Optional[str] = dataclasses.field(default=None)
     end_time: typing.Optional[str] = dataclasses.field(default=None)
+    avg_saturation_percentage: typing.Optional[float] = dataclasses.field(default=None)
     samples: typing.List[samples_.OxygenSaturationSample] = dataclasses.field(default_factory=list)
 
 
@@ -157,3 +160,4 @@ class Sleep(base_model.TerraDataModel):
     heart_rate_data: HeartRateData = dataclasses.field(default_factory=HeartRateData)
     sleep_durations_data: SleepDurationsData = dataclasses.field(default_factory=SleepDurationsData)
     respiration_data: RespirationData = dataclasses.field(default_factory=RespirationData)
+    device_data: DeviceData = dataclasses.field(default_factory=DeviceData)

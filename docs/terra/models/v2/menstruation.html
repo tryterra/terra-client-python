@@ -39,60 +39,6 @@
                 </ul>
 
             </li>
-            <li>
-                    <a class="class" href="#Metadata">Metadata</a>
-                            <ul class="memberlist">
-                        <li>
-                                <a class="function" href="#Metadata.__init__">Metadata</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#Metadata.start_time">start_time</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#Metadata.end_time">end_time</a>
-                        </li>
-                </ul>
-
-            </li>
-            <li>
-                    <a class="class" href="#MenstruationData">MenstruationData</a>
-                            <ul class="memberlist">
-                        <li>
-                                <a class="function" href="#MenstruationData.__init__">MenstruationData</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#MenstruationData.period_start_date">period_start_date</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#MenstruationData.day_in_cycle">day_in_cycle</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#MenstruationData.period_length_days">period_length_days</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#MenstruationData.current_phase">current_phase</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#MenstruationData.length_of_current_phase_days">length_of_current_phase_days</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#MenstruationData.days_until_next_phase">days_until_next_phase</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#MenstruationData.predicted_cycle_length_days">predicted_cycle_length_days</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#MenstruationData.is_predicted_cycle">is_predicted_cycle</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#MenstruationData.cycle_length_days">cycle_length_days</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#MenstruationData.last_updated_time">last_updated_time</a>
-                        </li>
-                </ul>
-
-            </li>
     </ul>
 
 
@@ -131,34 +77,36 @@
 </span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="kn">import</span> <span class="nn">typing</span>
 </span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>
 </span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="kn">from</span> <span class="nn">terra.models</span> <span class="kn">import</span> <span class="n">base_model</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Menstruation&quot;</span><span class="p">,</span> <span class="s2">&quot;Metadata&quot;</span><span class="p">,</span> <span class="s2">&quot;MenstruationData&quot;</span><span class="p">]</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="kn">from</span> <span class="nn">terra.models.v2</span> <span class="kn">import</span> <span class="n">samples</span> <span class="k">as</span> <span class="n">samples_</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Menstruation&quot;</span><span class="p">]</span>
 </span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="k">class</span> <span class="nc">Metadata</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>    <span class="n">start_time</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>    <span class="n">end_time</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="k">class</span> <span class="nc">Metadata</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>    <span class="n">start_time</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>    <span class="n">end_time</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="k">class</span> <span class="nc">MenstruationData</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>    <span class="n">period_start_date</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>    <span class="n">day_in_cycle</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>    <span class="n">period_length_days</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>    <span class="n">current_phase</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>    <span class="n">length_of_current_phase_days</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>    <span class="n">days_until_next_phase</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>    <span class="n">predicted_cycle_length_days</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>    <span class="n">is_predicted_cycle</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>    <span class="n">cycle_length_days</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>    <span class="n">last_updated_time</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>
-</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>
-</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
-</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a><span class="k">class</span> <span class="nc">Menstruation</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
-</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>    <span class="n">metadata</span><span class="p">:</span> <span class="n">Metadata</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Metadata</span><span class="p">)</span>
-</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>    <span class="n">menstruation_data</span><span class="p">:</span> <span class="n">MenstruationData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">MenstruationData</span><span class="p">)</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a><span class="k">class</span> <span class="nc">MenstruationData</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>    <span class="n">period_start_date</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>    <span class="n">day_in_cycle</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>    <span class="n">period_length_days</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>    <span class="n">current_phase</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>    <span class="n">length_of_current_phase_days</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>    <span class="n">days_until_next_phase</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>    <span class="n">predicted_cycle_length_days</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>    <span class="n">is_predicted_cycle</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>    <span class="n">cycle_length_days</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>    <span class="n">last_updated_time</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>    <span class="n">menstruation_flow</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">samples_</span><span class="o">.</span><span class="n">MenstruationFlowSample</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a>
+</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>
+</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a><span class="k">class</span> <span class="nc">Menstruation</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a>    <span class="n">metadata</span><span class="p">:</span> <span class="n">Metadata</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Metadata</span><span class="p">)</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>    <span class="n">menstruation_data</span><span class="p">:</span> <span class="n">MenstruationData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">MenstruationData</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -175,21 +123,21 @@
 
     </div>
     <a class="headerlink" href="#Menstruation"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Menstruation-43"><a href="#Menstruation-43"><span class="linenos">43</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
-</span><span id="Menstruation-44"><a href="#Menstruation-44"><span class="linenos">44</span></a><span class="k">class</span> <span class="nc">Menstruation</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
-</span><span id="Menstruation-45"><a href="#Menstruation-45"><span class="linenos">45</span></a>    <span class="n">metadata</span><span class="p">:</span> <span class="n">Metadata</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Metadata</span><span class="p">)</span>
-</span><span id="Menstruation-46"><a href="#Menstruation-46"><span class="linenos">46</span></a>    <span class="n">menstruation_data</span><span class="p">:</span> <span class="n">MenstruationData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">MenstruationData</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Menstruation-45"><a href="#Menstruation-45"><span class="linenos">45</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+</span><span id="Menstruation-46"><a href="#Menstruation-46"><span class="linenos">46</span></a><span class="k">class</span> <span class="nc">Menstruation</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
+</span><span id="Menstruation-47"><a href="#Menstruation-47"><span class="linenos">47</span></a>    <span class="n">metadata</span><span class="p">:</span> <span class="n">Metadata</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Metadata</span><span class="p">)</span>
+</span><span id="Menstruation-48"><a href="#Menstruation-48"><span class="linenos">48</span></a>    <span class="n">menstruation_data</span><span class="p">:</span> <span class="n">MenstruationData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">MenstruationData</span><span class="p">)</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Menstruation(metadata: <a href="#Metadata">terra.models.v2.menstruation.Metadata</a> = <factory>, menstruation_data: <a href="#MenstruationData">terra.models.v2.menstruation.MenstruationData</a> = <factory>)</p>
+            <div class="docstring"><p>Menstruation(metadata: terra.models.v2.menstruation.Metadata = <factory>, menstruation_data: terra.models.v2.menstruation.MenstruationData = <factory>)</p>
 </div>
 
 
                             <div id="Menstruation.__init__" class="classattr">
                                 <div class="attr function">
             
-        <span class="name">Menstruation</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">metadata</span><span class="p">:</span> <span class="n"><a href="#Metadata">terra.models.v2.menstruation.Metadata</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">menstruation_data</span><span class="p">:</span> <span class="n"><a href="#MenstruationData">terra.models.v2.menstruation.MenstruationData</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span></span>)</span>
+        <span class="name">Menstruation</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">metadata</span><span class="p">:</span> <span class="n">terra</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">menstruation</span><span class="o">.</span><span class="n">Metadata</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">menstruation_data</span><span class="p">:</span> <span class="n">terra</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">menstruation</span><span class="o">.</span><span class="n">MenstruationData</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span></span>)</span>
 
         
     </div>
@@ -209,248 +157,6 @@
                 <dd id="Menstruation.filter_data" class="function"><a href="../base_model.html#TerraDataModel.filter_data">filter_data</a></dd>
                 <dd id="Menstruation.from_dict" class="function"><a href="../base_model.html#TerraDataModel.from_dict">from_dict</a></dd>
                 <dd id="Menstruation.populate_from_dict" class="function"><a href="../base_model.html#TerraDataModel.populate_from_dict">populate_from_dict</a></dd>
-
-            </div>
-                                </dl>
-                            </div>
-                </section>
-                <section id="Metadata">
-                            <input id="Metadata-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr class">
-                    <div class="decorator">@dataclasses.dataclass</div>
-
-    <span class="def">class</span>
-    <span class="name">Metadata</span><wbr>(<span class="base"><a href="../base_model.html#TerraDataModel">terra.models.base_model.TerraDataModel</a></span>):
-
-                <label class="view-source-button" for="Metadata-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#Metadata"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Metadata-23"><a href="#Metadata-23"><span class="linenos">23</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
-</span><span id="Metadata-24"><a href="#Metadata-24"><span class="linenos">24</span></a><span class="k">class</span> <span class="nc">Metadata</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
-</span><span id="Metadata-25"><a href="#Metadata-25"><span class="linenos">25</span></a>    <span class="n">start_time</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="Metadata-26"><a href="#Metadata-26"><span class="linenos">26</span></a>    <span class="n">end_time</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>Metadata(start_time: Optional[str] = None, end_time: Optional[str] = None)</p>
-</div>
-
-
-                            <div id="Metadata.__init__" class="classattr">
-                                <div class="attr function">
-            
-        <span class="name">Metadata</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">start_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>, </span><span class="param"><span class="n">end_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span>)</span>
-
-        
-    </div>
-    <a class="headerlink" href="#Metadata.__init__"></a>
-    
-    
-
-                            </div>
-                            <div id="Metadata.start_time" class="classattr">
-                                <div class="attr variable">
-            <span class="name">start_time</span><span class="annotation">: Optional[str]</span><span class="default_value"> = None</span>
-
-        
-    </div>
-    <a class="headerlink" href="#Metadata.start_time"></a>
-    
-    
-
-                            </div>
-                            <div id="Metadata.end_time" class="classattr">
-                                <div class="attr variable">
-            <span class="name">end_time</span><span class="annotation">: Optional[str]</span><span class="default_value"> = None</span>
-
-        
-    </div>
-    <a class="headerlink" href="#Metadata.end_time"></a>
-    
-    
-
-                            </div>
-                            <div class="inherited">
-                                <h5>Inherited Members</h5>
-                                <dl>
-                                    <div><dt><a href="../base_model.html#TerraDataModel">terra.models.base_model.TerraDataModel</a></dt>
-                                <dd id="Metadata.keys" class="function"><a href="../base_model.html#TerraDataModel.keys">keys</a></dd>
-                <dd id="Metadata.values" class="function"><a href="../base_model.html#TerraDataModel.values">values</a></dd>
-                <dd id="Metadata.items" class="function"><a href="../base_model.html#TerraDataModel.items">items</a></dd>
-                <dd id="Metadata.to_dict" class="function"><a href="../base_model.html#TerraDataModel.to_dict">to_dict</a></dd>
-                <dd id="Metadata.filter_data" class="function"><a href="../base_model.html#TerraDataModel.filter_data">filter_data</a></dd>
-                <dd id="Metadata.from_dict" class="function"><a href="../base_model.html#TerraDataModel.from_dict">from_dict</a></dd>
-                <dd id="Metadata.populate_from_dict" class="function"><a href="../base_model.html#TerraDataModel.populate_from_dict">populate_from_dict</a></dd>
-
-            </div>
-                                </dl>
-                            </div>
-                </section>
-                <section id="MenstruationData">
-                            <input id="MenstruationData-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr class">
-                    <div class="decorator">@dataclasses.dataclass</div>
-
-    <span class="def">class</span>
-    <span class="name">MenstruationData</span><wbr>(<span class="base"><a href="../base_model.html#TerraDataModel">terra.models.base_model.TerraDataModel</a></span>):
-
-                <label class="view-source-button" for="MenstruationData-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#MenstruationData"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="MenstruationData-29"><a href="#MenstruationData-29"><span class="linenos">29</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
-</span><span id="MenstruationData-30"><a href="#MenstruationData-30"><span class="linenos">30</span></a><span class="k">class</span> <span class="nc">MenstruationData</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
-</span><span id="MenstruationData-31"><a href="#MenstruationData-31"><span class="linenos">31</span></a>    <span class="n">period_start_date</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="MenstruationData-32"><a href="#MenstruationData-32"><span class="linenos">32</span></a>    <span class="n">day_in_cycle</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="MenstruationData-33"><a href="#MenstruationData-33"><span class="linenos">33</span></a>    <span class="n">period_length_days</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="MenstruationData-34"><a href="#MenstruationData-34"><span class="linenos">34</span></a>    <span class="n">current_phase</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="MenstruationData-35"><a href="#MenstruationData-35"><span class="linenos">35</span></a>    <span class="n">length_of_current_phase_days</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="MenstruationData-36"><a href="#MenstruationData-36"><span class="linenos">36</span></a>    <span class="n">days_until_next_phase</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="MenstruationData-37"><a href="#MenstruationData-37"><span class="linenos">37</span></a>    <span class="n">predicted_cycle_length_days</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="MenstruationData-38"><a href="#MenstruationData-38"><span class="linenos">38</span></a>    <span class="n">is_predicted_cycle</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="MenstruationData-39"><a href="#MenstruationData-39"><span class="linenos">39</span></a>    <span class="n">cycle_length_days</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="MenstruationData-40"><a href="#MenstruationData-40"><span class="linenos">40</span></a>    <span class="n">last_updated_time</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>MenstruationData(period_start_date: Optional[str] = None, day_in_cycle: Optional[int] = None, period_length_days: Optional[int] = None, current_phase: Optional[int] = None, length_of_current_phase_days: Optional[int] = None, days_until_next_phase: Optional[int] = None, predicted_cycle_length_days: Optional[int] = None, is_predicted_cycle: Optional[str] = None, cycle_length_days: Optional[str] = None, last_updated_time: Optional[str] = None)</p>
-</div>
-
-
-                            <div id="MenstruationData.__init__" class="classattr">
-                                <div class="attr function">
-            
-        <span class="name">MenstruationData</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">period_start_date</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">day_in_cycle</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">period_length_days</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">current_phase</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">length_of_current_phase_days</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">days_until_next_phase</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">predicted_cycle_length_days</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">is_predicted_cycle</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">cycle_length_days</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">last_updated_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span>)</span>
-
-        
-    </div>
-    <a class="headerlink" href="#MenstruationData.__init__"></a>
-    
-    
-
-                            </div>
-                            <div id="MenstruationData.period_start_date" class="classattr">
-                                <div class="attr variable">
-            <span class="name">period_start_date</span><span class="annotation">: Optional[str]</span><span class="default_value"> = None</span>
-
-        
-    </div>
-    <a class="headerlink" href="#MenstruationData.period_start_date"></a>
-    
-    
-
-                            </div>
-                            <div id="MenstruationData.day_in_cycle" class="classattr">
-                                <div class="attr variable">
-            <span class="name">day_in_cycle</span><span class="annotation">: Optional[int]</span><span class="default_value"> = None</span>
-
-        
-    </div>
-    <a class="headerlink" href="#MenstruationData.day_in_cycle"></a>
-    
-    
-
-                            </div>
-                            <div id="MenstruationData.period_length_days" class="classattr">
-                                <div class="attr variable">
-            <span class="name">period_length_days</span><span class="annotation">: Optional[int]</span><span class="default_value"> = None</span>
-
-        
-    </div>
-    <a class="headerlink" href="#MenstruationData.period_length_days"></a>
-    
-    
-
-                            </div>
-                            <div id="MenstruationData.current_phase" class="classattr">
-                                <div class="attr variable">
-            <span class="name">current_phase</span><span class="annotation">: Optional[int]</span><span class="default_value"> = None</span>
-
-        
-    </div>
-    <a class="headerlink" href="#MenstruationData.current_phase"></a>
-    
-    
-
-                            </div>
-                            <div id="MenstruationData.length_of_current_phase_days" class="classattr">
-                                <div class="attr variable">
-            <span class="name">length_of_current_phase_days</span><span class="annotation">: Optional[int]</span><span class="default_value"> = None</span>
-
-        
-    </div>
-    <a class="headerlink" href="#MenstruationData.length_of_current_phase_days"></a>
-    
-    
-
-                            </div>
-                            <div id="MenstruationData.days_until_next_phase" class="classattr">
-                                <div class="attr variable">
-            <span class="name">days_until_next_phase</span><span class="annotation">: Optional[int]</span><span class="default_value"> = None</span>
-
-        
-    </div>
-    <a class="headerlink" href="#MenstruationData.days_until_next_phase"></a>
-    
-    
-
-                            </div>
-                            <div id="MenstruationData.predicted_cycle_length_days" class="classattr">
-                                <div class="attr variable">
-            <span class="name">predicted_cycle_length_days</span><span class="annotation">: Optional[int]</span><span class="default_value"> = None</span>
-
-        
-    </div>
-    <a class="headerlink" href="#MenstruationData.predicted_cycle_length_days"></a>
-    
-    
-
-                            </div>
-                            <div id="MenstruationData.is_predicted_cycle" class="classattr">
-                                <div class="attr variable">
-            <span class="name">is_predicted_cycle</span><span class="annotation">: Optional[str]</span><span class="default_value"> = None</span>
-
-        
-    </div>
-    <a class="headerlink" href="#MenstruationData.is_predicted_cycle"></a>
-    
-    
-
-                            </div>
-                            <div id="MenstruationData.cycle_length_days" class="classattr">
-                                <div class="attr variable">
-            <span class="name">cycle_length_days</span><span class="annotation">: Optional[str]</span><span class="default_value"> = None</span>
-
-        
-    </div>
-    <a class="headerlink" href="#MenstruationData.cycle_length_days"></a>
-    
-    
-
-                            </div>
-                            <div id="MenstruationData.last_updated_time" class="classattr">
-                                <div class="attr variable">
-            <span class="name">last_updated_time</span><span class="annotation">: Optional[str]</span><span class="default_value"> = None</span>
-
-        
-    </div>
-    <a class="headerlink" href="#MenstruationData.last_updated_time"></a>
-    
-    
-
-                            </div>
-                            <div class="inherited">
-                                <h5>Inherited Members</h5>
-                                <dl>
-                                    <div><dt><a href="../base_model.html#TerraDataModel">terra.models.base_model.TerraDataModel</a></dt>
-                                <dd id="MenstruationData.keys" class="function"><a href="../base_model.html#TerraDataModel.keys">keys</a></dd>
-                <dd id="MenstruationData.values" class="function"><a href="../base_model.html#TerraDataModel.values">values</a></dd>
-                <dd id="MenstruationData.items" class="function"><a href="../base_model.html#TerraDataModel.items">items</a></dd>
-                <dd id="MenstruationData.to_dict" class="function"><a href="../base_model.html#TerraDataModel.to_dict">to_dict</a></dd>
-                <dd id="MenstruationData.filter_data" class="function"><a href="../base_model.html#TerraDataModel.filter_data">filter_data</a></dd>
-                <dd id="MenstruationData.from_dict" class="function"><a href="../base_model.html#TerraDataModel.from_dict">from_dict</a></dd>
-                <dd id="MenstruationData.populate_from_dict" class="function"><a href="../base_model.html#TerraDataModel.populate_from_dict">populate_from_dict</a></dd>
 
             </div>
                                 </dl>

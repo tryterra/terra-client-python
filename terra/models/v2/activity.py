@@ -17,32 +17,7 @@ import typing
 from terra.models import base_model
 from terra.models.v2 import samples as samples_
 
-__all__ = [
-    "Activity",
-    "Metadata",
-    "LapData",
-    "StrainData",
-    "SwimmingSummary",
-    "ElevationSummary",
-    "DistanceDataSummary",
-    "DistanceDataDetailed",
-    "DistanceData",
-    "PositionData",
-    "ActiveDurationsData",
-    "METData",
-    "MovementData",
-    "CaloriesData",
-    "WorkData",
-    "PowerData",
-    "EnergyData",
-    "TSSData",
-    "HeartRateDataSummary",
-    "HeartRateDataDetailed",
-    "HeartRateData",
-    "OxygenData",
-    "PolylineMapData",
-    "DeviceData",
-]
+__all__ = ["Activity"]
 
 
 @dataclasses.dataclass
@@ -96,8 +71,10 @@ class DistanceDataSummary(base_model.TerraDataModel):
 
 @dataclasses.dataclass
 class DistanceDataDetailed(base_model.TerraDataModel):
+    step_samples: typing.List[samples_.StepSample] = dataclasses.field(default_factory=list)
     distance_samples: typing.List[samples_.DistanceSample] = dataclasses.field(default_factory=list)
     elevation_samples: typing.List[samples_.ElevationSample] = dataclasses.field(default_factory=list)
+    floors_climbed_samples: typing.List[samples_.FloorsClimbedSample] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
@@ -159,6 +136,7 @@ class CaloriesData(base_model.TerraDataModel):
     BMR_calories: typing.Optional[float] = dataclasses.field(default=None)
     total_burned_calories: typing.Optional[float] = dataclasses.field(default=None)
     net_intake_calories: typing.Optional[float] = dataclasses.field(default=None)
+    calorie_samples: typing.List[samples_.CalorieSample] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
@@ -185,17 +163,28 @@ class TSSData(base_model.TerraDataModel):
 
 
 @dataclasses.dataclass
+class HeartRateZone(base_model.TerraDataModel):
+    zone: typing.Optional[int] = dataclasses.field(default=None)
+    start_percentage: typing.Optional[float] = dataclasses.field(default=None)
+    end_percentage: typing.Optional[float] = dataclasses.field(default=None)
+    name: typing.Optional[str] = dataclasses.field(default=None)
+    duration_seconds: typing.Optional[float] = dataclasses.field(default=None)
+
+    def __post_init__(self) -> None:
+        if not any((self.start_percentage, self.end_percentage, self.name)):
+            self.start_percentage, self.end_percentage, self.name = (None, None, None)
+
+
+@dataclasses.dataclass
 class HeartRateDataSummary(base_model.TerraDataModel):
     avg_hr_bpm: typing.Optional[float] = dataclasses.field(default=None)
     max_hr_bpm: typing.Optional[float] = dataclasses.field(default=None)
     min_hr_bpm: typing.Optional[float] = dataclasses.field(default=None)
-    avg_hr: typing.Optional[float] = dataclasses.field(default=None)
-    max_hr: typing.Optional[float] = dataclasses.field(default=None)
-    min_hr: typing.Optional[float] = dataclasses.field(default=None)
     avg_hrv_rmssd: typing.Optional[float] = dataclasses.field(default=None)
     avg_hrv_sdnn: typing.Optional[float] = dataclasses.field(default=None)
     user_max_hr_bpm: typing.Optional[float] = dataclasses.field(default=None)
     resting_hr_bpm: typing.Optional[float] = dataclasses.field(default=None)
+    hr_zone_data: typing.List[HeartRateZone] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass

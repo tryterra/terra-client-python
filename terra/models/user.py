@@ -35,10 +35,12 @@ class User(TerraDataModel):
         user_id: t.Optional[str] = None,
         provider: t.Optional[str] = None,
         last_webhook_update: t.Optional[str] = None,
+        scopes: t.Optional[str] = None,
     ) -> None:
         self.user_id = user_id
         self.provider = provider
         self.last_webhook_update = last_webhook_update
+        self.scopes = scopes
         self._client = client
         self._resource = None
 
@@ -64,6 +66,7 @@ class User(TerraDataModel):
 
             self.provider = user_info.json["user"]["provider"]
             self.last_webhook_update = user_info.json["user"]["last_webhook_update"]
+            self.scopes = user_info.json["user"]["scopes"]
 
     def _check_client(self) -> None:
         """

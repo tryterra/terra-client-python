@@ -122,7 +122,7 @@ class TerraDataModel:
 
     @classmethod
     def from_dict(
-        cls: typing.Type[datamodelT], model_dict: typing.Dict[str, typing.Any], safe: bool = False
+        cls: typing.Type[datamodelT], model_dict: typing.Dict[str, typing.Any], safe: bool = True
     ) -> datamodelT:
         """
         Return the Class data model representation of the dictionary (json).

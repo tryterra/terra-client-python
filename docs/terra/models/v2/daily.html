@@ -39,84 +39,6 @@
                 </ul>
 
             </li>
-            <li>
-                    <a class="class" href="#Metadata">Metadata</a>
-                            <ul class="memberlist">
-                        <li>
-                                <a class="function" href="#Metadata.__init__">Metadata</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#Metadata.start_time">start_time</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#Metadata.end_time">end_time</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#Metadata.upload_type">upload_type</a>
-                        </li>
-                </ul>
-
-            </li>
-            <li>
-                    <a class="class" href="#DistanceDataDetailed">DistanceDataDetailed</a>
-                            <ul class="memberlist">
-                        <li>
-                                <a class="function" href="#DistanceDataDetailed.__init__">DistanceDataDetailed</a>
-                        </li>
-                </ul>
-
-            </li>
-            <li>
-                    <a class="class" href="#DistanceData">DistanceData</a>
-                            <ul class="memberlist">
-                        <li>
-                                <a class="function" href="#DistanceData.__init__">DistanceData</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#DistanceData.distance_meters">distance_meters</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#DistanceData.steps">steps</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#DistanceData.floors_climbed">floors_climbed</a>
-                        </li>
-                </ul>
-
-            </li>
-            <li>
-                    <a class="class" href="#StressData">StressData</a>
-                            <ul class="memberlist">
-                        <li>
-                                <a class="function" href="#StressData.__init__">StressData</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#StressData.stress_duration_seconds">stress_duration_seconds</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#StressData.rest_stress_duration_seconds">rest_stress_duration_seconds</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#StressData.activity_stress_duration_seconds">activity_stress_duration_seconds</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#StressData.low_stress_duration_seconds">low_stress_duration_seconds</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#StressData.medium_stress_duration_seconds">medium_stress_duration_seconds</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#StressData.high_stress_duration_seconds">high_stress_duration_seconds</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#StressData.avg_stress_level">avg_stress_level</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#StressData.max_stress_level">max_stress_level</a>
-                        </li>
-                </ul>
-
-            </li>
     </ul>
 
 
@@ -138,95 +60,112 @@
 
                         <label class="view-source-button" for="daily-view-source"><span>View Source</span></label>
 
-                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="c1">#  Copyright 2022 Terra Enabling Developers Limited</span>
-</span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a><span class="c1">#</span>
-</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="c1">#  Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
-</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="c1">#  you may not use this file except in compliance with the License.</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="c1">#  You may obtain a copy of the License at</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="c1">#</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="c1">#      http://www.apache.org/licenses/LICENSE-2.0</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="c1">#</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="c1">#  Unless required by applicable law or agreed to in writing, software</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="c1">#  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="c1">#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="c1">#  See the License for the specific language governing permissions and</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="c1">#  limitations under the License.</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="kn">import</span> <span class="nn">dataclasses</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="kn">import</span> <span class="nn">typing</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="kn">from</span> <span class="nn">terra.models</span> <span class="kn">import</span> <span class="n">base_model</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="kn">from</span> <span class="nn">terra.models.v2</span> <span class="kn">import</span> <span class="n">samples</span> <span class="k">as</span> <span class="n">samples_</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="kn">from</span> <span class="nn">terra.models.v2.activity</span> <span class="kn">import</span> <span class="n">ActiveDurationsData</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="kn">from</span> <span class="nn">terra.models.v2.activity</span> <span class="kn">import</span> <span class="n">CaloriesData</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a><span class="kn">from</span> <span class="nn">terra.models.v2.activity</span> <span class="kn">import</span> <span class="n">DeviceData</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="kn">from</span> <span class="nn">terra.models.v2.activity</span> <span class="kn">import</span> <span class="n">ElevationSummary</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="kn">from</span> <span class="nn">terra.models.v2.activity</span> <span class="kn">import</span> <span class="n">HeartRateData</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="kn">from</span> <span class="nn">terra.models.v2.activity</span> <span class="kn">import</span> <span class="n">METData</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a><span class="kn">from</span> <span class="nn">terra.models.v2.activity</span> <span class="kn">import</span> <span class="n">OxygenData</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="kn">from</span> <span class="nn">terra.models.v2.activity</span> <span class="kn">import</span> <span class="n">SwimmingSummary</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Daily&quot;</span><span class="p">,</span> <span class="s2">&quot;Metadata&quot;</span><span class="p">,</span> <span class="s2">&quot;DistanceDataDetailed&quot;</span><span class="p">,</span> <span class="s2">&quot;DistanceData&quot;</span><span class="p">,</span> <span class="s2">&quot;StressData&quot;</span><span class="p">,</span> <span class="s2">&quot;Daily&quot;</span><span class="p">]</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a><span class="k">class</span> <span class="nc">Metadata</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>    <span class="n">start_time</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>    <span class="n">end_time</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>    <span class="n">upload_type</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>
-</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>
-</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
-</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a><span class="k">class</span> <span class="nc">DistanceDataDetailed</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
-</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>    <span class="n">step_samples</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">samples_</span><span class="o">.</span><span class="n">StepSample</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
-</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>    <span class="n">distance_samples</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">samples_</span><span class="o">.</span><span class="n">DistanceSample</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
-</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a>    <span class="n">elevation_samples</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">samples_</span><span class="o">.</span><span class="n">ElevationSample</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
-</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>
-</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>
-</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
-</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a><span class="k">class</span> <span class="nc">DistanceData</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
-</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>    <span class="n">distance_meters</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a>    <span class="n">steps</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>    <span class="n">floors_climbed</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a>    <span class="n">swimming</span><span class="p">:</span> <span class="n">SwimmingSummary</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">SwimmingSummary</span><span class="p">)</span>
-</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a>    <span class="n">elevation</span><span class="p">:</span> <span class="n">ElevationSummary</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">ElevationSummary</span><span class="p">)</span>
-</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a>    <span class="n">detailed</span><span class="p">:</span> <span class="n">DistanceDataDetailed</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">DistanceDataDetailed</span><span class="p">)</span>
-</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a>
-</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a>
-</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
-</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a><span class="k">class</span> <span class="nc">StressData</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
-</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a>    <span class="n">stress_duration_seconds</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a>    <span class="n">rest_stress_duration_seconds</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a>    <span class="n">activity_stress_duration_seconds</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a>    <span class="n">low_stress_duration_seconds</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a>    <span class="n">medium_stress_duration_seconds</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a>    <span class="n">high_stress_duration_seconds</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a>    <span class="n">avg_stress_level</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a>    <span class="n">max_stress_level</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a>    <span class="n">samples</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">samples_</span><span class="o">.</span><span class="n">StressSample</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
-</span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a>
-</span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
-</span><span id="L-68"><a href="#L-68"><span class="linenos">68</span></a><span class="k">class</span> <span class="nc">TagEntry</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
-</span><span id="L-69"><a href="#L-69"><span class="linenos">69</span></a>    <span class="n">tag_name</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-70"><a href="#L-70"><span class="linenos">70</span></a>    <span class="n">timestamp</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-71"><a href="#L-71"><span class="linenos">71</span></a>    <span class="n">notes</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-72"><a href="#L-72"><span class="linenos">72</span></a>
-</span><span id="L-73"><a href="#L-73"><span class="linenos">73</span></a>
-</span><span id="L-74"><a href="#L-74"><span class="linenos">74</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
-</span><span id="L-75"><a href="#L-75"><span class="linenos">75</span></a><span class="k">class</span> <span class="nc">TagData</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
-</span><span id="L-76"><a href="#L-76"><span class="linenos">76</span></a>    <span class="n">tags</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">TagEntry</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
-</span><span id="L-77"><a href="#L-77"><span class="linenos">77</span></a>
-</span><span id="L-78"><a href="#L-78"><span class="linenos">78</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
-</span><span id="L-79"><a href="#L-79"><span class="linenos">79</span></a><span class="k">class</span> <span class="nc">Daily</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
-</span><span id="L-80"><a href="#L-80"><span class="linenos">80</span></a>    <span class="n">metadata</span><span class="p">:</span> <span class="n">Metadata</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Metadata</span><span class="p">)</span>
-</span><span id="L-81"><a href="#L-81"><span class="linenos">81</span></a>    <span class="n">tag_data</span><span class="p">:</span> <span class="n">TagData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
-</span><span id="L-82"><a href="#L-82"><span class="linenos">82</span></a>    <span class="n">active_durations_data</span><span class="p">:</span> <span class="n">ActiveDurationsData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">ActiveDurationsData</span><span class="p">)</span>
-</span><span id="L-83"><a href="#L-83"><span class="linenos">83</span></a>    <span class="n">distance_data</span><span class="p">:</span> <span class="n">DistanceData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">DistanceData</span><span class="p">)</span>
-</span><span id="L-84"><a href="#L-84"><span class="linenos">84</span></a>    <span class="n">heart_rate_data</span><span class="p">:</span> <span class="n">HeartRateData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">HeartRateData</span><span class="p">)</span>
-</span><span id="L-85"><a href="#L-85"><span class="linenos">85</span></a>    <span class="n">calories_data</span><span class="p">:</span> <span class="n">CaloriesData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">CaloriesData</span><span class="p">)</span>
-</span><span id="L-86"><a href="#L-86"><span class="linenos">86</span></a>    <span class="n">MET_data</span><span class="p">:</span> <span class="n">METData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">METData</span><span class="p">)</span>
-</span><span id="L-87"><a href="#L-87"><span class="linenos">87</span></a>    <span class="n">stress_data</span><span class="p">:</span> <span class="n">StressData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">StressData</span><span class="p">)</span>
-</span><span id="L-88"><a href="#L-88"><span class="linenos">88</span></a>    <span class="n">oxygen_data</span><span class="p">:</span> <span class="n">OxygenData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">OxygenData</span><span class="p">)</span>
-</span><span id="L-89"><a href="#L-89"><span class="linenos">89</span></a>    <span class="n">device_data</span><span class="p">:</span> <span class="n">DeviceData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">DeviceData</span><span class="p">)</span>
+                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos">  1</span></a><span class="c1">#  Copyright 2022 Terra Enabling Developers Limited</span>
+</span><span id="L-2"><a href="#L-2"><span class="linenos">  2</span></a><span class="c1">#</span>
+</span><span id="L-3"><a href="#L-3"><span class="linenos">  3</span></a><span class="c1">#  Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+</span><span id="L-4"><a href="#L-4"><span class="linenos">  4</span></a><span class="c1">#  you may not use this file except in compliance with the License.</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos">  5</span></a><span class="c1">#  You may obtain a copy of the License at</span>
+</span><span id="L-6"><a href="#L-6"><span class="linenos">  6</span></a><span class="c1">#</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos">  7</span></a><span class="c1">#      http://www.apache.org/licenses/LICENSE-2.0</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos">  8</span></a><span class="c1">#</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos">  9</span></a><span class="c1">#  Unless required by applicable law or agreed to in writing, software</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos"> 10</span></a><span class="c1">#  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos"> 11</span></a><span class="c1">#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a><span class="c1">#  See the License for the specific language governing permissions and</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos"> 13</span></a><span class="c1">#  limitations under the License.</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos"> 14</span></a><span class="kn">import</span> <span class="nn">dataclasses</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos"> 15</span></a><span class="kn">import</span> <span class="nn">typing</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos"> 16</span></a>
+</span><span id="L-17"><a href="#L-17"><span class="linenos"> 17</span></a><span class="kn">from</span> <span class="nn">terra.models</span> <span class="kn">import</span> <span class="n">base_model</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos"> 18</span></a><span class="kn">from</span> <span class="nn">terra.models.v2</span> <span class="kn">import</span> <span class="n">samples</span> <span class="k">as</span> <span class="n">samples_</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a><span class="kn">from</span> <span class="nn">terra.models.v2.activity</span> <span class="kn">import</span> <span class="n">ActiveDurationsData</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a><span class="kn">from</span> <span class="nn">terra.models.v2.activity</span> <span class="kn">import</span> <span class="n">CaloriesData</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a><span class="kn">from</span> <span class="nn">terra.models.v2.activity</span> <span class="kn">import</span> <span class="n">DeviceData</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a><span class="kn">from</span> <span class="nn">terra.models.v2.activity</span> <span class="kn">import</span> <span class="n">ElevationSummary</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a><span class="kn">from</span> <span class="nn">terra.models.v2.activity</span> <span class="kn">import</span> <span class="n">HeartRateData</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a><span class="kn">from</span> <span class="nn">terra.models.v2.activity</span> <span class="kn">import</span> <span class="n">METData</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos"> 25</span></a><span class="kn">from</span> <span class="nn">terra.models.v2.activity</span> <span class="kn">import</span> <span class="n">OxygenData</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos"> 26</span></a><span class="kn">from</span> <span class="nn">terra.models.v2.activity</span> <span class="kn">import</span> <span class="n">SwimmingSummary</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos"> 27</span></a>
+</span><span id="L-28"><a href="#L-28"><span class="linenos"> 28</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Daily&quot;</span><span class="p">]</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos"> 29</span></a>
+</span><span id="L-30"><a href="#L-30"><span class="linenos"> 30</span></a>
+</span><span id="L-31"><a href="#L-31"><span class="linenos"> 31</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos"> 32</span></a><span class="k">class</span> <span class="nc">Metadata</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos"> 33</span></a>    <span class="n">start_time</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos"> 34</span></a>    <span class="n">end_time</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos"> 35</span></a>    <span class="n">upload_type</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos"> 36</span></a>
+</span><span id="L-37"><a href="#L-37"><span class="linenos"> 37</span></a>
+</span><span id="L-38"><a href="#L-38"><span class="linenos"> 38</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos"> 39</span></a><span class="k">class</span> <span class="nc">DistanceDataDetailed</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos"> 40</span></a>    <span class="n">step_samples</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">samples_</span><span class="o">.</span><span class="n">StepSample</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+</span><span id="L-41"><a href="#L-41"><span class="linenos"> 41</span></a>    <span class="n">distance_samples</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">samples_</span><span class="o">.</span><span class="n">DistanceSample</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+</span><span id="L-42"><a href="#L-42"><span class="linenos"> 42</span></a>    <span class="n">elevation_samples</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">samples_</span><span class="o">.</span><span class="n">ElevationSample</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos"> 43</span></a>    <span class="n">floors_climbed_samples</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">samples_</span><span class="o">.</span><span class="n">FloorsClimbedSample</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos"> 44</span></a>
+</span><span id="L-45"><a href="#L-45"><span class="linenos"> 45</span></a>
+</span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos"> 47</span></a><span class="k">class</span> <span class="nc">StrainData</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos"> 48</span></a>    <span class="n">strain_level</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a>
+</span><span id="L-50"><a href="#L-50"><span class="linenos"> 50</span></a>
+</span><span id="L-51"><a href="#L-51"><span class="linenos"> 51</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+</span><span id="L-52"><a href="#L-52"><span class="linenos"> 52</span></a><span class="k">class</span> <span class="nc">DistanceData</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
+</span><span id="L-53"><a href="#L-53"><span class="linenos"> 53</span></a>    <span class="n">distance_meters</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-54"><a href="#L-54"><span class="linenos"> 54</span></a>    <span class="n">steps</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-55"><a href="#L-55"><span class="linenos"> 55</span></a>    <span class="n">floors_climbed</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-56"><a href="#L-56"><span class="linenos"> 56</span></a>    <span class="n">swimming</span><span class="p">:</span> <span class="n">SwimmingSummary</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">SwimmingSummary</span><span class="p">)</span>
+</span><span id="L-57"><a href="#L-57"><span class="linenos"> 57</span></a>    <span class="n">elevation</span><span class="p">:</span> <span class="n">ElevationSummary</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">ElevationSummary</span><span class="p">)</span>
+</span><span id="L-58"><a href="#L-58"><span class="linenos"> 58</span></a>    <span class="n">detailed</span><span class="p">:</span> <span class="n">DistanceDataDetailed</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">DistanceDataDetailed</span><span class="p">)</span>
+</span><span id="L-59"><a href="#L-59"><span class="linenos"> 59</span></a>
+</span><span id="L-60"><a href="#L-60"><span class="linenos"> 60</span></a>
+</span><span id="L-61"><a href="#L-61"><span class="linenos"> 61</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+</span><span id="L-62"><a href="#L-62"><span class="linenos"> 62</span></a><span class="k">class</span> <span class="nc">TagEntry</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
+</span><span id="L-63"><a href="#L-63"><span class="linenos"> 63</span></a>    <span class="n">tag_name</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos"> 64</span></a>    <span class="n">timestamp</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-65"><a href="#L-65"><span class="linenos"> 65</span></a>    <span class="n">notes</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-66"><a href="#L-66"><span class="linenos"> 66</span></a>
+</span><span id="L-67"><a href="#L-67"><span class="linenos"> 67</span></a>
+</span><span id="L-68"><a href="#L-68"><span class="linenos"> 68</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+</span><span id="L-69"><a href="#L-69"><span class="linenos"> 69</span></a><span class="k">class</span> <span class="nc">TagData</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
+</span><span id="L-70"><a href="#L-70"><span class="linenos"> 70</span></a>    <span class="n">tags</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">TagEntry</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+</span><span id="L-71"><a href="#L-71"><span class="linenos"> 71</span></a>
+</span><span id="L-72"><a href="#L-72"><span class="linenos"> 72</span></a>
+</span><span id="L-73"><a href="#L-73"><span class="linenos"> 73</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+</span><span id="L-74"><a href="#L-74"><span class="linenos"> 74</span></a><span class="k">class</span> <span class="nc">StressData</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
+</span><span id="L-75"><a href="#L-75"><span class="linenos"> 75</span></a>    <span class="n">stress_duration_seconds</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-76"><a href="#L-76"><span class="linenos"> 76</span></a>    <span class="n">rest_stress_duration_seconds</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-77"><a href="#L-77"><span class="linenos"> 77</span></a>    <span class="n">activity_stress_duration_seconds</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-78"><a href="#L-78"><span class="linenos"> 78</span></a>    <span class="n">low_stress_duration_seconds</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-79"><a href="#L-79"><span class="linenos"> 79</span></a>    <span class="n">medium_stress_duration_seconds</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-80"><a href="#L-80"><span class="linenos"> 80</span></a>    <span class="n">high_stress_duration_seconds</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-81"><a href="#L-81"><span class="linenos"> 81</span></a>    <span class="n">avg_stress_level</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-82"><a href="#L-82"><span class="linenos"> 82</span></a>    <span class="n">max_stress_level</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-83"><a href="#L-83"><span class="linenos"> 83</span></a>    <span class="n">samples</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">samples_</span><span class="o">.</span><span class="n">StressSample</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+</span><span id="L-84"><a href="#L-84"><span class="linenos"> 84</span></a>
+</span><span id="L-85"><a href="#L-85"><span class="linenos"> 85</span></a>
+</span><span id="L-86"><a href="#L-86"><span class="linenos"> 86</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+</span><span id="L-87"><a href="#L-87"><span class="linenos"> 87</span></a><span class="k">class</span> <span class="nc">Scores</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
+</span><span id="L-88"><a href="#L-88"><span class="linenos"> 88</span></a>    <span class="n">recovery</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a>    <span class="n">activity</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a>    <span class="n">sleep</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a>
+</span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a>
+</span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+</span><span id="L-94"><a href="#L-94"><span class="linenos"> 94</span></a><span class="k">class</span> <span class="nc">Daily</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
+</span><span id="L-95"><a href="#L-95"><span class="linenos"> 95</span></a>    <span class="n">metadata</span><span class="p">:</span> <span class="n">Metadata</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Metadata</span><span class="p">)</span>
+</span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a>    <span class="n">tag_data</span><span class="p">:</span> <span class="n">TagData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">TagData</span><span class="p">)</span>
+</span><span id="L-97"><a href="#L-97"><span class="linenos"> 97</span></a>    <span class="n">active_durations_data</span><span class="p">:</span> <span class="n">ActiveDurationsData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">ActiveDurationsData</span><span class="p">)</span>
+</span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a>    <span class="n">distance_data</span><span class="p">:</span> <span class="n">DistanceData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">DistanceData</span><span class="p">)</span>
+</span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a>    <span class="n">heart_rate_data</span><span class="p">:</span> <span class="n">HeartRateData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">HeartRateData</span><span class="p">)</span>
+</span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a>    <span class="n">calories_data</span><span class="p">:</span> <span class="n">CaloriesData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">CaloriesData</span><span class="p">)</span>
+</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a>    <span class="n">MET_data</span><span class="p">:</span> <span class="n">METData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">METData</span><span class="p">)</span>
+</span><span id="L-102"><a href="#L-102"><span class="linenos">102</span></a>    <span class="n">stress_data</span><span class="p">:</span> <span class="n">StressData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">StressData</span><span class="p">)</span>
+</span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a>    <span class="n">oxygen_data</span><span class="p">:</span> <span class="n">OxygenData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">OxygenData</span><span class="p">)</span>
+</span><span id="L-104"><a href="#L-104"><span class="linenos">104</span></a>    <span class="n">strain_data</span><span class="p">:</span> <span class="n">StrainData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">StrainData</span><span class="p">)</span>
+</span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a>    <span class="n">device_data</span><span class="p">:</span> <span class="n">DeviceData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">DeviceData</span><span class="p">)</span>
+</span><span id="L-106"><a href="#L-106"><span class="linenos">106</span></a>    <span class="n">scores</span><span class="p">:</span> <span class="n">Scores</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Scores</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -243,29 +182,31 @@
 
     </div>
     <a class="headerlink" href="#Daily"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Daily-79"><a href="#Daily-79"><span class="linenos">79</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
-</span><span id="Daily-80"><a href="#Daily-80"><span class="linenos">80</span></a><span class="k">class</span> <span class="nc">Daily</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
-</span><span id="Daily-81"><a href="#Daily-81"><span class="linenos">81</span></a>    <span class="n">metadata</span><span class="p">:</span> <span class="n">Metadata</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Metadata</span><span class="p">)</span>
-</span><span id="Daily-82"><a href="#Daily-82"><span class="linenos">82</span></a>    <span class="n">tag_data</span><span class="p">:</span> <span class="n">TagData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
-</span><span id="Daily-83"><a href="#Daily-83"><span class="linenos">83</span></a>    <span class="n">active_durations_data</span><span class="p">:</span> <span class="n">ActiveDurationsData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">ActiveDurationsData</span><span class="p">)</span>
-</span><span id="Daily-84"><a href="#Daily-84"><span class="linenos">84</span></a>    <span class="n">distance_data</span><span class="p">:</span> <span class="n">DistanceData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">DistanceData</span><span class="p">)</span>
-</span><span id="Daily-85"><a href="#Daily-85"><span class="linenos">85</span></a>    <span class="n">heart_rate_data</span><span class="p">:</span> <span class="n">HeartRateData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">HeartRateData</span><span class="p">)</span>
-</span><span id="Daily-86"><a href="#Daily-86"><span class="linenos">86</span></a>    <span class="n">calories_data</span><span class="p">:</span> <span class="n">CaloriesData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">CaloriesData</span><span class="p">)</span>
-</span><span id="Daily-87"><a href="#Daily-87"><span class="linenos">87</span></a>    <span class="n">MET_data</span><span class="p">:</span> <span class="n">METData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">METData</span><span class="p">)</span>
-</span><span id="Daily-88"><a href="#Daily-88"><span class="linenos">88</span></a>    <span class="n">stress_data</span><span class="p">:</span> <span class="n">StressData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">StressData</span><span class="p">)</span>
-</span><span id="Daily-89"><a href="#Daily-89"><span class="linenos">89</span></a>    <span class="n">oxygen_data</span><span class="p">:</span> <span class="n">OxygenData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">OxygenData</span><span class="p">)</span>
-</span><span id="Daily-90"><a href="#Daily-90"><span class="linenos">90</span></a>    <span class="n">device_data</span><span class="p">:</span> <span class="n">DeviceData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">DeviceData</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Daily-94"><a href="#Daily-94"><span class="linenos"> 94</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+</span><span id="Daily-95"><a href="#Daily-95"><span class="linenos"> 95</span></a><span class="k">class</span> <span class="nc">Daily</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
+</span><span id="Daily-96"><a href="#Daily-96"><span class="linenos"> 96</span></a>    <span class="n">metadata</span><span class="p">:</span> <span class="n">Metadata</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Metadata</span><span class="p">)</span>
+</span><span id="Daily-97"><a href="#Daily-97"><span class="linenos"> 97</span></a>    <span class="n">tag_data</span><span class="p">:</span> <span class="n">TagData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">TagData</span><span class="p">)</span>
+</span><span id="Daily-98"><a href="#Daily-98"><span class="linenos"> 98</span></a>    <span class="n">active_durations_data</span><span class="p">:</span> <span class="n">ActiveDurationsData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">ActiveDurationsData</span><span class="p">)</span>
+</span><span id="Daily-99"><a href="#Daily-99"><span class="linenos"> 99</span></a>    <span class="n">distance_data</span><span class="p">:</span> <span class="n">DistanceData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">DistanceData</span><span class="p">)</span>
+</span><span id="Daily-100"><a href="#Daily-100"><span class="linenos">100</span></a>    <span class="n">heart_rate_data</span><span class="p">:</span> <span class="n">HeartRateData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">HeartRateData</span><span class="p">)</span>
+</span><span id="Daily-101"><a href="#Daily-101"><span class="linenos">101</span></a>    <span class="n">calories_data</span><span class="p">:</span> <span class="n">CaloriesData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">CaloriesData</span><span class="p">)</span>
+</span><span id="Daily-102"><a href="#Daily-102"><span class="linenos">102</span></a>    <span class="n">MET_data</span><span class="p">:</span> <span class="n">METData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">METData</span><span class="p">)</span>
+</span><span id="Daily-103"><a href="#Daily-103"><span class="linenos">103</span></a>    <span class="n">stress_data</span><span class="p">:</span> <span class="n">StressData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">StressData</span><span class="p">)</span>
+</span><span id="Daily-104"><a href="#Daily-104"><span class="linenos">104</span></a>    <span class="n">oxygen_data</span><span class="p">:</span> <span class="n">OxygenData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">OxygenData</span><span class="p">)</span>
+</span><span id="Daily-105"><a href="#Daily-105"><span class="linenos">105</span></a>    <span class="n">strain_data</span><span class="p">:</span> <span class="n">StrainData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">StrainData</span><span class="p">)</span>
+</span><span id="Daily-106"><a href="#Daily-106"><span class="linenos">106</span></a>    <span class="n">device_data</span><span class="p">:</span> <span class="n">DeviceData</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">DeviceData</span><span class="p">)</span>
+</span><span id="Daily-107"><a href="#Daily-107"><span class="linenos">107</span></a>    <span class="n">scores</span><span class="p">:</span> <span class="n">Scores</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">Scores</span><span class="p">)</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Daily(metadata: <a href="#Metadata">terra.models.v2.daily.Metadata</a> = <factory>, tag_data: terra.models.v2.daily.TagData = <factory>, active_durations_data: <a href="activity.html#ActiveDurationsData">terra.models.v2.activity.ActiveDurationsData</a> = <factory>, distance_data: <a href="#DistanceData">terra.models.v2.daily.DistanceData</a> = <factory>, heart_rate_data: <a href="activity.html#HeartRateData">terra.models.v2.activity.HeartRateData</a> = <factory>, calories_data: <a href="activity.html#CaloriesData">terra.models.v2.activity.CaloriesData</a> = <factory>, MET_data: <a href="activity.html#METData">terra.models.v2.activity.METData</a> = <factory>, stress_data: <a href="#StressData">terra.models.v2.daily.StressData</a> = <factory>, oxygen_data: <a href="activity.html#OxygenData">terra.models.v2.activity.OxygenData</a> = <factory>, device_data: <a href="activity.html#DeviceData">terra.models.v2.activity.DeviceData</a> = <factory>)</p>
+            <div class="docstring"><p>Daily(metadata: terra.models.v2.daily.Metadata = <factory>, tag_data: terra.models.v2.daily.TagData = <factory>, active_durations_data: terra.models.v2.activity.ActiveDurationsData = <factory>, distance_data: terra.models.v2.daily.DistanceData = <factory>, heart_rate_data: terra.models.v2.activity.HeartRateData = <factory>, calories_data: terra.models.v2.activity.CaloriesData = <factory>, MET_data: terra.models.v2.activity.METData = <factory>, stress_data: terra.models.v2.daily.StressData = <factory>, oxygen_data: terra.models.v2.activity.OxygenData = <factory>, strain_data: terra.models.v2.daily.StrainData = <factory>, device_data: terra.models.v2.activity.DeviceData = <factory>, scores: terra.models.v2.daily.Scores = <factory>)</p>
 </div>
 
 
                             <div id="Daily.__init__" class="classattr">
                                 <div class="attr function">
             
-        <span class="name">Daily</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">metadata</span><span class="p">:</span> <span class="n"><a href="#Metadata">terra.models.v2.daily.Metadata</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">tag_data</span><span class="p">:</span> <span class="n">terra</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">daily</span><span class="o">.</span><span class="n">TagData</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">active_durations_data</span><span class="p">:</span> <span class="n"><a href="activity.html#ActiveDurationsData">terra.models.v2.activity.ActiveDurationsData</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">distance_data</span><span class="p">:</span> <span class="n"><a href="#DistanceData">terra.models.v2.daily.DistanceData</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">heart_rate_data</span><span class="p">:</span> <span class="n"><a href="activity.html#HeartRateData">terra.models.v2.activity.HeartRateData</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">calories_data</span><span class="p">:</span> <span class="n"><a href="activity.html#CaloriesData">terra.models.v2.activity.CaloriesData</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">MET_data</span><span class="p">:</span> <span class="n"><a href="activity.html#METData">terra.models.v2.activity.METData</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">stress_data</span><span class="p">:</span> <span class="n"><a href="#StressData">terra.models.v2.daily.StressData</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">oxygen_data</span><span class="p">:</span> <span class="n"><a href="activity.html#OxygenData">terra.models.v2.activity.OxygenData</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">device_data</span><span class="p">:</span> <span class="n"><a href="activity.html#DeviceData">terra.models.v2.activity.DeviceData</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span></span>)</span>
+        <span class="name">Daily</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">metadata</span><span class="p">:</span> <span class="n">terra</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">daily</span><span class="o">.</span><span class="n">Metadata</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">tag_data</span><span class="p">:</span> <span class="n">terra</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">daily</span><span class="o">.</span><span class="n">TagData</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">active_durations_data</span><span class="p">:</span> <span class="n">terra</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">activity</span><span class="o">.</span><span class="n">ActiveDurationsData</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">distance_data</span><span class="p">:</span> <span class="n">terra</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">daily</span><span class="o">.</span><span class="n">DistanceData</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">heart_rate_data</span><span class="p">:</span> <span class="n">terra</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">activity</span><span class="o">.</span><span class="n">HeartRateData</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">calories_data</span><span class="p">:</span> <span class="n">terra</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">activity</span><span class="o">.</span><span class="n">CaloriesData</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">MET_data</span><span class="p">:</span> <span class="n">terra</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">activity</span><span class="o">.</span><span class="n">METData</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">stress_data</span><span class="p">:</span> <span class="n">terra</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">daily</span><span class="o">.</span><span class="n">StressData</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">oxygen_data</span><span class="p">:</span> <span class="n">terra</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">activity</span><span class="o">.</span><span class="n">OxygenData</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">strain_data</span><span class="p">:</span> <span class="n">terra</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">daily</span><span class="o">.</span><span class="n">StrainData</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">device_data</span><span class="p">:</span> <span class="n">terra</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">activity</span><span class="o">.</span><span class="n">DeviceData</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">scores</span><span class="p">:</span> <span class="n">terra</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">daily</span><span class="o">.</span><span class="n">Scores</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span></span>)</span>
 
         
     </div>
@@ -285,377 +226,6 @@
                 <dd id="Daily.filter_data" class="function"><a href="../base_model.html#TerraDataModel.filter_data">filter_data</a></dd>
                 <dd id="Daily.from_dict" class="function"><a href="../base_model.html#TerraDataModel.from_dict">from_dict</a></dd>
                 <dd id="Daily.populate_from_dict" class="function"><a href="../base_model.html#TerraDataModel.populate_from_dict">populate_from_dict</a></dd>
-
-            </div>
-                                </dl>
-                            </div>
-                </section>
-                <section id="Metadata">
-                            <input id="Metadata-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr class">
-                    <div class="decorator">@dataclasses.dataclass</div>
-
-    <span class="def">class</span>
-    <span class="name">Metadata</span><wbr>(<span class="base"><a href="../base_model.html#TerraDataModel">terra.models.base_model.TerraDataModel</a></span>):
-
-                <label class="view-source-button" for="Metadata-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#Metadata"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Metadata-32"><a href="#Metadata-32"><span class="linenos">32</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
-</span><span id="Metadata-33"><a href="#Metadata-33"><span class="linenos">33</span></a><span class="k">class</span> <span class="nc">Metadata</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
-</span><span id="Metadata-34"><a href="#Metadata-34"><span class="linenos">34</span></a>    <span class="n">start_time</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="Metadata-35"><a href="#Metadata-35"><span class="linenos">35</span></a>    <span class="n">end_time</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="Metadata-36"><a href="#Metadata-36"><span class="linenos">36</span></a>    <span class="n">upload_type</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>Metadata(start_time: Optional[str] = None, end_time: Optional[str] = None, upload_type: Optional[int] = None)</p>
-</div>
-
-
-                            <div id="Metadata.__init__" class="classattr">
-                                <div class="attr function">
-            
-        <span class="name">Metadata</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">start_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">end_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">upload_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></span>)</span>
-
-        
-    </div>
-    <a class="headerlink" href="#Metadata.__init__"></a>
-    
-    
-
-                            </div>
-                            <div id="Metadata.start_time" class="classattr">
-                                <div class="attr variable">
-            <span class="name">start_time</span><span class="annotation">: Optional[str]</span><span class="default_value"> = None</span>
-
-        
-    </div>
-    <a class="headerlink" href="#Metadata.start_time"></a>
-    
-    
-
-                            </div>
-                            <div id="Metadata.end_time" class="classattr">
-                                <div class="attr variable">
-            <span class="name">end_time</span><span class="annotation">: Optional[str]</span><span class="default_value"> = None</span>
-
-        
-    </div>
-    <a class="headerlink" href="#Metadata.end_time"></a>
-    
-    
-
-                            </div>
-                            <div id="Metadata.upload_type" class="classattr">
-                                <div class="attr variable">
-            <span class="name">upload_type</span><span class="annotation">: Optional[int]</span><span class="default_value"> = None</span>
-
-        
-    </div>
-    <a class="headerlink" href="#Metadata.upload_type"></a>
-    
-    
-
-                            </div>
-                            <div class="inherited">
-                                <h5>Inherited Members</h5>
-                                <dl>
-                                    <div><dt><a href="../base_model.html#TerraDataModel">terra.models.base_model.TerraDataModel</a></dt>
-                                <dd id="Metadata.keys" class="function"><a href="../base_model.html#TerraDataModel.keys">keys</a></dd>
-                <dd id="Metadata.values" class="function"><a href="../base_model.html#TerraDataModel.values">values</a></dd>
-                <dd id="Metadata.items" class="function"><a href="../base_model.html#TerraDataModel.items">items</a></dd>
-                <dd id="Metadata.to_dict" class="function"><a href="../base_model.html#TerraDataModel.to_dict">to_dict</a></dd>
-                <dd id="Metadata.filter_data" class="function"><a href="../base_model.html#TerraDataModel.filter_data">filter_data</a></dd>
-                <dd id="Metadata.from_dict" class="function"><a href="../base_model.html#TerraDataModel.from_dict">from_dict</a></dd>
-                <dd id="Metadata.populate_from_dict" class="function"><a href="../base_model.html#TerraDataModel.populate_from_dict">populate_from_dict</a></dd>
-
-            </div>
-                                </dl>
-                            </div>
-                </section>
-                <section id="DistanceDataDetailed">
-                            <input id="DistanceDataDetailed-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr class">
-                    <div class="decorator">@dataclasses.dataclass</div>
-
-    <span class="def">class</span>
-    <span class="name">DistanceDataDetailed</span><wbr>(<span class="base"><a href="../base_model.html#TerraDataModel">terra.models.base_model.TerraDataModel</a></span>):
-
-                <label class="view-source-button" for="DistanceDataDetailed-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#DistanceDataDetailed"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DistanceDataDetailed-39"><a href="#DistanceDataDetailed-39"><span class="linenos">39</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
-</span><span id="DistanceDataDetailed-40"><a href="#DistanceDataDetailed-40"><span class="linenos">40</span></a><span class="k">class</span> <span class="nc">DistanceDataDetailed</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
-</span><span id="DistanceDataDetailed-41"><a href="#DistanceDataDetailed-41"><span class="linenos">41</span></a>    <span class="n">step_samples</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">samples_</span><span class="o">.</span><span class="n">StepSample</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
-</span><span id="DistanceDataDetailed-42"><a href="#DistanceDataDetailed-42"><span class="linenos">42</span></a>    <span class="n">distance_samples</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">samples_</span><span class="o">.</span><span class="n">DistanceSample</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
-</span><span id="DistanceDataDetailed-43"><a href="#DistanceDataDetailed-43"><span class="linenos">43</span></a>    <span class="n">elevation_samples</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">samples_</span><span class="o">.</span><span class="n">ElevationSample</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>DistanceDataDetailed(step_samples: List[<a href="samples.html#StepSample">terra.models.v2.samples.StepSample</a>] = <factory>, distance_samples: List[<a href="samples.html#DistanceSample">terra.models.v2.samples.DistanceSample</a>] = <factory>, elevation_samples: List[<a href="samples.html#ElevationSample">terra.models.v2.samples.ElevationSample</a>] = <factory>)</p>
-</div>
-
-
-                            <div id="DistanceDataDetailed.__init__" class="classattr">
-                                <div class="attr function">
-            
-        <span class="name">DistanceDataDetailed</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">step_samples</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n"><a href="samples.html#StepSample">terra.models.v2.samples.StepSample</a></span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">distance_samples</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n"><a href="samples.html#DistanceSample">terra.models.v2.samples.DistanceSample</a></span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">elevation_samples</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n"><a href="samples.html#ElevationSample">terra.models.v2.samples.ElevationSample</a></span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span></span>)</span>
-
-        
-    </div>
-    <a class="headerlink" href="#DistanceDataDetailed.__init__"></a>
-    
-    
-
-                            </div>
-                            <div class="inherited">
-                                <h5>Inherited Members</h5>
-                                <dl>
-                                    <div><dt><a href="../base_model.html#TerraDataModel">terra.models.base_model.TerraDataModel</a></dt>
-                                <dd id="DistanceDataDetailed.keys" class="function"><a href="../base_model.html#TerraDataModel.keys">keys</a></dd>
-                <dd id="DistanceDataDetailed.values" class="function"><a href="../base_model.html#TerraDataModel.values">values</a></dd>
-                <dd id="DistanceDataDetailed.items" class="function"><a href="../base_model.html#TerraDataModel.items">items</a></dd>
-                <dd id="DistanceDataDetailed.to_dict" class="function"><a href="../base_model.html#TerraDataModel.to_dict">to_dict</a></dd>
-                <dd id="DistanceDataDetailed.filter_data" class="function"><a href="../base_model.html#TerraDataModel.filter_data">filter_data</a></dd>
-                <dd id="DistanceDataDetailed.from_dict" class="function"><a href="../base_model.html#TerraDataModel.from_dict">from_dict</a></dd>
-                <dd id="DistanceDataDetailed.populate_from_dict" class="function"><a href="../base_model.html#TerraDataModel.populate_from_dict">populate_from_dict</a></dd>
-
-            </div>
-                                </dl>
-                            </div>
-                </section>
-                <section id="DistanceData">
-                            <input id="DistanceData-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr class">
-                    <div class="decorator">@dataclasses.dataclass</div>
-
-    <span class="def">class</span>
-    <span class="name">DistanceData</span><wbr>(<span class="base"><a href="../base_model.html#TerraDataModel">terra.models.base_model.TerraDataModel</a></span>):
-
-                <label class="view-source-button" for="DistanceData-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#DistanceData"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="DistanceData-46"><a href="#DistanceData-46"><span class="linenos">46</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
-</span><span id="DistanceData-47"><a href="#DistanceData-47"><span class="linenos">47</span></a><span class="k">class</span> <span class="nc">DistanceData</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
-</span><span id="DistanceData-48"><a href="#DistanceData-48"><span class="linenos">48</span></a>    <span class="n">distance_meters</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="DistanceData-49"><a href="#DistanceData-49"><span class="linenos">49</span></a>    <span class="n">steps</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="DistanceData-50"><a href="#DistanceData-50"><span class="linenos">50</span></a>    <span class="n">floors_climbed</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="DistanceData-51"><a href="#DistanceData-51"><span class="linenos">51</span></a>    <span class="n">swimming</span><span class="p">:</span> <span class="n">SwimmingSummary</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">SwimmingSummary</span><span class="p">)</span>
-</span><span id="DistanceData-52"><a href="#DistanceData-52"><span class="linenos">52</span></a>    <span class="n">elevation</span><span class="p">:</span> <span class="n">ElevationSummary</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">ElevationSummary</span><span class="p">)</span>
-</span><span id="DistanceData-53"><a href="#DistanceData-53"><span class="linenos">53</span></a>    <span class="n">detailed</span><span class="p">:</span> <span class="n">DistanceDataDetailed</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">DistanceDataDetailed</span><span class="p">)</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>DistanceData(distance_meters: Optional[float] = None, steps: Optional[int] = None, floors_climbed: Optional[int] = None, swimming: <a href="activity.html#SwimmingSummary">terra.models.v2.activity.SwimmingSummary</a> = <factory>, elevation: <a href="activity.html#ElevationSummary">terra.models.v2.activity.ElevationSummary</a> = <factory>, detailed: <a href="#DistanceDataDetailed">terra.models.v2.daily.DistanceDataDetailed</a> = <factory>)</p>
-</div>
-
-
-                            <div id="DistanceData.__init__" class="classattr">
-                                <div class="attr function">
-            
-        <span class="name">DistanceData</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">distance_meters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">steps</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">floors_climbed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">swimming</span><span class="p">:</span> <span class="n"><a href="activity.html#SwimmingSummary">terra.models.v2.activity.SwimmingSummary</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">elevation</span><span class="p">:</span> <span class="n"><a href="activity.html#ElevationSummary">terra.models.v2.activity.ElevationSummary</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">detailed</span><span class="p">:</span> <span class="n"><a href="#DistanceDataDetailed">terra.models.v2.daily.DistanceDataDetailed</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span></span>)</span>
-
-        
-    </div>
-    <a class="headerlink" href="#DistanceData.__init__"></a>
-    
-    
-
-                            </div>
-                            <div id="DistanceData.distance_meters" class="classattr">
-                                <div class="attr variable">
-            <span class="name">distance_meters</span><span class="annotation">: Optional[float]</span><span class="default_value"> = None</span>
-
-        
-    </div>
-    <a class="headerlink" href="#DistanceData.distance_meters"></a>
-    
-    
-
-                            </div>
-                            <div id="DistanceData.steps" class="classattr">
-                                <div class="attr variable">
-            <span class="name">steps</span><span class="annotation">: Optional[int]</span><span class="default_value"> = None</span>
-
-        
-    </div>
-    <a class="headerlink" href="#DistanceData.steps"></a>
-    
-    
-
-                            </div>
-                            <div id="DistanceData.floors_climbed" class="classattr">
-                                <div class="attr variable">
-            <span class="name">floors_climbed</span><span class="annotation">: Optional[int]</span><span class="default_value"> = None</span>
-
-        
-    </div>
-    <a class="headerlink" href="#DistanceData.floors_climbed"></a>
-    
-    
-
-                            </div>
-                            <div class="inherited">
-                                <h5>Inherited Members</h5>
-                                <dl>
-                                    <div><dt><a href="../base_model.html#TerraDataModel">terra.models.base_model.TerraDataModel</a></dt>
-                                <dd id="DistanceData.keys" class="function"><a href="../base_model.html#TerraDataModel.keys">keys</a></dd>
-                <dd id="DistanceData.values" class="function"><a href="../base_model.html#TerraDataModel.values">values</a></dd>
-                <dd id="DistanceData.items" class="function"><a href="../base_model.html#TerraDataModel.items">items</a></dd>
-                <dd id="DistanceData.to_dict" class="function"><a href="../base_model.html#TerraDataModel.to_dict">to_dict</a></dd>
-                <dd id="DistanceData.filter_data" class="function"><a href="../base_model.html#TerraDataModel.filter_data">filter_data</a></dd>
-                <dd id="DistanceData.from_dict" class="function"><a href="../base_model.html#TerraDataModel.from_dict">from_dict</a></dd>
-                <dd id="DistanceData.populate_from_dict" class="function"><a href="../base_model.html#TerraDataModel.populate_from_dict">populate_from_dict</a></dd>
-
-            </div>
-                                </dl>
-                            </div>
-                </section>
-                <section id="StressData">
-                            <input id="StressData-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr class">
-                    <div class="decorator">@dataclasses.dataclass</div>
-
-    <span class="def">class</span>
-    <span class="name">StressData</span><wbr>(<span class="base"><a href="../base_model.html#TerraDataModel">terra.models.base_model.TerraDataModel</a></span>):
-
-                <label class="view-source-button" for="StressData-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#StressData"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="StressData-56"><a href="#StressData-56"><span class="linenos">56</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
-</span><span id="StressData-57"><a href="#StressData-57"><span class="linenos">57</span></a><span class="k">class</span> <span class="nc">StressData</span><span class="p">(</span><span class="n">base_model</span><span class="o">.</span><span class="n">TerraDataModel</span><span class="p">):</span>
-</span><span id="StressData-58"><a href="#StressData-58"><span class="linenos">58</span></a>    <span class="n">stress_duration_seconds</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="StressData-59"><a href="#StressData-59"><span class="linenos">59</span></a>    <span class="n">rest_stress_duration_seconds</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="StressData-60"><a href="#StressData-60"><span class="linenos">60</span></a>    <span class="n">activity_stress_duration_seconds</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="StressData-61"><a href="#StressData-61"><span class="linenos">61</span></a>    <span class="n">low_stress_duration_seconds</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="StressData-62"><a href="#StressData-62"><span class="linenos">62</span></a>    <span class="n">medium_stress_duration_seconds</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="StressData-63"><a href="#StressData-63"><span class="linenos">63</span></a>    <span class="n">high_stress_duration_seconds</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="StressData-64"><a href="#StressData-64"><span class="linenos">64</span></a>    <span class="n">avg_stress_level</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="StressData-65"><a href="#StressData-65"><span class="linenos">65</span></a>    <span class="n">max_stress_level</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="StressData-66"><a href="#StressData-66"><span class="linenos">66</span></a>    <span class="n">samples</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">samples_</span><span class="o">.</span><span class="n">StressSample</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>StressData(stress_duration_seconds: Optional[float] = None, rest_stress_duration_seconds: Optional[float] = None, activity_stress_duration_seconds: Optional[float] = None, low_stress_duration_seconds: Optional[float] = None, medium_stress_duration_seconds: Optional[float] = None, high_stress_duration_seconds: Optional[float] = None, avg_stress_level: Optional[float] = None, max_stress_level: Optional[float] = None, samples: List[<a href="samples.html#StressSample">terra.models.v2.samples.StressSample</a>] = <factory>)</p>
-</div>
-
-
-                            <div id="StressData.__init__" class="classattr">
-                                <div class="attr function">
-            
-        <span class="name">StressData</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">stress_duration_seconds</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">rest_stress_duration_seconds</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">activity_stress_duration_seconds</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">low_stress_duration_seconds</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">medium_stress_duration_seconds</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">high_stress_duration_seconds</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">avg_stress_level</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">max_stress_level</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">samples</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n"><a href="samples.html#StressSample">terra.models.v2.samples.StressSample</a></span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span></span>)</span>
-
-        
-    </div>
-    <a class="headerlink" href="#StressData.__init__"></a>
-    
-    
-
-                            </div>
-                            <div id="StressData.stress_duration_seconds" class="classattr">
-                                <div class="attr variable">
-            <span class="name">stress_duration_seconds</span><span class="annotation">: Optional[float]</span><span class="default_value"> = None</span>
-
-        
-    </div>
-    <a class="headerlink" href="#StressData.stress_duration_seconds"></a>
-    
-    
-
-                            </div>
-                            <div id="StressData.rest_stress_duration_seconds" class="classattr">
-                                <div class="attr variable">
-            <span class="name">rest_stress_duration_seconds</span><span class="annotation">: Optional[float]</span><span class="default_value"> = None</span>
-
-        
-    </div>
-    <a class="headerlink" href="#StressData.rest_stress_duration_seconds"></a>
-    
-    
-
-                            </div>
-                            <div id="StressData.activity_stress_duration_seconds" class="classattr">
-                                <div class="attr variable">
-            <span class="name">activity_stress_duration_seconds</span><span class="annotation">: Optional[float]</span><span class="default_value"> = None</span>
-
-        
-    </div>
-    <a class="headerlink" href="#StressData.activity_stress_duration_seconds"></a>
-    
-    
-
-                            </div>
-                            <div id="StressData.low_stress_duration_seconds" class="classattr">
-                                <div class="attr variable">
-            <span class="name">low_stress_duration_seconds</span><span class="annotation">: Optional[float]</span><span class="default_value"> = None</span>
-
-        
-    </div>
-    <a class="headerlink" href="#StressData.low_stress_duration_seconds"></a>
-    
-    
-
-                            </div>
-                            <div id="StressData.medium_stress_duration_seconds" class="classattr">
-                                <div class="attr variable">
-            <span class="name">medium_stress_duration_seconds</span><span class="annotation">: Optional[float]</span><span class="default_value"> = None</span>
-
-        
-    </div>
-    <a class="headerlink" href="#StressData.medium_stress_duration_seconds"></a>
-    
-    
-
-                            </div>
-                            <div id="StressData.high_stress_duration_seconds" class="classattr">
-                                <div class="attr variable">
-            <span class="name">high_stress_duration_seconds</span><span class="annotation">: Optional[float]</span><span class="default_value"> = None</span>
-
-        
-    </div>
-    <a class="headerlink" href="#StressData.high_stress_duration_seconds"></a>
-    
-    
-
-                            </div>
-                            <div id="StressData.avg_stress_level" class="classattr">
-                                <div class="attr variable">
-            <span class="name">avg_stress_level</span><span class="annotation">: Optional[float]</span><span class="default_value"> = None</span>
-
-        
-    </div>
-    <a class="headerlink" href="#StressData.avg_stress_level"></a>
-    
-    
-
-                            </div>
-                            <div id="StressData.max_stress_level" class="classattr">
-                                <div class="attr variable">
-            <span class="name">max_stress_level</span><span class="annotation">: Optional[float]</span><span class="default_value"> = None</span>
-
-        
-    </div>
-    <a class="headerlink" href="#StressData.max_stress_level"></a>
-    
-    
-
-                            </div>
-                            <div class="inherited">
-                                <h5>Inherited Members</h5>
-                                <dl>
-                                    <div><dt><a href="../base_model.html#TerraDataModel">terra.models.base_model.TerraDataModel</a></dt>
-                                <dd id="StressData.keys" class="function"><a href="../base_model.html#TerraDataModel.keys">keys</a></dd>
-                <dd id="StressData.values" class="function"><a href="../base_model.html#TerraDataModel.values">values</a></dd>
-                <dd id="StressData.items" class="function"><a href="../base_model.html#TerraDataModel.items">items</a></dd>
-                <dd id="StressData.to_dict" class="function"><a href="../base_model.html#TerraDataModel.to_dict">to_dict</a></dd>
-                <dd id="StressData.filter_data" class="function"><a href="../base_model.html#TerraDataModel.filter_data">filter_data</a></dd>
-                <dd id="StressData.from_dict" class="function"><a href="../base_model.html#TerraDataModel.from_dict">from_dict</a></dd>
-                <dd id="StressData.populate_from_dict" class="function"><a href="../base_model.html#TerraDataModel.populate_from_dict">populate_from_dict</a></dd>
 
             </div>
                                 </dl>
