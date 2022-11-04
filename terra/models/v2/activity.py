@@ -170,7 +170,7 @@ class HeartRateZone(base_model.TerraDataModel):
     name: typing.Optional[str] = dataclasses.field(default=None)
     duration_seconds: typing.Optional[float] = dataclasses.field(default=None)
 
-    def __post_init__(self)-> None:
+    def __post_init__(self) -> None:
         if not any((self.start_percentage, self.end_percentage, self.name)):
             self.start_percentage, self.end_percentage, self.name = (None, None, None)
 
