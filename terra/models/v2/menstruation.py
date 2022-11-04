@@ -15,8 +15,9 @@ import dataclasses
 import typing
 
 from terra.models import base_model
+from terra.models.v2 import samples as samples_
 
-__all__ = ["Menstruation", "Metadata", "MenstruationData"]
+__all__ = ["Menstruation"]
 
 
 @dataclasses.dataclass
@@ -37,6 +38,7 @@ class MenstruationData(base_model.TerraDataModel):
     is_predicted_cycle: typing.Optional[str] = dataclasses.field(default=None)
     cycle_length_days: typing.Optional[str] = dataclasses.field(default=None)
     last_updated_time: typing.Optional[str] = dataclasses.field(default=None)
+    menstruation_flow: typing.List[samples_.MenstruationFlowSample] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass

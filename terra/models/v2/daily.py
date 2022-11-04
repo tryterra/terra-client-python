@@ -25,7 +25,7 @@ from terra.models.v2.activity import METData
 from terra.models.v2.activity import OxygenData
 from terra.models.v2.activity import SwimmingSummary
 
-__all__ = ["Daily", "Metadata", "DistanceDataDetailed", "DistanceData", "StressData", "Daily"]
+__all__ = ["Daily"]
 
 
 @dataclasses.dataclass
@@ -40,6 +40,12 @@ class DistanceDataDetailed(base_model.TerraDataModel):
     step_samples: typing.List[samples_.StepSample] = dataclasses.field(default_factory=list)
     distance_samples: typing.List[samples_.DistanceSample] = dataclasses.field(default_factory=list)
     elevation_samples: typing.List[samples_.ElevationSample] = dataclasses.field(default_factory=list)
+    floors_climbed_samples: typing.List[samples_.FloorsClimbedSample] = dataclasses.field(default_factory=list)
+
+
+@dataclasses.dataclass
+class StrainData(base_model.TerraDataModel):
+    strain_level: typing.Optional[float] = dataclasses.field(default=None)
 
 
 @dataclasses.dataclass
@@ -50,6 +56,18 @@ class DistanceData(base_model.TerraDataModel):
     swimming: SwimmingSummary = dataclasses.field(default_factory=SwimmingSummary)
     elevation: ElevationSummary = dataclasses.field(default_factory=ElevationSummary)
     detailed: DistanceDataDetailed = dataclasses.field(default_factory=DistanceDataDetailed)
+
+
+@dataclasses.dataclass
+class TagEntry(base_model.TerraDataModel):
+    tag_name: typing.Optional[str] = dataclasses.field(default=None)
+    timestamp: typing.Optional[str] = dataclasses.field(default=None)
+    notes: typing.Optional[str] = dataclasses.field(default=None)
+
+
+@dataclasses.dataclass
+class TagData(base_model.TerraDataModel):
+    tags: typing.List[TagEntry] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
@@ -64,21 +82,18 @@ class StressData(base_model.TerraDataModel):
     max_stress_level: typing.Optional[float] = dataclasses.field(default=None)
     samples: typing.List[samples_.StressSample] = dataclasses.field(default_factory=list)
 
-@dataclasses.dataclass
-class TagEntry(base_model.TerraDataModel):
-    tag_name: typing.Optional[str] = dataclasses.field(default=None)
-    timestamp: typing.Optional[str] = dataclasses.field(default=None)
-    notes: typing.Optional[str] = dataclasses.field(default=None)
-
 
 @dataclasses.dataclass
-class TagData(base_model.TerraDataModel):
-    tags: typing.List[TagEntry] = dataclasses.field(default_factory=list)
+class Scores(base_model.TerraDataModel):
+    recovery: typing.Optional[float] = dataclasses.field(default=None)
+    activity: typing.Optional[float] = dataclasses.field(default=None)
+    sleep: typing.Optional[float] = dataclasses.field(default=None)
+
 
 @dataclasses.dataclass
 class Daily(base_model.TerraDataModel):
     metadata: Metadata = dataclasses.field(default_factory=Metadata)
-    tag_data: TagData = dataclasses.field(default_factory=list)
+    tag_data: TagData = dataclasses.field(default_factory=TagData)
     active_durations_data: ActiveDurationsData = dataclasses.field(default_factory=ActiveDurationsData)
     distance_data: DistanceData = dataclasses.field(default_factory=DistanceData)
     heart_rate_data: HeartRateData = dataclasses.field(default_factory=HeartRateData)
@@ -86,4 +101,6 @@ class Daily(base_model.TerraDataModel):
     MET_data: METData = dataclasses.field(default_factory=METData)
     stress_data: StressData = dataclasses.field(default_factory=StressData)
     oxygen_data: OxygenData = dataclasses.field(default_factory=OxygenData)
+    strain_data: StrainData = dataclasses.field(default_factory=StrainData)
     device_data: DeviceData = dataclasses.field(default_factory=DeviceData)
+    scores: Scores = dataclasses.field(default_factory=Scores)

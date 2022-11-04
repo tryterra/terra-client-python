@@ -17,7 +17,7 @@ import typing
 from terra.models import base_model
 from terra.models.v2.samples import DrinkSample
 
-__all__ = ["Nutrition", "Metadata", "Macros", "Micros", "Quantity", "Meal", "NutritionSummary"]
+__all__ = ["Nutrition"]
 
 
 @dataclasses.dataclass
@@ -85,6 +85,7 @@ class Quantity(base_model.TerraDataModel):
 class Meal(base_model.TerraDataModel):
     name: typing.Optional[str] = dataclasses.field(default=None)
     id: typing.Optional[str] = dataclasses.field(default=None)
+    timestamp: typing.Optional[str] = dataclasses.field(default=None)
     type: typing.Optional[int] = dataclasses.field(default=0)
     quantity: Quantity = dataclasses.field(default_factory=Quantity)
     macros: Macros = dataclasses.field(default_factory=Macros)

@@ -57,6 +57,7 @@ class GlucoseDataSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     blood_glucose_mg_per_dL: typing.Optional[int] = dataclasses.field(default=None)
     glucose_level_flag: typing.Optional[int] = dataclasses.field(default=None)
+    trend_arrow: typing.Optional[int] = dataclasses.field(default=None)
 
 
 @dataclasses.dataclass
@@ -95,6 +96,20 @@ class DistanceSample(base_model.TerraDataModel):
 class StepSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     steps: typing.Optional[float] = dataclasses.field(default=None)
+    timer_duration_seconds: typing.Optional[float] = dataclasses.field(default=None)
+
+
+@dataclasses.dataclass
+class CalorieSample(base_model.TerraDataModel):
+    timestamp: typing.Optional[str] = dataclasses.field(default=None)
+    calories: typing.Optional[float] = dataclasses.field(default=None)
+    timer_duration_seconds: typing.Optional[float] = dataclasses.field(default=None)
+
+
+@dataclasses.dataclass
+class FloorsClimbedSample(base_model.TerraDataModel):
+    timestamp: typing.Optional[str] = dataclasses.field(default=None)
+    floors_climbed: typing.Optional[float] = dataclasses.field(default=None)
     timer_duration_seconds: typing.Optional[float] = dataclasses.field(default=None)
 
 
@@ -275,3 +290,9 @@ class DrinkSample(base_model.TerraDataModel):
     drink_volume: typing.Optional[str] = dataclasses.field(default=None)
     drink_name: typing.Optional[str] = dataclasses.field(default=None)
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
+
+
+@dataclasses.dataclass
+class MenstruationFlowSample(base_model.TerraDataModel):
+    timestamp: typing.Optional[str] = dataclasses.field(default=None)
+    flow: typing.Optional[int] = dataclasses.field(default=None)
