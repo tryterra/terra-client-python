@@ -73,7 +73,7 @@ def _parse_api_body(
         Auser = models.user.User.from_dict(body["user"])
 
     if ("status" in body) and (body["status"] in STATUS.keys()):
-        response = STATUS[body["status"]]().from_dict(body, True)
+        response = STATUS[body["status"]]().from_dict(body)
 
     elif dtype in USER_DATATYPES:
 
@@ -92,17 +92,17 @@ def _parse_api_body(
         if not dtype:
             raise exceptions.NoDtypeException
 
-        response = DTYPE_TO_RESPONSE[dtype]().from_dict(body, True)
+        response = DTYPE_TO_RESPONSE[dtype]().from_dict(body)
 
     elif dtype in HOOK_RESPONSE.keys():
 
         if not dtype:
             raise exceptions.NoDtypeException
-        response = HOOK_RESPONSE[dtype]().from_dict(body, True)
+        response = HOOK_RESPONSE[dtype]().from_dict(body)
 
     else:
 
-        response = GenericMessage().from_dict(body, True)
+        response = GenericMessage().from_dict(body)
 
     try:
         setattr(response, "user", Auser)
@@ -330,6 +330,7 @@ class ConnectionDegraded(TerraParsedApiResponse):
 class ProvidersResponse(TerraParsedApiResponse):
     status: typing.Optional[str] = dataclasses.field(default="warning")
     providers: typing.Optional[typing.List[str]] = dataclasses.field(default=None)
+    sdk_providers: typing.Optional[typing.List[str]] = dataclasses.field(default=None)
 
 
 @dataclasses.dataclass
