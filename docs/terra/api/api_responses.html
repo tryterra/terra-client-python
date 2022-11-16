@@ -333,6 +333,9 @@
                         <li>
                                 <a class="variable" href="#ProvidersResponse.providers">providers</a>
                         </li>
+                        <li>
+                                <a class="variable" href="#ProvidersResponse.sdk_providers">sdk_providers</a>
+                        </li>
                 </ul>
 
             </li>
@@ -513,7 +516,7 @@
 </span><span id="L-73"><a href="#L-73"><span class="linenos"> 73</span></a>        <span class="n">Auser</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">User</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">body</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">])</span>
 </span><span id="L-74"><a href="#L-74"><span class="linenos"> 74</span></a>
 </span><span id="L-75"><a href="#L-75"><span class="linenos"> 75</span></a>    <span class="k">if</span> <span class="p">(</span><span class="s2">&quot;status&quot;</span> <span class="ow">in</span> <span class="n">body</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">body</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">STATUS</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
-</span><span id="L-76"><a href="#L-76"><span class="linenos"> 76</span></a>        <span class="n">response</span> <span class="o">=</span> <span class="n">STATUS</span><span class="p">[</span><span class="n">body</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]]()</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</span><span id="L-76"><a href="#L-76"><span class="linenos"> 76</span></a>        <span class="n">response</span> <span class="o">=</span> <span class="n">STATUS</span><span class="p">[</span><span class="n">body</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]]()</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
 </span><span id="L-77"><a href="#L-77"><span class="linenos"> 77</span></a>
 </span><span id="L-78"><a href="#L-78"><span class="linenos"> 78</span></a>    <span class="k">elif</span> <span class="n">dtype</span> <span class="ow">in</span> <span class="n">USER_DATATYPES</span><span class="p">:</span>
 </span><span id="L-79"><a href="#L-79"><span class="linenos"> 79</span></a>
@@ -532,17 +535,17 @@
 </span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">dtype</span><span class="p">:</span>
 </span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a>            <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">NoDtypeException</span>
 </span><span id="L-94"><a href="#L-94"><span class="linenos"> 94</span></a>
-</span><span id="L-95"><a href="#L-95"><span class="linenos"> 95</span></a>        <span class="n">response</span> <span class="o">=</span> <span class="n">DTYPE_TO_RESPONSE</span><span class="p">[</span><span class="n">dtype</span><span class="p">]()</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</span><span id="L-95"><a href="#L-95"><span class="linenos"> 95</span></a>        <span class="n">response</span> <span class="o">=</span> <span class="n">DTYPE_TO_RESPONSE</span><span class="p">[</span><span class="n">dtype</span><span class="p">]()</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
 </span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a>
 </span><span id="L-97"><a href="#L-97"><span class="linenos"> 97</span></a>    <span class="k">elif</span> <span class="n">dtype</span> <span class="ow">in</span> <span class="n">HOOK_RESPONSE</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
 </span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a>
 </span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">dtype</span><span class="p">:</span>
 </span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a>            <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">NoDtypeException</span>
-</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a>        <span class="n">response</span> <span class="o">=</span> <span class="n">HOOK_RESPONSE</span><span class="p">[</span><span class="n">dtype</span><span class="p">]()</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a>        <span class="n">response</span> <span class="o">=</span> <span class="n">HOOK_RESPONSE</span><span class="p">[</span><span class="n">dtype</span><span class="p">]()</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
 </span><span id="L-102"><a href="#L-102"><span class="linenos">102</span></a>
 </span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a>    <span class="k">else</span><span class="p">:</span>
 </span><span id="L-104"><a href="#L-104"><span class="linenos">104</span></a>
-</span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a>        <span class="n">response</span> <span class="o">=</span> <span class="n">GenericMessage</span><span class="p">()</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a>        <span class="n">response</span> <span class="o">=</span> <span class="n">GenericMessage</span><span class="p">()</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
 </span><span id="L-106"><a href="#L-106"><span class="linenos">106</span></a>
 </span><span id="L-107"><a href="#L-107"><span class="linenos">107</span></a>    <span class="k">try</span><span class="p">:</span>
 </span><span id="L-108"><a href="#L-108"><span class="linenos">108</span></a>        <span class="nb">setattr</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="n">Auser</span><span class="p">)</span>
@@ -770,70 +773,71 @@
 </span><span id="L-330"><a href="#L-330"><span class="linenos">330</span></a><span class="k">class</span> <span class="nc">ProvidersResponse</span><span class="p">(</span><span class="n">TerraParsedApiResponse</span><span class="p">):</span>
 </span><span id="L-331"><a href="#L-331"><span class="linenos">331</span></a>    <span class="n">status</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;warning&quot;</span><span class="p">)</span>
 </span><span id="L-332"><a href="#L-332"><span class="linenos">332</span></a>    <span class="n">providers</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-333"><a href="#L-333"><span class="linenos">333</span></a>
+</span><span id="L-333"><a href="#L-333"><span class="linenos">333</span></a>    <span class="n">sdk_providers</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </span><span id="L-334"><a href="#L-334"><span class="linenos">334</span></a>
-</span><span id="L-335"><a href="#L-335"><span class="linenos">335</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
-</span><span id="L-336"><a href="#L-336"><span class="linenos">336</span></a><span class="k">class</span> <span class="nc">SentToWebhook</span><span class="p">(</span><span class="n">TerraParsedApiResponse</span><span class="p">):</span>
-</span><span id="L-337"><a href="#L-337"><span class="linenos">337</span></a>    <span class="n">status</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-338"><a href="#L-338"><span class="linenos">338</span></a>    <span class="n">message</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="L-339"><a href="#L-339"><span class="linenos">339</span></a>
+</span><span id="L-335"><a href="#L-335"><span class="linenos">335</span></a>
+</span><span id="L-336"><a href="#L-336"><span class="linenos">336</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+</span><span id="L-337"><a href="#L-337"><span class="linenos">337</span></a><span class="k">class</span> <span class="nc">SentToWebhook</span><span class="p">(</span><span class="n">TerraParsedApiResponse</span><span class="p">):</span>
+</span><span id="L-338"><a href="#L-338"><span class="linenos">338</span></a>    <span class="n">status</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="L-339"><a href="#L-339"><span class="linenos">339</span></a>    <span class="n">message</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </span><span id="L-340"><a href="#L-340"><span class="linenos">340</span></a>
-</span><span id="L-341"><a href="#L-341"><span class="linenos">341</span></a><span class="n">USER_DATATYPES</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="L-342"><a href="#L-342"><span class="linenos">342</span></a>    <span class="s2">&quot;activity&quot;</span><span class="p">,</span>
-</span><span id="L-343"><a href="#L-343"><span class="linenos">343</span></a>    <span class="s2">&quot;athlete&quot;</span><span class="p">,</span>
-</span><span id="L-344"><a href="#L-344"><span class="linenos">344</span></a>    <span class="s2">&quot;body&quot;</span><span class="p">,</span>
-</span><span id="L-345"><a href="#L-345"><span class="linenos">345</span></a>    <span class="s2">&quot;daily&quot;</span><span class="p">,</span>
-</span><span id="L-346"><a href="#L-346"><span class="linenos">346</span></a>    <span class="s2">&quot;menstruation&quot;</span><span class="p">,</span>
-</span><span id="L-347"><a href="#L-347"><span class="linenos">347</span></a>    <span class="s2">&quot;sleep&quot;</span><span class="p">,</span>
-</span><span id="L-348"><a href="#L-348"><span class="linenos">348</span></a>    <span class="s2">&quot;nutrition&quot;</span><span class="p">,</span>
-</span><span id="L-349"><a href="#L-349"><span class="linenos">349</span></a><span class="p">]</span>
-</span><span id="L-350"><a href="#L-350"><span class="linenos">350</span></a><span class="n">MODEL_MAPPING</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="L-351"><a href="#L-351"><span class="linenos">351</span></a>    <span class="s2">&quot;activity&quot;</span><span class="p">:</span> <span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">activity</span><span class="o">.</span><span class="n">Activity</span><span class="p">,</span>
-</span><span id="L-352"><a href="#L-352"><span class="linenos">352</span></a>    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">Body</span><span class="p">,</span>
-</span><span id="L-353"><a href="#L-353"><span class="linenos">353</span></a>    <span class="s2">&quot;daily&quot;</span><span class="p">:</span> <span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">daily</span><span class="o">.</span><span class="n">Daily</span><span class="p">,</span>
-</span><span id="L-354"><a href="#L-354"><span class="linenos">354</span></a>    <span class="s2">&quot;sleep&quot;</span><span class="p">:</span> <span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">sleep</span><span class="o">.</span><span class="n">Sleep</span><span class="p">,</span>
-</span><span id="L-355"><a href="#L-355"><span class="linenos">355</span></a>    <span class="s2">&quot;menstruation&quot;</span><span class="p">:</span> <span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">menstruation</span><span class="o">.</span><span class="n">Menstruation</span><span class="p">,</span>
-</span><span id="L-356"><a href="#L-356"><span class="linenos">356</span></a>    <span class="s2">&quot;athlete&quot;</span><span class="p">:</span> <span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">athlete</span><span class="o">.</span><span class="n">Athlete</span><span class="p">,</span>
-</span><span id="L-357"><a href="#L-357"><span class="linenos">357</span></a>    <span class="s2">&quot;nutrition&quot;</span><span class="p">:</span> <span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">nutrition</span><span class="o">.</span><span class="n">Nutrition</span><span class="p">,</span>
-</span><span id="L-358"><a href="#L-358"><span class="linenos">358</span></a><span class="p">}</span>
-</span><span id="L-359"><a href="#L-359"><span class="linenos">359</span></a>
+</span><span id="L-341"><a href="#L-341"><span class="linenos">341</span></a>
+</span><span id="L-342"><a href="#L-342"><span class="linenos">342</span></a><span class="n">USER_DATATYPES</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="L-343"><a href="#L-343"><span class="linenos">343</span></a>    <span class="s2">&quot;activity&quot;</span><span class="p">,</span>
+</span><span id="L-344"><a href="#L-344"><span class="linenos">344</span></a>    <span class="s2">&quot;athlete&quot;</span><span class="p">,</span>
+</span><span id="L-345"><a href="#L-345"><span class="linenos">345</span></a>    <span class="s2">&quot;body&quot;</span><span class="p">,</span>
+</span><span id="L-346"><a href="#L-346"><span class="linenos">346</span></a>    <span class="s2">&quot;daily&quot;</span><span class="p">,</span>
+</span><span id="L-347"><a href="#L-347"><span class="linenos">347</span></a>    <span class="s2">&quot;menstruation&quot;</span><span class="p">,</span>
+</span><span id="L-348"><a href="#L-348"><span class="linenos">348</span></a>    <span class="s2">&quot;sleep&quot;</span><span class="p">,</span>
+</span><span id="L-349"><a href="#L-349"><span class="linenos">349</span></a>    <span class="s2">&quot;nutrition&quot;</span><span class="p">,</span>
+</span><span id="L-350"><a href="#L-350"><span class="linenos">350</span></a><span class="p">]</span>
+</span><span id="L-351"><a href="#L-351"><span class="linenos">351</span></a><span class="n">MODEL_MAPPING</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="L-352"><a href="#L-352"><span class="linenos">352</span></a>    <span class="s2">&quot;activity&quot;</span><span class="p">:</span> <span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">activity</span><span class="o">.</span><span class="n">Activity</span><span class="p">,</span>
+</span><span id="L-353"><a href="#L-353"><span class="linenos">353</span></a>    <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">Body</span><span class="p">,</span>
+</span><span id="L-354"><a href="#L-354"><span class="linenos">354</span></a>    <span class="s2">&quot;daily&quot;</span><span class="p">:</span> <span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">daily</span><span class="o">.</span><span class="n">Daily</span><span class="p">,</span>
+</span><span id="L-355"><a href="#L-355"><span class="linenos">355</span></a>    <span class="s2">&quot;sleep&quot;</span><span class="p">:</span> <span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">sleep</span><span class="o">.</span><span class="n">Sleep</span><span class="p">,</span>
+</span><span id="L-356"><a href="#L-356"><span class="linenos">356</span></a>    <span class="s2">&quot;menstruation&quot;</span><span class="p">:</span> <span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">menstruation</span><span class="o">.</span><span class="n">Menstruation</span><span class="p">,</span>
+</span><span id="L-357"><a href="#L-357"><span class="linenos">357</span></a>    <span class="s2">&quot;athlete&quot;</span><span class="p">:</span> <span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">athlete</span><span class="o">.</span><span class="n">Athlete</span><span class="p">,</span>
+</span><span id="L-358"><a href="#L-358"><span class="linenos">358</span></a>    <span class="s2">&quot;nutrition&quot;</span><span class="p">:</span> <span class="n">models</span><span class="o">.</span><span class="n">v2</span><span class="o">.</span><span class="n">nutrition</span><span class="o">.</span><span class="n">Nutrition</span><span class="p">,</span>
+</span><span id="L-359"><a href="#L-359"><span class="linenos">359</span></a><span class="p">}</span>
 </span><span id="L-360"><a href="#L-360"><span class="linenos">360</span></a>
-</span><span id="L-361"><a href="#L-361"><span class="linenos">361</span></a><span class="n">DTYPE_TO_RESPONSE</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="L-362"><a href="#L-362"><span class="linenos">362</span></a>    <span class="s2">&quot;widget_session&quot;</span><span class="p">:</span> <span class="n">WidgetSession</span><span class="p">,</span>
-</span><span id="L-363"><a href="#L-363"><span class="linenos">363</span></a>    <span class="s2">&quot;auth_url&quot;</span><span class="p">:</span> <span class="n">UserAuthUrl</span><span class="p">,</span>
-</span><span id="L-364"><a href="#L-364"><span class="linenos">364</span></a>    <span class="s2">&quot;user_info&quot;</span><span class="p">:</span> <span class="n">UserInfo</span><span class="p">,</span>
-</span><span id="L-365"><a href="#L-365"><span class="linenos">365</span></a>    <span class="s2">&quot;subscriptions&quot;</span><span class="p">:</span> <span class="n">SubscribedUsers</span><span class="p">,</span>
-</span><span id="L-366"><a href="#L-366"><span class="linenos">366</span></a>    <span class="s2">&quot;providers&quot;</span><span class="p">:</span> <span class="n">ProvidersResponse</span><span class="p">,</span>
-</span><span id="L-367"><a href="#L-367"><span class="linenos">367</span></a>    <span class="s2">&quot;sent_to_webhook&quot;</span><span class="p">:</span> <span class="n">SentToWebhook</span><span class="p">,</span>
-</span><span id="L-368"><a href="#L-368"><span class="linenos">368</span></a><span class="p">}</span>
-</span><span id="L-369"><a href="#L-369"><span class="linenos">369</span></a>
-</span><span id="L-370"><a href="#L-370"><span class="linenos">370</span></a><span class="n">HOOK_TYPES</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="L-371"><a href="#L-371"><span class="linenos">371</span></a>    <span class="s2">&quot;auth&quot;</span><span class="p">,</span>
-</span><span id="L-372"><a href="#L-372"><span class="linenos">372</span></a>    <span class="s2">&quot;user_reauth&quot;</span><span class="p">,</span>
-</span><span id="L-373"><a href="#L-373"><span class="linenos">373</span></a>    <span class="s2">&quot;access_revoked&quot;</span><span class="p">,</span>
-</span><span id="L-374"><a href="#L-374"><span class="linenos">374</span></a>    <span class="s2">&quot;deauth&quot;</span><span class="p">,</span>
-</span><span id="L-375"><a href="#L-375"><span class="linenos">375</span></a>    <span class="s2">&quot;google_no_datasource&quot;</span><span class="p">,</span>
-</span><span id="L-376"><a href="#L-376"><span class="linenos">376</span></a>    <span class="s2">&quot;connexion_error&quot;</span><span class="p">,</span>
-</span><span id="L-377"><a href="#L-377"><span class="linenos">377</span></a>    <span class="s2">&quot;request_processing&quot;</span><span class="p">,</span>
-</span><span id="L-378"><a href="#L-378"><span class="linenos">378</span></a>    <span class="s2">&quot;request_completed&quot;</span><span class="p">,</span>
-</span><span id="L-379"><a href="#L-379"><span class="linenos">379</span></a><span class="p">}</span>
-</span><span id="L-380"><a href="#L-380"><span class="linenos">380</span></a>
-</span><span id="L-381"><a href="#L-381"><span class="linenos">381</span></a><span class="n">HOOK_RESPONSE</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="L-382"><a href="#L-382"><span class="linenos">382</span></a>    <span class="s2">&quot;auth&quot;</span><span class="p">:</span> <span class="n">AuthHookResponse</span><span class="p">,</span>
-</span><span id="L-383"><a href="#L-383"><span class="linenos">383</span></a>    <span class="s2">&quot;user_reauth&quot;</span><span class="p">:</span> <span class="n">UserReauthHookResponse</span><span class="p">,</span>
-</span><span id="L-384"><a href="#L-384"><span class="linenos">384</span></a>    <span class="s2">&quot;access_revoked&quot;</span><span class="p">:</span> <span class="n">AccessRevokedHookResponse</span><span class="p">,</span>
-</span><span id="L-385"><a href="#L-385"><span class="linenos">385</span></a>    <span class="s2">&quot;deauth&quot;</span><span class="p">:</span> <span class="n">UserDeauthHookResponse</span><span class="p">,</span>
-</span><span id="L-386"><a href="#L-386"><span class="linenos">386</span></a>    <span class="s2">&quot;google_no_datasource&quot;</span><span class="p">:</span> <span class="n">GoogleNoDataSourceHookResponse</span><span class="p">,</span>
-</span><span id="L-387"><a href="#L-387"><span class="linenos">387</span></a>    <span class="s2">&quot;connexion_error&quot;</span><span class="p">:</span> <span class="n">ConnectionErrorHookResponse</span><span class="p">,</span>
-</span><span id="L-388"><a href="#L-388"><span class="linenos">388</span></a>    <span class="s2">&quot;request_completed&quot;</span><span class="p">:</span> <span class="n">RequestCompletedHookResponse</span><span class="p">,</span>
-</span><span id="L-389"><a href="#L-389"><span class="linenos">389</span></a>    <span class="s2">&quot;request_processing&quot;</span><span class="p">:</span> <span class="n">RequestProcessingHookResponse</span><span class="p">,</span>
-</span><span id="L-390"><a href="#L-390"><span class="linenos">390</span></a><span class="p">}</span>
-</span><span id="L-391"><a href="#L-391"><span class="linenos">391</span></a>
-</span><span id="L-392"><a href="#L-392"><span class="linenos">392</span></a><span class="n">STATUS</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="L-393"><a href="#L-393"><span class="linenos">393</span></a>    <span class="s2">&quot;not_available&quot;</span><span class="p">:</span> <span class="n">NoDataReturned</span><span class="p">,</span>
-</span><span id="L-394"><a href="#L-394"><span class="linenos">394</span></a>    <span class="s2">&quot;warning&quot;</span><span class="p">:</span> <span class="n">ConnectionDegraded</span><span class="p">,</span>
-</span><span id="L-395"><a href="#L-395"><span class="linenos">395</span></a>    <span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="n">ConnectionDegraded</span><span class="p">,</span>
-</span><span id="L-396"><a href="#L-396"><span class="linenos">396</span></a><span class="p">}</span>
+</span><span id="L-361"><a href="#L-361"><span class="linenos">361</span></a>
+</span><span id="L-362"><a href="#L-362"><span class="linenos">362</span></a><span class="n">DTYPE_TO_RESPONSE</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="L-363"><a href="#L-363"><span class="linenos">363</span></a>    <span class="s2">&quot;widget_session&quot;</span><span class="p">:</span> <span class="n">WidgetSession</span><span class="p">,</span>
+</span><span id="L-364"><a href="#L-364"><span class="linenos">364</span></a>    <span class="s2">&quot;auth_url&quot;</span><span class="p">:</span> <span class="n">UserAuthUrl</span><span class="p">,</span>
+</span><span id="L-365"><a href="#L-365"><span class="linenos">365</span></a>    <span class="s2">&quot;user_info&quot;</span><span class="p">:</span> <span class="n">UserInfo</span><span class="p">,</span>
+</span><span id="L-366"><a href="#L-366"><span class="linenos">366</span></a>    <span class="s2">&quot;subscriptions&quot;</span><span class="p">:</span> <span class="n">SubscribedUsers</span><span class="p">,</span>
+</span><span id="L-367"><a href="#L-367"><span class="linenos">367</span></a>    <span class="s2">&quot;providers&quot;</span><span class="p">:</span> <span class="n">ProvidersResponse</span><span class="p">,</span>
+</span><span id="L-368"><a href="#L-368"><span class="linenos">368</span></a>    <span class="s2">&quot;sent_to_webhook&quot;</span><span class="p">:</span> <span class="n">SentToWebhook</span><span class="p">,</span>
+</span><span id="L-369"><a href="#L-369"><span class="linenos">369</span></a><span class="p">}</span>
+</span><span id="L-370"><a href="#L-370"><span class="linenos">370</span></a>
+</span><span id="L-371"><a href="#L-371"><span class="linenos">371</span></a><span class="n">HOOK_TYPES</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="L-372"><a href="#L-372"><span class="linenos">372</span></a>    <span class="s2">&quot;auth&quot;</span><span class="p">,</span>
+</span><span id="L-373"><a href="#L-373"><span class="linenos">373</span></a>    <span class="s2">&quot;user_reauth&quot;</span><span class="p">,</span>
+</span><span id="L-374"><a href="#L-374"><span class="linenos">374</span></a>    <span class="s2">&quot;access_revoked&quot;</span><span class="p">,</span>
+</span><span id="L-375"><a href="#L-375"><span class="linenos">375</span></a>    <span class="s2">&quot;deauth&quot;</span><span class="p">,</span>
+</span><span id="L-376"><a href="#L-376"><span class="linenos">376</span></a>    <span class="s2">&quot;google_no_datasource&quot;</span><span class="p">,</span>
+</span><span id="L-377"><a href="#L-377"><span class="linenos">377</span></a>    <span class="s2">&quot;connexion_error&quot;</span><span class="p">,</span>
+</span><span id="L-378"><a href="#L-378"><span class="linenos">378</span></a>    <span class="s2">&quot;request_processing&quot;</span><span class="p">,</span>
+</span><span id="L-379"><a href="#L-379"><span class="linenos">379</span></a>    <span class="s2">&quot;request_completed&quot;</span><span class="p">,</span>
+</span><span id="L-380"><a href="#L-380"><span class="linenos">380</span></a><span class="p">}</span>
+</span><span id="L-381"><a href="#L-381"><span class="linenos">381</span></a>
+</span><span id="L-382"><a href="#L-382"><span class="linenos">382</span></a><span class="n">HOOK_RESPONSE</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="L-383"><a href="#L-383"><span class="linenos">383</span></a>    <span class="s2">&quot;auth&quot;</span><span class="p">:</span> <span class="n">AuthHookResponse</span><span class="p">,</span>
+</span><span id="L-384"><a href="#L-384"><span class="linenos">384</span></a>    <span class="s2">&quot;user_reauth&quot;</span><span class="p">:</span> <span class="n">UserReauthHookResponse</span><span class="p">,</span>
+</span><span id="L-385"><a href="#L-385"><span class="linenos">385</span></a>    <span class="s2">&quot;access_revoked&quot;</span><span class="p">:</span> <span class="n">AccessRevokedHookResponse</span><span class="p">,</span>
+</span><span id="L-386"><a href="#L-386"><span class="linenos">386</span></a>    <span class="s2">&quot;deauth&quot;</span><span class="p">:</span> <span class="n">UserDeauthHookResponse</span><span class="p">,</span>
+</span><span id="L-387"><a href="#L-387"><span class="linenos">387</span></a>    <span class="s2">&quot;google_no_datasource&quot;</span><span class="p">:</span> <span class="n">GoogleNoDataSourceHookResponse</span><span class="p">,</span>
+</span><span id="L-388"><a href="#L-388"><span class="linenos">388</span></a>    <span class="s2">&quot;connexion_error&quot;</span><span class="p">:</span> <span class="n">ConnectionErrorHookResponse</span><span class="p">,</span>
+</span><span id="L-389"><a href="#L-389"><span class="linenos">389</span></a>    <span class="s2">&quot;request_completed&quot;</span><span class="p">:</span> <span class="n">RequestCompletedHookResponse</span><span class="p">,</span>
+</span><span id="L-390"><a href="#L-390"><span class="linenos">390</span></a>    <span class="s2">&quot;request_processing&quot;</span><span class="p">:</span> <span class="n">RequestProcessingHookResponse</span><span class="p">,</span>
+</span><span id="L-391"><a href="#L-391"><span class="linenos">391</span></a><span class="p">}</span>
+</span><span id="L-392"><a href="#L-392"><span class="linenos">392</span></a>
+</span><span id="L-393"><a href="#L-393"><span class="linenos">393</span></a><span class="n">STATUS</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="L-394"><a href="#L-394"><span class="linenos">394</span></a>    <span class="s2">&quot;not_available&quot;</span><span class="p">:</span> <span class="n">NoDataReturned</span><span class="p">,</span>
+</span><span id="L-395"><a href="#L-395"><span class="linenos">395</span></a>    <span class="s2">&quot;warning&quot;</span><span class="p">:</span> <span class="n">ConnectionDegraded</span><span class="p">,</span>
+</span><span id="L-396"><a href="#L-396"><span class="linenos">396</span></a>    <span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="n">ConnectionDegraded</span><span class="p">,</span>
+</span><span id="L-397"><a href="#L-397"><span class="linenos">397</span></a><span class="p">}</span>
 </span></pre></div>
 
 
@@ -1748,10 +1752,10 @@
 
     </div>
     <a class="headerlink" href="#SentToWebhook"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="SentToWebhook-336"><a href="#SentToWebhook-336"><span class="linenos">336</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
-</span><span id="SentToWebhook-337"><a href="#SentToWebhook-337"><span class="linenos">337</span></a><span class="k">class</span> <span class="nc">SentToWebhook</span><span class="p">(</span><span class="n">TerraParsedApiResponse</span><span class="p">):</span>
-</span><span id="SentToWebhook-338"><a href="#SentToWebhook-338"><span class="linenos">338</span></a>    <span class="n">status</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span><span id="SentToWebhook-339"><a href="#SentToWebhook-339"><span class="linenos">339</span></a>    <span class="n">message</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="SentToWebhook-337"><a href="#SentToWebhook-337"><span class="linenos">337</span></a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span>
+</span><span id="SentToWebhook-338"><a href="#SentToWebhook-338"><span class="linenos">338</span></a><span class="k">class</span> <span class="nc">SentToWebhook</span><span class="p">(</span><span class="n">TerraParsedApiResponse</span><span class="p">):</span>
+</span><span id="SentToWebhook-339"><a href="#SentToWebhook-339"><span class="linenos">339</span></a>    <span class="n">status</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="SentToWebhook-340"><a href="#SentToWebhook-340"><span class="linenos">340</span></a>    <span class="n">message</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -2454,17 +2458,18 @@
 </span><span id="ProvidersResponse-331"><a href="#ProvidersResponse-331"><span class="linenos">331</span></a><span class="k">class</span> <span class="nc">ProvidersResponse</span><span class="p">(</span><span class="n">TerraParsedApiResponse</span><span class="p">):</span>
 </span><span id="ProvidersResponse-332"><a href="#ProvidersResponse-332"><span class="linenos">332</span></a>    <span class="n">status</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;warning&quot;</span><span class="p">)</span>
 </span><span id="ProvidersResponse-333"><a href="#ProvidersResponse-333"><span class="linenos">333</span></a>    <span class="n">providers</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span id="ProvidersResponse-334"><a href="#ProvidersResponse-334"><span class="linenos">334</span></a>    <span class="n">sdk_providers</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>ProvidersResponse(status: 'typing.Optional[str]' = 'warning', providers: 'typing.Optional[typing.List[str]]' = None)</p>
+            <div class="docstring"><p>ProvidersResponse(status: 'typing.Optional[str]' = 'warning', providers: 'typing.Optional[typing.List[str]]' = None, sdk_providers: 'typing.Optional[typing.List[str]]' = None)</p>
 </div>
 
 
                             <div id="ProvidersResponse.__init__" class="classattr">
                                 <div class="attr function">
             
-        <span class="name">ProvidersResponse</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">status</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;warning&#39;</span>,</span><span class="param">	<span class="n">providers</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span></span>)</span>
+        <span class="name">ProvidersResponse</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">status</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;warning&#39;</span>,</span><span class="param">	<span class="n">providers</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">sdk_providers</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span></span>)</span>
 
         
     </div>
@@ -2491,6 +2496,17 @@
         
     </div>
     <a class="headerlink" href="#ProvidersResponse.providers"></a>
+    
+    
+
+                            </div>
+                            <div id="ProvidersResponse.sdk_providers" class="classattr">
+                                <div class="attr variable">
+            <span class="name">sdk_providers</span><span class="annotation">: Optional[List[str]]</span><span class="default_value"> = None</span>
+
+        
+    </div>
+    <a class="headerlink" href="#ProvidersResponse.sdk_providers"></a>
     
     
 
