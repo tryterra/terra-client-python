@@ -29,6 +29,14 @@ class Metadata(base_model.TerraDataModel):
 
 
 @dataclasses.dataclass
+class ECGReading(base_model.TerraDataModel):
+    start_timestamp: typing.Optional[str] = dataclasses.field(default=None)
+    avg_hr_bpm: typing.Optional[float] = dataclasses.field(default=None)
+    afib_classfication: typing.Optional[int] = dataclasses.field(default=None)
+    raw_signal: typing.List[samples_.RawECGSample] = dataclasses.field(default_factory=list)
+
+
+@dataclasses.dataclass
 class DeviceData(base_model.TerraDataModel):
     name: typing.Optional[str] = dataclasses.field(default=None)
     activation_timestamp: typing.Optional[str] = dataclasses.field(default=None)
@@ -64,6 +72,7 @@ class HeartData(base_model.TerraDataModel):
     afib_classification_samples: typing.List[samples_.AFibClassificationSample] = dataclasses.field(
         default_factory=list
     )
+    ecg_signal: typing.List[ECGReading] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
@@ -79,6 +88,11 @@ class GlucoseData(base_model.TerraDataModel):
 
 
 @dataclasses.dataclass
+class KetoneData(base_model.TerraDataModel):
+    ketone_samples: typing.List[samples_.KetoneDataSample] = dataclasses.field(default_factory=list)
+
+
+@dataclasses.dataclass
 class Body(base_model.TerraDataModel):
     metadata: Metadata = dataclasses.field(default_factory=Metadata)
     measurements_data: MeasurementsData = dataclasses.field(default_factory=MeasurementsData)
@@ -89,3 +103,4 @@ class Body(base_model.TerraDataModel):
     blood_pressure_data: BloodPressureData = dataclasses.field(default_factory=BloodPressureData)
     glucose_data: GlucoseData = dataclasses.field(default_factory=GlucoseData)
     device_data: DeviceData = dataclasses.field(default_factory=DeviceData)
+    ketone_data: KetoneData = dataclasses.field(default_factory=KetoneData)

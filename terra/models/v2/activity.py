@@ -117,6 +117,7 @@ class METData(base_model.TerraDataModel):
 class MovementData(base_model.TerraDataModel):
     avg_speed_meters_per_second: typing.Optional[float] = dataclasses.field(default=None)
     max_speed_meters_per_second: typing.Optional[float] = dataclasses.field(default=None)
+    adjusted_max_speed_meters_per_second: typing.Optional[float] = dataclasses.field(default=None)
     normalized_speed_meters_per_second: typing.Optional[float] = dataclasses.field(default=None)
     avg_pace_minutes_per_kilometer: typing.Optional[float] = dataclasses.field(default=None)
     max_pace_minutes_per_kilometer: typing.Optional[float] = dataclasses.field(default=None)
@@ -128,6 +129,7 @@ class MovementData(base_model.TerraDataModel):
     max_torque_newton_meters: typing.Optional[float] = dataclasses.field(default=None)
     cadence_samples: typing.List[samples_.CadenceSample] = dataclasses.field(default_factory=list)
     speed_samples: typing.List[samples_.SpeedSample] = dataclasses.field(default_factory=list)
+    torque_samples: typing.List[samples_.TorqueSample] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
@@ -245,3 +247,4 @@ class Activity(base_model.TerraDataModel):
     oxygen_data: OxygenData = dataclasses.field(default_factory=OxygenData)
     polyline_map_data: PolylineMapData = dataclasses.field(default_factory=PolylineMapData)
     device_data: DeviceData = dataclasses.field(default_factory=DeviceData)
+    cheat_detection: typing.Optional[float] = dataclasses.field(default=None)
