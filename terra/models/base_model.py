@@ -91,25 +91,18 @@ class TerraDataModel:
         # print(fields_dict)
 
         for field_name, field_type in fields_dict.items():
-
             try:
-
                 if isinstance(getattr(self, field_name, None), TerraDataModel):
-
                     for sub_term in field_name.lower().split("_"):
                         if sub_term.lower() == term.lower():
-
                             yield typing.cast(datamodelT, getattr(self, field_name, None))
                     # print(getattr(self, field_name , None))
                     typing.cast(datamodelT, getattr(self, field_name, None)).filter_data(term)
 
             except Exception as e:
-
                 try:
-
                     for sub_term in field_name.lower().split("_"):
                         if sub_term.lower() == term.lower():
-
                             yield typing.cast(datamodelT, getattr(self, field_name, None))
 
                     for inner_item in typing.cast(typing.List[TerraDataModel], getattr(self, field_name, None)):
@@ -145,15 +138,12 @@ class TerraDataModel:
                 or isinstance(inner_item, TerraDataModel)
                 or isinstance(v, list)
             ):
-
                 if isinstance(inner_item, TerraDataModel):
                     v = inner_item.from_dict(v)
 
                 # if it's a list
                 if isinstance(v, list):
-
                     if v != []:
-
                         # getting all the field types of the current class
                         fields_dict = {field.name: field.type for field in dataclasses.fields(cls())}
 
@@ -170,12 +160,10 @@ class TerraDataModel:
 
                         # check if the elements of the list are Terra Data Models
                         if current_field_type.split(".")[0] == "terra":
-
                             result = []
 
                             # for each json object inside the list
                             for inner_dict in v:
-
                                 # an instance of a data model of the type of items inside the list
                                 inner_data_model = typing.cast(
                                     typing.Type[TerraDataModel], pydoc.locate(current_field_type)

@@ -7,7 +7,6 @@ from terra.models.user import User
 
 
 def test_parsing_data():
-
     dc = {
         "status": "success",
         "user": {"user_id": "lmao", "provider": "GARMIN", "last_webhook_update": None},
