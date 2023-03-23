@@ -54,6 +54,7 @@ from terra.models import user as user_
 if typing.TYPE_CHECKING:
     from terra.base_client import Terra
 
+
 # TODO - should use a mixin/trait here instead of a redundant subclass probably
 class TerraParsedApiResponse(base_model.TerraDataModel):
     pass
@@ -64,7 +65,6 @@ def _parse_api_body(
     body: typing.Optional[typing.Dict[str, typing.Any]],
     user: typing.Optional[models.user.User],
 ) -> TerraParsedApiResponse:
-
     if not body:
         raise exceptions.NoBodyException
 
@@ -76,7 +76,6 @@ def _parse_api_body(
         response = STATUS[body["status"]]().from_dict(body)
 
     elif dtype in USER_DATATYPES:
-
         if not dtype:
             raise exceptions.NoDtypeException
 
@@ -88,20 +87,17 @@ def _parse_api_body(
             type=dtype,
         )
     elif dtype in DTYPE_TO_RESPONSE.keys():
-
         if not dtype:
             raise exceptions.NoDtypeException
 
         response = DTYPE_TO_RESPONSE[dtype]().from_dict(body)
 
     elif dtype in HOOK_RESPONSE.keys():
-
         if not dtype:
             raise exceptions.NoDtypeException
         response = HOOK_RESPONSE[dtype]().from_dict(body)
 
     else:
-
         response = GenericMessage().from_dict(body)
 
     try:
@@ -143,11 +139,9 @@ class TerraApiResponse(TerraParsedApiResponse):
             self.dtype = body.get("type", dtype)
             self.parsed_response: TerraParsedApiResponse = _parse_api_body(self.dtype, body, user)
             if client:
-
                 for e in typing.cast(SubscribedUsers, self.parsed_response).users:
                     e._client = client
         except json.decoder.JSONDecodeError:
-
             resp.raise_for_status()
 
     def get_parsed_response(self) -> TerraParsedApiResponse:

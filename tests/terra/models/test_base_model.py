@@ -12,14 +12,12 @@ def peek(iterable):
 
 
 def test_filter():
-
     filtered = models.v2.activity.Activity().filter_data("heart")
     k = peek(filtered)
     assert k is not None
 
 
 def test_get_attr():
-
     l = [
         "metadata",
         "lap_data",

@@ -33,11 +33,13 @@ class User(TerraDataModel):
         self,
         client: t.Optional[base_client.Terra] = None,
         user_id: t.Optional[str] = None,
+        reference_id: t.Optional[str] = None,
         provider: t.Optional[str] = None,
         last_webhook_update: t.Optional[str] = None,
         scopes: t.Optional[str] = None,
     ) -> None:
         self.user_id = user_id
+        self.reference_id = reference_id
         self.provider = provider
         self.last_webhook_update = last_webhook_update
         self.scopes = scopes

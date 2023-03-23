@@ -61,6 +61,19 @@ class GlucoseDataSample(base_model.TerraDataModel):
 
 
 @dataclasses.dataclass
+class KetoneDataSample(base_model.TerraDataModel):
+    timestamp: typing.Optional[str] = dataclasses.field(default=None)
+    ketone_mg_per_dL: typing.Optional[float] = dataclasses.field(default=None)
+    sample_type: typing.Optional[int] = dataclasses.field(default=None)
+
+
+@dataclasses.dataclass
+class RawECGSample(base_model.TerraDataModel):
+    potential_uV: typing.Optional[float] = dataclasses.field(default=None)
+    timestamp: typing.Optional[str] = dataclasses.field(default=None)
+
+
+@dataclasses.dataclass
 class HeartRateDataSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     bpm: typing.Optional[float] = dataclasses.field(default=None)
@@ -69,8 +82,13 @@ class HeartRateDataSample(base_model.TerraDataModel):
 @dataclasses.dataclass
 class LapSample(base_model.TerraDataModel):
     start_time: typing.Optional[str] = dataclasses.field(default=None)
+    end_time: typing.Optional[str] = dataclasses.field(default=None)
     distance_meters: typing.Optional[float] = dataclasses.field(default=None)
     calories: typing.Optional[float] = dataclasses.field(default=None)
+    total_strokes: typing.Optional[float] = dataclasses.field(default=None)
+    stroke_type: typing.Optional[str] = dataclasses.field(default=None)
+    avg_hr_bpm: typing.Optional[str] = dataclasses.field(default=None)
+    avg_speed_meters_per_second: typing.Optional[float] = dataclasses.field(default=None)
 
 
 @dataclasses.dataclass
@@ -135,6 +153,13 @@ class PowerSample(base_model.TerraDataModel):
 
 
 @dataclasses.dataclass
+class TorqueSample(base_model.TerraDataModel):
+    timestamp: typing.Optional[str] = dataclasses.field(default=None)
+    torque_newton_meters: typing.Optional[float] = dataclasses.field(default=None)
+    timer_duration_seconds: typing.Optional[float] = dataclasses.field(default=None)
+
+
+@dataclasses.dataclass
 class SpeedSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     speed_meters_per_second: typing.Optional[float] = dataclasses.field(default=None)
@@ -180,6 +205,7 @@ class SleepHypnogramSample(base_model.TerraDataModel):
 class OxygenSaturationSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     percentage: typing.Optional[float] = dataclasses.field(default=None)
+    type: typing.Optional[int] = dataclasses.field(default=None)
 
 
 @dataclasses.dataclass
