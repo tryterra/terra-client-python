@@ -106,6 +106,7 @@ class Terra:
         start_date: datetime.datetime,
         end_date: typing.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
+        with_samples: bool = True,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves workouts/activity data for a given User object. By default, data will be asynchronously sent to registered
@@ -117,6 +118,7 @@ class Terra:
             end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will
                 default to start_date + 24h according to current API specifications
             to_webhook (:obj:`bool`): Whether to send data to registered webhook URL or return as a response body
+            with_samples (:obj:`bool`): Whether to respond with samples (e.g heartrate samples) included or not
 
         Returns:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed
@@ -127,6 +129,7 @@ class Terra:
             start_date=start_date,
             end_date=end_date if end_date is not None else None,
             to_webhook=to_webhook,
+            with_samples=with_samples,
         )
 
     def get_body_for_user(
@@ -135,6 +138,7 @@ class Terra:
         start_date: datetime.datetime,
         end_date: typing.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
+        with_samples: bool = True,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves body metrics data for a given User object. By default, data will be asynchronously sent to registered
@@ -146,6 +150,7 @@ class Terra:
             end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will
                 default to start_date + 24h according to current API specifications
             to_webhook (:obj:`bool`): Whether to send data to registered webhook URL or return as a response body
+            with_samples (:obj:`bool`): Whether to respond with samples (e.g heartrate samples) included or not
 
         Returns:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed
@@ -156,6 +161,7 @@ class Terra:
             start_date=start_date,
             end_date=end_date if end_date is not None else None,
             to_webhook=to_webhook,
+            with_samples=with_samples,
         )
 
     def get_daily_for_user(
@@ -164,6 +170,7 @@ class Terra:
         start_date: datetime.datetime,
         end_date: typing.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
+        with_samples: bool = True,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves daily summary data for a given User object. By default, data will be asynchronously sent to registered
@@ -175,6 +182,7 @@ class Terra:
             end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will
                 default to start_date + 24h according to current API specifications
             to_webhook (:obj:`bool`): Whether to send data to registered webhook URL or return as a response body
+            with_samples (:obj:`bool`): Whether to respond with samples (e.g heartrate samples) included or not
 
         Returns:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed
@@ -185,6 +193,7 @@ class Terra:
             start_date=start_date,
             end_date=end_date if end_date is not None else None,
             to_webhook=to_webhook,
+            with_samples=with_samples,
         )
 
     def get_sleep_for_user(
@@ -193,6 +202,7 @@ class Terra:
         start_date: datetime.datetime,
         end_date: typing.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
+        with_samples: bool = True,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves sleep data for a given User object. By default, data will be asynchronously sent to registered
@@ -204,6 +214,7 @@ class Terra:
             end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will
                 default to start_date + 24h according to current API specifications
             to_webhook (:obj:`bool`): Whether to send data to registered webhook URL or return as a response body
+            with_samples (:obj:`bool`): Whether to respond with samples (e.g heartrate samples) included or not
 
         Returns:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed
@@ -214,6 +225,7 @@ class Terra:
             start_date=start_date,
             end_date=end_date if end_date is not None else None,
             to_webhook=to_webhook,
+            with_samples=with_samples,
         )
 
     def get_athlete_for_user(
@@ -242,6 +254,7 @@ class Terra:
         start_date: datetime.datetime,
         end_date: typing.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
+        with_samples: bool = True,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves daily summary data for a given User object. By default, data will be asynchronously sent to registered
@@ -253,6 +266,7 @@ class Terra:
             end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set,
                 will default to start_date + 24h according to current API specifications
             to_webhook (:obj:`bool`): Whether to send data to registered webhook URL or return as a response body
+            with_samples (:obj:`bool`): Whether to respond with samples (e.g heartrate samples) included or not
 
         Returns:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed
@@ -264,6 +278,7 @@ class Terra:
             start_date=start_date,
             end_date=end_date if end_date is not None else None,
             to_webhook=to_webhook,
+            with_samples=with_samples,
         )
 
     def get_nutrition_for_user(
@@ -272,6 +287,7 @@ class Terra:
         start_date: datetime.datetime,
         end_date: typing.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
+        with_samples: bool = True,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves daily summary data for a given User object. By default, data will be asynchronously sent to registered
@@ -283,6 +299,7 @@ class Terra:
             end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will
                 default to start_date + 24h according to current API specifications
             to_webhook (:obj:`bool`): Whether to send data to registered webhook URL or return as a response body
+            with_samples (:obj:`bool`): Whether to respond with samples (e.g heartrate samples) included or not
 
         Returns:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed
@@ -294,6 +311,7 @@ class Terra:
             start_date=start_date,
             end_date=end_date if end_date is not None else None,
             to_webhook=to_webhook,
+            with_samples=with_samples,
         )
 
     def generate_widget_session(
