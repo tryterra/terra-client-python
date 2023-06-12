@@ -46,6 +46,6 @@ Now you can call the following functions from the instance:
 
 The documentation for the wrapper is available here: https://tryterra.github.io/terra-client-python/
 
-In addition, all the data models documented on https://docs.tryterra.co/data-models are available to import and use.
+In addition, all the data models documented on [https://docs.tryterra.co/docs/data-models] are available to import and use.
 
 The models support autocompleting the types to manipulate data coming from Terra
