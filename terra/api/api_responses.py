@@ -61,9 +61,9 @@ class TerraParsedApiResponse(base_model.TerraDataModel):
 
 
 def _parse_api_body(
-        dtype: typing.Optional[str],
-        body: typing.Optional[typing.Dict[str, typing.Any]],
-        user: typing.Optional[models.user.User],
+    dtype: typing.Optional[str],
+    body: typing.Optional[typing.Dict[str, typing.Any]],
+    user: typing.Optional[models.user.User],
 ) -> TerraParsedApiResponse:
     if not body:
         raise exceptions.NoBodyException
@@ -72,7 +72,7 @@ def _parse_api_body(
     if "user" in body:
         Auser = models.user.User.from_dict(body["user"])
 
-    if ("status" in body) and (body["status"] in STATUS.keys()) and (body["status"] != 'warning'):
+    if ("status" in body) and (body["status"] in STATUS.keys()) and (body["status"] != "warning"):
         response = STATUS[body["status"]]().from_dict(body)
 
     elif dtype in USER_DATATYPES:
@@ -123,11 +123,11 @@ def _parse_api_body(
 
 class TerraApiResponse(TerraParsedApiResponse):
     def __init__(
-            self,
-            resp: requests.Response,
-            dtype: str,
-            user: typing.Optional[user_.User] = None,
-            client: typing.Optional[Terra] = None,
+        self,
+        resp: requests.Response,
+        dtype: str,
+        user: typing.Optional[user_.User] = None,
+        client: typing.Optional[Terra] = None,
     ) -> None:
         self.response_code: int = resp.status_code
         self.raw_body: typing.Optional[str] = resp.text
@@ -165,10 +165,10 @@ class TerraApiResponse(TerraParsedApiResponse):
 
 class TerraWebhookResponse(TerraParsedApiResponse):
     def __init__(
-            self,
-            resp: typing.Union[typing.Dict[str, typing.Any], requests.Response],
-            user: typing.Optional[user_.User] = None,
-            dtype: typing.Optional[str] = None,
+        self,
+        resp: typing.Union[typing.Dict[str, typing.Any], requests.Response],
+        user: typing.Optional[user_.User] = None,
+        dtype: typing.Optional[str] = None,
     ) -> None:
         self.json: typing.Dict[str, typing.Any] = resp.json() if isinstance(resp, requests.Response) else resp
         self.dtype: typing.Optional[str] = self.json.get("type", dtype)
