@@ -137,6 +137,9 @@ class TerraDataModel:
                 (inner_item := getattr(data_model, k, *(("NOT_FOUND",) if safe else ()))) in [None, []]
                 or isinstance(inner_item, TerraDataModel)
                 or isinstance(v, list)
+                or (inner_item := getattr(data_model, k, *(("NOT_FOUND",) if safe else ()))) != v  # Added this
+                # condition because the data model has a default status: warning and this condition allows it to
+                # get overwritten
             ):
                 if isinstance(inner_item, TerraDataModel):
                     v = inner_item.from_dict(v)

@@ -72,7 +72,7 @@ def _parse_api_body(
     if "user" in body:
         Auser = models.user.User.from_dict(body["user"])
 
-    if ("status" in body) and (body["status"] in STATUS.keys()):
+    if ("status" in body) and (body["status"] in STATUS.keys()) and (body["status"] != "warning"):
         response = STATUS[body["status"]]().from_dict(body)
 
     elif dtype in USER_DATATYPES:
@@ -351,7 +351,6 @@ MODEL_MAPPING = {
     "athlete": models.v2.athlete.Athlete,
     "nutrition": models.v2.nutrition.Nutrition,
 }
-
 
 DTYPE_TO_RESPONSE = {
     "widget_session": WidgetSession,
