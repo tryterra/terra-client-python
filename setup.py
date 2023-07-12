@@ -63,7 +63,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=parse_requirements_file("requirements.txt"),
-    python_requires=">=3.8.0,<=3.11",
+    python_requires=">=3.8.0",
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
@@ -73,6 +73,7 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: Implementation :: CPython",
         "Topic :: Software Development :: Libraries",
         "Topic :: Software Development :: Libraries :: Application Frameworks",
