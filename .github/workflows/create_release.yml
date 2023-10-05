@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v4
+
       - name: Update version in code
         run: |
           sed -i '' 's/__version__[[:space:]]*=[[:space:]]*"[^"]*"/__version__ = "${{ inputs.version }}"/' terra/__init__.py
