@@ -81,9 +81,11 @@ def _parse_api_body(
 
         return DataReturned(
             user=Auser,
-            data=[MODEL_MAPPING[dtype]().from_dict(item) for item in body["data"]]
-            if body.get("data") or body.get("data") == []
-            else [],
+            data=(
+                [MODEL_MAPPING[dtype]().from_dict(item) for item in body["data"]]
+                if body.get("data") or body.get("data") == []
+                else []
+            ),
             type=dtype,
         )
     elif dtype in DTYPE_TO_RESPONSE.keys():
