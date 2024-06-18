@@ -107,6 +107,7 @@ class Terra:
         end_date: typing.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
         with_samples: bool = True,
+        **kwargs: typing.Any,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves workouts/activity data for a given User object. By default, data will be asynchronously sent to registered
@@ -130,6 +131,7 @@ class Terra:
             end_date=end_date if end_date is not None else None,
             to_webhook=to_webhook,
             with_samples=with_samples,
+            **kwargs,
         )
 
     def get_body_for_user(
@@ -139,6 +141,7 @@ class Terra:
         end_date: typing.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
         with_samples: bool = True,
+        **kwargs: typing.Any,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves body metrics data for a given User object. By default, data will be asynchronously sent to registered
@@ -162,6 +165,7 @@ class Terra:
             end_date=end_date if end_date is not None else None,
             to_webhook=to_webhook,
             with_samples=with_samples,
+            **kwargs,
         )
 
     def get_daily_for_user(
@@ -171,6 +175,7 @@ class Terra:
         end_date: typing.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
         with_samples: bool = True,
+        **kwargs: typing.Any,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves daily summary data for a given User object. By default, data will be asynchronously sent to registered
@@ -194,6 +199,7 @@ class Terra:
             end_date=end_date if end_date is not None else None,
             to_webhook=to_webhook,
             with_samples=with_samples,
+            **kwargs,
         )
 
     def get_sleep_for_user(
@@ -203,6 +209,7 @@ class Terra:
         end_date: typing.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
         with_samples: bool = True,
+        **kwargs: typing.Any,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves sleep data for a given User object. By default, data will be asynchronously sent to registered
@@ -226,6 +233,7 @@ class Terra:
             end_date=end_date if end_date is not None else None,
             to_webhook=to_webhook,
             with_samples=with_samples,
+            **kwargs,
         )
 
     def get_athlete_for_user(
@@ -255,6 +263,7 @@ class Terra:
         end_date: typing.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
         with_samples: bool = True,
+        **kwargs: typing.Any,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves daily summary data for a given User object. By default, data will be asynchronously sent to registered
@@ -279,6 +288,7 @@ class Terra:
             end_date=end_date if end_date is not None else None,
             to_webhook=to_webhook,
             with_samples=with_samples,
+            **kwargs,
         )
 
     def get_nutrition_for_user(
@@ -288,6 +298,7 @@ class Terra:
         end_date: typing.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
         with_samples: bool = True,
+        **kwargs: typing.Any,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves daily summary data for a given User object. By default, data will be asynchronously sent to registered
@@ -312,6 +323,7 @@ class Terra:
             end_date=end_date if end_date is not None else None,
             to_webhook=to_webhook,
             with_samples=with_samples,
+            **kwargs,
         )
 
     def generate_widget_session(
