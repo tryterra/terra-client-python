@@ -75,7 +75,9 @@ class Terra:
         user.fill_in_user_info()
         return user
 
-    def _get_arbitrary_data(self, user: user_.User, dtype: str, **kwargs: typing.Any) -> api_responses.TerraApiResponse:
+    def _get_arbitrary_data(
+        self, user: user_.User, dtype: str, **kwargs: typing.Any
+    ) -> api_responses.TerraApiResponse:
         """
         Internal method used to retrieve data for a given User
 
@@ -97,6 +99,7 @@ class Terra:
             params=params,
             headers=self._auth_headers,
         )
+        data_resp.raise_for_status()
 
         return api_responses.TerraApiResponse(data_resp, user=user, dtype=dtype)
 
@@ -353,6 +356,7 @@ class Terra:
             headers=self._auth_headers,
             json=body_payload,
         )
+        widget_resp.raise_for_status()
         return api_responses.TerraApiResponse(widget_resp, dtype="widget_session")
 
     def generate_authentication_url(
@@ -395,6 +399,7 @@ class Terra:
             headers=self._auth_headers,
             json=body_payload,
         )
+        auth_resp.raise_for_status()
 
         return api_responses.TerraApiResponse(auth_resp, dtype="auth_url")
 
@@ -416,6 +421,7 @@ class Terra:
             params={"user_id": user.user_id},
             headers=self._auth_headers,
         )
+        user_resp.raise_for_status()
         return api_responses.TerraApiResponse(user_resp, dtype="user_info")
 
     def deauthenticate_user(self, user: user_.User) -> api_responses.TerraApiResponse:
@@ -444,8 +450,13 @@ class Terra:
         Returns:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing SubscribedUsers parsed response object if no error has occured
         """
-        users_resp = requests.get(f"{constants.BASE_URL}/subscriptions", headers=self._auth_headers)
-        return api_responses.TerraApiResponse(users_resp, dtype="subscriptions", client=self)
+        users_resp = requests.get(
+            f"{constants.BASE_URL}/subscriptions", headers=self._auth_headers
+        )
+        users_resp.raise_for_status()
+        return api_responses.TerraApiResponse(
+            users_resp, dtype="subscriptions", client=self
+        )
 
     def list_providers(self) -> api_responses.TerraApiResponse:
         """
@@ -454,7 +465,10 @@ class Terra:
         Returns:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing ProvidersResponse parsed response object if no error has occured
         """
-        providers_resp = requests.get(f"{constants.BASE_URL}/integrations", headers=self._auth_headers)
+        providers_resp = requests.get(
+            f"{constants.BASE_URL}/integrations", headers=self._auth_headers
+        )
+        providers_resp.raise_for_status()
         return api_responses.TerraApiResponse(providers_resp, dtype="providers")
 
     def check_terra_signature(self, body: str, header: str) -> bool:
@@ -482,7 +496,9 @@ class Terra:
         # Signature was validated
         return True
 
-    def handle_flask_webhook(self, request: flask.Request) -> typing.Optional[api_responses.TerraWebhookResponse]:
+    def handle_flask_webhook(
+        self, request: flask.Request
+    ) -> typing.Optional[api_responses.TerraWebhookResponse]:
         """
         Parses Terra webhooks from a flask request
 
@@ -494,7 +510,9 @@ class Terra:
                 response object if no error has occurred
         """
 
-        if not self.check_terra_signature(request.get_data().decode("utf-8"), request.headers["terra-signature"]):
+        if not self.check_terra_signature(
+            request.get_data().decode("utf-8"), request.headers["terra-signature"]
+        ):
             return None
         ff = api_responses.TerraWebhookResponse(request.get_json(), dtype="hook")
 
