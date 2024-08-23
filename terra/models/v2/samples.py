@@ -49,6 +49,7 @@ __all__ = [
     "PulseVelocitySample",
     "AFibClassificationSample",
     "DrinkSample",
+    "BodyBatterySample",
 ]
 
 
@@ -322,3 +323,9 @@ class DrinkSample(base_model.TerraDataModel):
 class MenstruationFlowSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     flow: typing.Optional[int] = dataclasses.field(default=None)
+
+@dataclasses.dataclass
+class BodyBatterySample(base_model.TerraDataModel):
+    timestamp: typing.Optional[str] = dataclasses.field(default=None)
+    level: typing.Optional[float] = dataclasses.field(default=None)
+
