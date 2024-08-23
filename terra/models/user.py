@@ -63,7 +63,7 @@ class User(TerraDataModel):
 
         if self._client:
             user_info = self._client.get_user_info(self)
-            if not user_info.json:
+            if not user_info.json or user_info.json.get("status") == "error":
                 raise exceptions.NoUserInfoException
 
             self.provider = user_info.json["user"]["provider"]
