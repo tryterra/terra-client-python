@@ -63,7 +63,7 @@ class User(TerraDataModel):
 
         if self._client:
             user_info = self._client.get_user_info(self)
-            if not user_info.json:
+            if not user_info.json or user_info.json.get("status") == "error":
                 raise exceptions.NoUserInfoException
 
             self.provider = user_info.json["user"]["provider"]
@@ -86,6 +86,7 @@ class User(TerraDataModel):
         end_date: t.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
         with_samples: bool = True,
+        **kwargs: t.Any,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves workouts/activity data for a given User object. By default, data will be asynchronously sent to registered
@@ -113,6 +114,7 @@ class User(TerraDataModel):
             end_date=int(end_date.timestamp()) if end_date is not None else None,
             to_webhook=to_webhook,
             with_samples=with_samples,
+            **kwargs,
         )
 
     def get_body(
@@ -121,6 +123,7 @@ class User(TerraDataModel):
         end_date: t.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
         with_samples: bool = True,
+        **kwargs: t.Any,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves body metrics data for a given User object. By default, data will be asynchronously sent to registered
@@ -147,6 +150,7 @@ class User(TerraDataModel):
             end_date=int(end_date.timestamp()) if end_date is not None else None,
             to_webhook=to_webhook,
             with_samples=with_samples,
+            **kwargs,
         )
 
     def get_nutrition(
@@ -155,6 +159,7 @@ class User(TerraDataModel):
         end_date: t.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
         with_samples: bool = True,
+        **kwargs: t.Any,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves nutrition data for a given User object. By default, data will be asynchronously sent to registered
@@ -180,6 +185,7 @@ class User(TerraDataModel):
             end_date=int(end_date.timestamp()) if end_date is not None else None,
             to_webhook=to_webhook,
             with_samples=with_samples,
+            **kwargs,
         )
 
     def get_daily(
@@ -188,6 +194,7 @@ class User(TerraDataModel):
         end_date: t.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
         with_samples: bool = True,
+        **kwargs: t.Any,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves daily summary data for a given User object. By default, data will be asynchronously sent to registered
@@ -213,6 +220,7 @@ class User(TerraDataModel):
             end_date=int(end_date.timestamp()) if end_date is not None else None,
             to_webhook=to_webhook,
             with_samples=with_samples,
+            **kwargs,
         )
 
     def get_sleep(
@@ -221,6 +229,7 @@ class User(TerraDataModel):
         end_date: t.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
         with_samples: bool = True,
+        **kwargs: t.Any,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves sleep data for a given User object. By default, data will be asynchronously sent to registered
@@ -247,6 +256,7 @@ class User(TerraDataModel):
             end_date=int(end_date.timestamp()) if end_date is not None else None,
             to_webhook=to_webhook,
             with_samples=with_samples,
+            **kwargs,
         )
 
     def get_athlete(
@@ -274,6 +284,7 @@ class User(TerraDataModel):
         end_date: t.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
         with_samples: bool = True,
+        **kwargs: t.Any,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves daily summary data for a given User object. By default, data will be asynchronously sent to registered
@@ -299,4 +310,5 @@ class User(TerraDataModel):
             end_date=int(end_date.timestamp()) if end_date is not None else None,
             to_webhook=to_webhook,
             with_samples=with_samples,
+            **kwargs,
         )
