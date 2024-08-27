@@ -39,11 +39,11 @@ class Terra:
     Args:
         api_key (:obj:`str`) : Your API Key
         dev_id (:obj:`str`) : Your dev ID
-        secret (:obj:`str`) : Your terra secret (for web hooks)
+        secret (:obj:`str`, optional): Your terra secret (for web hooks). Defaults to None.
 
     """
 
-    def __init__(self, api_key: str, dev_id: str, secret: str) -> None:
+    def __init__(self, api_key: str, dev_id: str, secret: typing.Optional[str] = None) -> None:
         self.api_key = api_key
         self.dev_id = dev_id
         self.secret = secret
@@ -480,6 +480,9 @@ class Terra:
         Returns:
             :obj:`bool`: True if the API response comes from Terra
         """
+        if self.secret is None:
+            raise ValueError("A valid 'secret' is required for web hooks. Please provide your Terra secret.")
+        
 
         t, sig = (pair.split("=")[-1] for pair in header.split(","))
 
