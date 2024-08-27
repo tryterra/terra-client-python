@@ -21,7 +21,7 @@ import hmac
 import json
 import typing
 
-import requests
+from requests import Session
 
 from terra import constants
 from terra import utils
@@ -39,14 +39,21 @@ class Terra:
     Args:
         api_key (:obj:`str`) : Your API Key
         dev_id (:obj:`str`) : Your dev ID
-        secret (:obj:`str`) : Your terra secret (for web hooks)
+        secret (:obj:`str`, optional): Your terra secret (for web hooks). Defaults to None.
 
     """
 
-    def __init__(self, api_key: str, dev_id: str, secret: str) -> None:
+    def __init__(
+        self,
+        api_key: str,
+        dev_id: str,
+        secret: typing.Optional[str] = None,
+        session: typing.Optional[Session] = None,
+    ) -> None:
         self.api_key = api_key
         self.dev_id = dev_id
         self.secret = secret
+        self._session = session if session is not None else Session()
 
     @property
     def _auth_headers(self) -> typing.Dict[str, str]:
@@ -94,7 +101,7 @@ class Terra:
         params = {"user_id": user.user_id}
         params = utils.update_if_not_none(params, kwargs)
 
-        data_resp = requests.get(
+        data_resp = self._session.get(
             f"{constants.BASE_URL}/{dtype}",
             params=params,
             headers=self._auth_headers,
@@ -110,6 +117,7 @@ class Terra:
         end_date: typing.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
         with_samples: bool = True,
+        **kwargs: typing.Any,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves workouts/activity data for a given User object. By default, data will be asynchronously sent to registered
@@ -133,6 +141,7 @@ class Terra:
             end_date=end_date if end_date is not None else None,
             to_webhook=to_webhook,
             with_samples=with_samples,
+            **kwargs,
         )
 
     def get_body_for_user(
@@ -142,6 +151,7 @@ class Terra:
         end_date: typing.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
         with_samples: bool = True,
+        **kwargs: typing.Any,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves body metrics data for a given User object. By default, data will be asynchronously sent to registered
@@ -165,6 +175,7 @@ class Terra:
             end_date=end_date if end_date is not None else None,
             to_webhook=to_webhook,
             with_samples=with_samples,
+            **kwargs,
         )
 
     def get_daily_for_user(
@@ -174,6 +185,7 @@ class Terra:
         end_date: typing.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
         with_samples: bool = True,
+        **kwargs: typing.Any,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves daily summary data for a given User object. By default, data will be asynchronously sent to registered
@@ -197,6 +209,7 @@ class Terra:
             end_date=end_date if end_date is not None else None,
             to_webhook=to_webhook,
             with_samples=with_samples,
+            **kwargs,
         )
 
     def get_sleep_for_user(
@@ -206,6 +219,7 @@ class Terra:
         end_date: typing.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
         with_samples: bool = True,
+        **kwargs: typing.Any,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves sleep data for a given User object. By default, data will be asynchronously sent to registered
@@ -229,6 +243,7 @@ class Terra:
             end_date=end_date if end_date is not None else None,
             to_webhook=to_webhook,
             with_samples=with_samples,
+            **kwargs,
         )
 
     def get_athlete_for_user(
@@ -258,6 +273,7 @@ class Terra:
         end_date: typing.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
         with_samples: bool = True,
+        **kwargs: typing.Any,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves daily summary data for a given User object. By default, data will be asynchronously sent to registered
@@ -282,6 +298,7 @@ class Terra:
             end_date=end_date if end_date is not None else None,
             to_webhook=to_webhook,
             with_samples=with_samples,
+            **kwargs,
         )
 
     def get_nutrition_for_user(
@@ -291,6 +308,7 @@ class Terra:
         end_date: typing.Optional[datetime.datetime] = None,
         to_webhook: bool = True,
         with_samples: bool = True,
+        **kwargs: typing.Any,
     ) -> api_responses.TerraApiResponse:
         """
         Retrieves daily summary data for a given User object. By default, data will be asynchronously sent to registered
@@ -315,6 +333,7 @@ class Terra:
             end_date=end_date if end_date is not None else None,
             to_webhook=to_webhook,
             with_samples=with_samples,
+            **kwargs,
         )
 
     def generate_widget_session(
@@ -351,7 +370,7 @@ class Terra:
         body_payload = utils.update_if_not_none({}, maybe_body_payload)
         body_payload.update(kwargs)
 
-        widget_resp = requests.post(
+        widget_resp = self._session.post(
             f"{constants.BASE_URL}/auth/generateWidgetSession",
             headers=self._auth_headers,
             json=body_payload,
@@ -394,7 +413,7 @@ class Terra:
         }
         body_payload.update(kwargs)
 
-        auth_resp = requests.post(
+        auth_resp = self._session.post(
             f"{constants.BASE_URL}/auth/authenticateUser",
             headers=self._auth_headers,
             json=body_payload,
@@ -416,7 +435,7 @@ class Terra:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing UserInfo parsed
                 response object if no error has occured
         """
-        user_resp = requests.get(
+        user_resp = self._session.get(
             f"{constants.BASE_URL}/userInfo",
             params={"user_id": user.user_id},
             headers=self._auth_headers,
@@ -435,7 +454,7 @@ class Terra:
         Returns:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing UserDeauthResp parsed response object if no error has occured
         """
-        deauth_resp = requests.delete(
+        deauth_resp = self._session.delete(
             f"{constants.BASE_URL}/auth/deauthenticateUser",
             params={"user_id": user.user_id},
             headers=self._auth_headers,
@@ -450,7 +469,7 @@ class Terra:
         Returns:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing SubscribedUsers parsed response object if no error has occured
         """
-        users_resp = requests.get(
+        users_resp = self._session.get(
             f"{constants.BASE_URL}/subscriptions", headers=self._auth_headers
         )
         users_resp.raise_for_status()
@@ -465,7 +484,7 @@ class Terra:
         Returns:
             :obj:`models.api_responses.TerraApiResponse`: API response object containing ProvidersResponse parsed response object if no error has occured
         """
-        providers_resp = requests.get(
+        providers_resp = self._session.get(
             f"{constants.BASE_URL}/integrations", headers=self._auth_headers
         )
         providers_resp.raise_for_status()
@@ -482,6 +501,9 @@ class Terra:
         Returns:
             :obj:`bool`: True if the API response comes from Terra
         """
+        if self.secret is None:
+            raise ValueError("A valid 'secret' is required for web hooks. Please provide your Terra secret.")
+        
 
         t, sig = (pair.split("=")[-1] for pair in header.split(","))
 

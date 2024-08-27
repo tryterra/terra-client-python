@@ -21,6 +21,10 @@ Initialise a new Terra instance with:
 ```py
 from terra.base_client import Terra
 
+# For user authentication
+terra = Terra(api_key='YOUR API KEY', dev_id='YOUR DEV ID');
+
+# For web hook endpoints
 terra = Terra(api_key='YOUR API KEY', dev_id='YOUR DEV ID', secret='YOUR TERRA SECRET');
 ```
 
