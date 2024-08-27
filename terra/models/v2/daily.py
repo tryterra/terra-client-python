@@ -81,6 +81,7 @@ class StressData(base_model.TerraDataModel):
     avg_stress_level: typing.Optional[float] = dataclasses.field(default=None)
     max_stress_level: typing.Optional[float] = dataclasses.field(default=None)
     samples: typing.List[samples_.StressSample] = dataclasses.field(default_factory=list)
+    body_battery_samples: typing.List[samples_.BodyBatterySample] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
