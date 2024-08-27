@@ -106,6 +106,7 @@ class Terra:
             params=params,
             headers=self._auth_headers,
         )
+        data_resp.raise_for_status()
 
         return api_responses.TerraApiResponse(data_resp, user=user, dtype=dtype)
 
@@ -374,6 +375,7 @@ class Terra:
             headers=self._auth_headers,
             json=body_payload,
         )
+        widget_resp.raise_for_status()
         return api_responses.TerraApiResponse(widget_resp, dtype="widget_session")
 
     def generate_authentication_url(
@@ -416,6 +418,7 @@ class Terra:
             headers=self._auth_headers,
             json=body_payload,
         )
+        auth_resp.raise_for_status()
 
         return api_responses.TerraApiResponse(auth_resp, dtype="auth_url")
 
@@ -437,6 +440,7 @@ class Terra:
             params={"user_id": user.user_id},
             headers=self._auth_headers,
         )
+        user_resp.raise_for_status()
         return api_responses.TerraApiResponse(user_resp, dtype="user_info")
 
     def deauthenticate_user(self, user: user_.User) -> api_responses.TerraApiResponse:
@@ -468,6 +472,7 @@ class Terra:
         users_resp = self._session.get(
             f"{constants.BASE_URL}/subscriptions", headers=self._auth_headers
         )
+        users_resp.raise_for_status()
         return api_responses.TerraApiResponse(
             users_resp, dtype="subscriptions", client=self
         )
@@ -482,6 +487,7 @@ class Terra:
         providers_resp = self._session.get(
             f"{constants.BASE_URL}/integrations", headers=self._auth_headers
         )
+        providers_resp.raise_for_status()
         return api_responses.TerraApiResponse(providers_resp, dtype="providers")
 
     def check_terra_signature(self, body: str, header: str) -> bool:
