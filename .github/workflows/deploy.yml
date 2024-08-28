@@ -64,5 +64,5 @@ jobs:
         with:
           name: "v${{ steps.update-version.outputs.VERSION }}"
           tag_name: "refs/tags/${{ steps.update-version.outputs.VERSION }}"
-          body_path: CHANGES.md
+          body: "Release"
           prerelease: ${{ inputs.version_type == 'alpha' }}
