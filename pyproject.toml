@@ -1,8 +1,115 @@
 [build-system]
-requires = ["wheel", "setuptools"]
-build-backend = "setuptools.build_meta"
+requires = ["flit_core >=3.9,<4"]
+build-backend = "flit_core.buildapi"
 
-[tool.black]
-line-length     = 120
-target-version  = ["py38"]
-include         = ".*py$"
+[project]
+name = "terra-python"
+readme = "README.md"
+requires-python = ">=3.8.0"
+authors = [{name = "Terra Enabling Developers", email = "dev@tryterra.co"}]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "License :: OSI Approved :: Apache Software License",
+]
+dependencies = ["requests>=2.31.0, <3"]
+dynamic = ["version", "description"]
+
+[project.urls]
+Homepage = "https://github.com/tryterra/terra-client-python"
+
+[project.optional-dependencies]
+dev = ["nox==2024.4.15"]
+"dev.format" = ["ruff==0.6.2"]
+"dev.typecheck" = ["pyright==1.1.377"]
+"dev.test" = [
+    "pytest>=8.3.2, <9",
+    "pytest-randomly>=3.15.0, <4"
+]
+"dev.release" = ["flit==3.9.0"]
+
+[tool.flit.module]
+name = "terra"
+
+[tool.ruff]
+line-length = 120
+target-version = "py38"
+
+[tool.ruff.lint]
+preview = true
+select = [
+    "E",     # pycodestyle errors
+    "W",     # pycodestyle warnings
+    "F",     # Pyflakes
+    "I",     # isort
+    "TCH",   # typechecking imports
+    "N",     # naming
+    "ASYNC", # async lints
+    "Q",     # enforce double-quotes
+    "RSE",   # avoid needless parens
+    "SIM",   # simplification
+    "RUF",   # ruff lints
+    "D2",    # Docstring formatting
+    "D213",  # Multi-line docstring summary should start at the second line
+    "D3",    # Use triple-quotes
+    "D415",  # First line of docstring should end with period
+    "D417",  # Missing argument descriptions in docstring
+    "D418",  # No docstring on @overload
+    "D419",  # No empty docstring
+    "ANN2",  # Function missing return type annotation
+]
+fixable = [
+    "I",     # isort errors
+    "TCH",   # typechecking imports
+    "F401",  # unused import
+    "F404",  # late __future__ import
+    "F541",  # f-string with no placeholders
+    "RUF022",  # __all__ is not sorted
+    "RUF023",  # {}.__slots__ is not sorted
+]
+ignore = [
+    "D212",  # Multi-line docstring summary should start at the first line
+    "RUF001", # ambiguous character
+    "N818",   # exception name should end in Error
+    "D205",   # 1 blank line required between summary line and description
+    "N815",  # Variable in class scope should not be in mixedCase
+]
+
+[tool.ruff.lint.isort]
+force-single-line = true
+
+[tool.ruff.lint.per-file-ignores]
+# F401 (Unused import) - init files don't use their imports
+# F403 (Star import used) - hopefully we're sensible enough to know what objects modules contain
+# F405 (Import via star) - everything is imported to top-level
+"__init__.py" = ["F401", "F403", "F405"]
+"tests/**.py" = ["ANN201", "SIM118"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.pyright]
+include = ["terra"]
+exclude = ["docs", "docs-sphinx", ".github", "tests"]
+pythonVersion = "3.8"
+typeCheckingMode = "strict"
+
+reportUnnecessaryTypeIgnoreComment = "error"
+reportMissingTypeStubs = "none"
+reportImportCycles = "none" # Doesn't account for TYPE_CHECKING
+reportIncompatibleMethodOverride = "none"  # This relies on ordering for keyword-only arguments
+reportOverlappingOverload = "none" # Type-Vars in last overloads may interfere
+reportIncompatibleVariableOverride = "none" # Cannot overwrite abstract properties using attrs
+reportPrivateUsage = "none" # Too annoying

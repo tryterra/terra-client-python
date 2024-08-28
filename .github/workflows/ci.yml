@@ -16,7 +16,7 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Run black
+      - name: Run format checks
         run: |
           pip install nox
           nox -s format_check
@@ -34,10 +34,10 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Run mypy
+      - name: Run pyright
         run: |
           pip install nox
-          nox -s mypy
+          nox -s typecheck
 
   test:
     name: Test

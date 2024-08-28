@@ -18,7 +18,7 @@ def test_filter():
 
 
 def test_get_attr():
-    l = [
+    attrs = [
         "metadata",
         "lap_data",
         "distance_data",
@@ -32,5 +32,5 @@ def test_get_attr():
         "power_data",
     ]
 
-    for z in l:
-        assert z in models.v2.activity.Activity().keys()
+    for attr in attrs:
+        assert attr in models.v2.activity.Activity().keys()

@@ -14,30 +14,30 @@
 from __future__ import annotations
 
 __all__ = [
-    "NoDataReturned",
-    "DataReturned",
+    "AccessRevokedHookResponse",
+    "AuthHookResponse",
     "AuthenticationFailed",
-    "TerraParsedApiResponse",
-    "TerraWebhookResponse",
-    "TerraApiResponse",
+    "ConnectionDegraded",
+    "ConnectionErrorHookResponse",
+    "DataReturned",
     "GenericMessage",
     "GoogleNoDataSourceHookResponse",
-    "WidgetSession",
+    "HookResponse",
+    "NoDataReturned",
+    "ProvidersResponse",
+    "RequestCompletedHookResponse",
+    "RequestProcessingHookResponse",
     "SentToWebhook",
     "SubscribedUsers",
-    "UserDeauthResp",
-    "AuthHookResponse",
-    "AccessRevokedHookResponse",
+    "TerraApiResponse",
+    "TerraParsedApiResponse",
+    "TerraWebhookResponse",
     "UserAuthUrl",
     "UserDeauthHookResponse",
-    "UserReauthHookResponse",
-    "ConnectionDegraded",
-    "ProvidersResponse",
-    "RequestProcessingHookResponse",
-    "ConnectionErrorHookResponse",
-    "HookResponse",
-    "RequestCompletedHookResponse",
+    "UserDeauthResp",
     "UserInfo",
+    "UserReauthHookResponse",
+    "WidgetSession",
 ]
 
 import dataclasses
@@ -68,11 +68,11 @@ def _parse_api_body(
     if not body:
         raise exceptions.NoBodyException
 
-    Auser = user
+    a_user = user
     if "user" in body:
-        Auser = models.user.User.from_dict(body["user"])
+        a_user = models.user.User.from_dict(body["user"])
 
-    if ("status" in body) and (body["status"] in STATUS.keys()) and (body["status"] != "warning"):
+    if ("status" in body) and (body["status"] in STATUS.keys()) and (body["status"] != "warning"):  # noqa: SIM118
         response = STATUS[body["status"]]().from_dict(body)
 
     elif dtype in USER_DATATYPES:
@@ -80,7 +80,7 @@ def _parse_api_body(
             raise exceptions.NoDtypeException
 
         return DataReturned(
-            user=Auser,
+            user=a_user,
             data=(
                 [MODEL_MAPPING[dtype]().from_dict(item) for item in body["data"]]
                 if body.get("data") or body.get("data") == []
@@ -88,13 +88,13 @@ def _parse_api_body(
             ),
             type=dtype,
         )
-    elif dtype in DTYPE_TO_RESPONSE.keys():
+    elif dtype in DTYPE_TO_RESPONSE.keys():  # noqa: SIM118
         if not dtype:
             raise exceptions.NoDtypeException
 
         response = DTYPE_TO_RESPONSE[dtype]().from_dict(body)
 
-    elif dtype in HOOK_RESPONSE.keys():
+    elif dtype in HOOK_RESPONSE.keys():  # noqa: SIM118
         if not dtype:
             raise exceptions.NoDtypeException
         response = HOOK_RESPONSE[dtype]().from_dict(body)
@@ -103,7 +103,7 @@ def _parse_api_body(
         response = GenericMessage().from_dict(body)
 
     try:
-        setattr(response, "user", Auser)
+        setattr(response, "user", a_user)
 
     finally:
         try:
