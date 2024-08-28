@@ -19,21 +19,21 @@ from terra.models.v2 import samples as samples_
 from terra.models.v2.activity import DeviceData
 
 __all__ = [
-    "Sleep",
-    "Metadata",
-    "ReadinessData",
-    "TemperatureData",
-    "HeartRateDataSummary",
-    "HeartRateDataDetailed",
-    "HeartRateData",
-    "SleepDurationsAwakeData",
-    "SleepDurationsAsleepData",
-    "SleepDurationsOtherData",
-    "SleepDurationsData",
-    "OxygenSaturationData",
     "BreathsData",
-    "SnoringData",
+    "HeartRateData",
+    "HeartRateDataDetailed",
+    "HeartRateDataSummary",
+    "Metadata",
+    "OxygenSaturationData",
+    "ReadinessData",
     "RespirationData",
+    "Sleep",
+    "SleepDurationsAsleepData",
+    "SleepDurationsAwakeData",
+    "SleepDurationsData",
+    "SleepDurationsOtherData",
+    "SnoringData",
+    "TemperatureData",
 ]
 
 

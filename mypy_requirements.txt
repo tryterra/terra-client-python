@@ -1,5 +1,0 @@
-mypy==0.961
-types-requests==2.31.0
-flask==2.1.2
-fuzzywuzzy==0.18.0
-python-Levenshtein==0.12.2

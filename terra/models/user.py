@@ -16,13 +16,14 @@ from __future__ import annotations
 __all__ = ["User"]
 
 import dataclasses
-import datetime
 import typing as t
 
 from terra import exceptions
 from terra.models.base_model import TerraDataModel
 
 if t.TYPE_CHECKING:
+    import datetime
+
     from terra import base_client
     from terra.api import api_responses
 
@@ -51,12 +52,10 @@ class User(TerraDataModel):
 
     def fill_in_user_info(self) -> None:
         """
-        Internal method used to retrieve data for User
+        Internal method used to retrieve data for User.
 
         Args:
             dtype (:obj:`str`): datatype to be fetched
-
-
         """
         if self._client is None:
             raise exceptions.NoClientAvailable
@@ -72,10 +71,10 @@ class User(TerraDataModel):
 
     def _check_client(self) -> None:
         """
-        Internal method used to check if user is connected to a client
+        Internal method used to check if user is connected to a client.
 
         Returns:
-            None
+            :obj:`None`
         """
         if self._client is None:
             raise exceptions.NoClientAvailable
@@ -89,21 +88,21 @@ class User(TerraDataModel):
         **kwargs: t.Any,
     ) -> api_responses.TerraApiResponse:
         """
-        Retrieves workouts/activity data for a given User object. By default, data will be asynchronously sent to registered
-        webhook URL.
+        Retrieves workouts/activity data for a given User object. By default, data will be asynchronously sent to
+        registered webhook URL.
 
         Args:
-
             start_date (:obj:`datetime.datetime`): Datetime object for which to fetch data
-            end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will default to start_date + 24h according to current API specifications
+            end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will
+                default to start_date + 24h according to current API specifications
             to_webhook (:obj:`bool`): Whether to send data to registered webhook URL or return as a response body
             with_samples (:obj:`bool`): Whether to respond with samples (e.g heartrate samples) included or not
+            **kwargs: Extra kwargs to pass to the request method
 
         Returns:
-            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
-
+            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed
+                response object if no error has occurred
         """
-
         if self._client is None:
             raise exceptions.NoClientAvailable
 
@@ -131,15 +130,16 @@ class User(TerraDataModel):
 
         Args:
             start_date (:obj:`datetime.datetime`): Datetime object for which to fetch data
-            end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will default to start_date + 24h according to current API specifications
+            end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will
+                default to start_date + 24h according to current API specifications
             to_webhook (:obj:`bool`): Whether to send data to registered webhook URL or return as a response body
             with_samples (:obj:`bool`): Whether to respond with samples (e.g heartrate samples) included or not
+            **kwargs: Extra kwargs to pass to the request method
 
         Returns:
-            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
-
+            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed
+                response object if no error has occurred
         """
-
         if self._client is None:
             raise exceptions.NoClientAvailable
 
@@ -167,13 +167,15 @@ class User(TerraDataModel):
 
         Args:
             start_date (:obj:`datetime.datetime`): Datetime object for which to fetch data
-            end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will default to start_date + 24h according to current API specifications
+            end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will
+                default to start_date + 24h according to current API specifications
             to_webhook (:obj:`bool`): Whether to send data to registered webhook URL or return as a response body
             with_samples (:obj:`bool`): Whether to respond with samples (e.g heartrate samples) included or not
+            **kwargs: Extra kwargs to pass to the request method
 
         Returns:
-            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
-
+            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed
+                response object if no error has occurred
         """
         if self._client is None:
             raise exceptions.NoClientAvailable
@@ -202,12 +204,15 @@ class User(TerraDataModel):
 
         Args:
             start_date (:obj:`datetime.datetime`): Datetime object for which to fetch data
-            end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will default to start_date + 24h according to current API specifications
+            end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will
+                default to start_date + 24h according to current API specifications
             to_webhook (:obj:`bool`): Whether to send data to registered webhook URL or return as a response body
             with_samples (:obj:`bool`): Whether to respond with samples (e.g heartrate samples) included or not
+            **kwargs: Extra kwargs to pass to the request method
 
         Returns:
-            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
+            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed
+                response object if no error has occurred
 
         """
         if self._client is None:
@@ -238,13 +243,15 @@ class User(TerraDataModel):
         Args:
 
             start_date (:obj:`datetime.datetime`): Datetime object for which to fetch data
-            end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will default to start_date + 24h according to current API specifications
+            end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will default
+                to start_date + 24h according to current API specifications
             to_webhook (:obj:`bool`): Whether to send data to registered webhook URL or return as a response body
             with_samples (:obj:`bool`): Whether to respond with samples (e.g heartrate samples) included or not
+            **kwargs: Extra kwargs to pass to the request method
 
         Returns:
-            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
-
+            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed
+                response object if no error has occurred
         """
         if self._client is None:
             raise exceptions.NoClientAvailable
@@ -269,9 +276,10 @@ class User(TerraDataModel):
 
         Args:
             to_webhook (:obj:`bool`): Whether to send data to registered webhook URL or return as a response body
-        Returns:
-            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
 
+        Returns:
+            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed
+                response object if no error has occurred
         """
         if self._client is None:
             raise exceptions.NoClientAvailable
@@ -292,12 +300,15 @@ class User(TerraDataModel):
 
         Args:
             start_date (:obj:`datetime.datetime`): Datetime object for which to fetch data
-            end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will default to start_date + 24h according to current API specifications
+            end_date:obj (:`datetime.datetime`): Optional end_date for which to fetch data - if not set, will default
+                to start_date + 24h according to current API specifications
             to_webhook (:obj:`bool`): Whether to send data to registered webhook URL or return as a response body
             with_samples (:obj:`bool`): Whether to respond with samples (e.g heartrate samples) included or not
+            **kwargs: Extra kwargs to pass to the request method
 
         Returns:
-            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response object if no error has occured
+            :obj:`models.api_responses.TerraApiResponse`: API response object containing DataReturned parsed response
+                object if no error has occurred
 
         """
         if self._client is None:

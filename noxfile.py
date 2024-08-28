@@ -28,27 +28,26 @@ options.sessions = ["format_fix", "test"]
 
 
 @nox.session()
-def test(session):
-    session.install("-r", "test_requirements.txt")
+def test(session: nox.Session) -> None:
+    session.install(".[dev.test]")
     session.run("python", "-m", "pytest", "tests")
 
 
 @nox.session()
-def format_check(session):
-    session.install("-U", "black")
-    session.run("python", "-m", "black", *SCRIPT_PATHS, "--check")
+def format_check(session: nox.Session) -> None:
+    session.install(".[dev.format]")
+    session.run("python", "-m", "ruff", "format", *SCRIPT_PATHS, "--check")
+    session.run("python", "-m", "ruff", "check", "--output-format", "github", *SCRIPT_PATHS)
 
 
 @nox.session()
-def format_fix(session):
-    session.install("-U", "black")
-    session.install("-U", "isort")
-    session.run("python", "-m", "isort", *SCRIPT_PATHS)
-    session.run("python", "-m", "black", *SCRIPT_PATHS)
+def format_fix(session: nox.Session) -> None:
+    session.install(".[dev.format]")
+    session.run("python", "-m", "ruff", "format", *SCRIPT_PATHS)
+    session.run("python", "-m", "ruff", "check", "--fix", *SCRIPT_PATHS)
 
 
 @nox.session()
-def mypy(session):
-    session.install("-Ur", "requirements.txt")
-    session.install("-Ur", "mypy_requirements.txt")
-    session.run("python", "-m", "mypy", "terra")
+def typecheck(session: nox.Session) -> None:
+    session.install(".[dev.typecheck]")
+    session.run("python", "-m", "pyright")

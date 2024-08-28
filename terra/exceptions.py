@@ -11,11 +11,11 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-__all__ = ["TerraException", "NoDtypeException", "NoBodyException", "NoUserInfoException", "NoClientAvailable"]
+__all__ = ["NoBodyException", "NoClientAvailable", "NoDtypeException", "NoUserInfoException", "TerraException"]
 
 
 class TerraException(Exception):
-    """Base class for all exceptions raised by this library"""
+    """Base class for all exceptions raised by this library."""
 
 
 class NoClientAvailable(TerraException):
@@ -26,18 +26,12 @@ class NoClientAvailable(TerraException):
 
 
 class NoBodyException(TerraException):
-    """
-    Exception raised when a TerraApi object has no body
-    """
+    """Exception raised when a TerraApi object has no body."""
 
 
 class NoUserInfoException(TerraException):
-    """
-    Exception raised when a UserInfoDict is None
-    """
+    """Exception raised when a UserInfoDict is None."""
 
 
 class NoDtypeException(TerraException):
-    """
-    Exception raised when a TerraPi object has no dtype
-    """
+    """Exception raised when a TerraPi object has no dtype."""

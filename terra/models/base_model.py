@@ -21,13 +21,11 @@ import pydoc
 import typing
 
 PRIMITIVES = (str, int, bool, float, type(None), dict)
-datamodelT = typing.TypeVar("datamodelT", bound="TerraDataModel")
+DatamodelT = typing.TypeVar("DatamodelT", bound="TerraDataModel")
 
 
 class TerraDataModel:
-    """
-    Base class for all data models that terra returns.
-    """
+    """Base class for all data models that terra returns."""
 
     def _get_attrs(self) -> typing.Iterable[str]:
         return filter(
@@ -75,18 +73,16 @@ class TerraDataModel:
                 output[attr] = attr_val.to_dict()
         return output
 
-    def filter_data(self: TerraDataModel, term: str) -> typing.Generator[datamodelT, None, None]:
+    def filter_data(self: TerraDataModel, term: str) -> typing.Generator[DatamodelT, None, None]:
         """
-        Returns a generator of all the data models that match the filter
+        Returns a generator of all the data models that match the filter.
 
         Args:
             term:obj:`str`: the word to filter with
 
-
         Returns:
             :obj:`typing.Generator[datamodelT]`
         """
-
         fields_dict = {field.name: field.type for field in dataclasses.fields(self)}
         # print(fields_dict)
 
@@ -95,28 +91,28 @@ class TerraDataModel:
                 if isinstance(getattr(self, field_name, None), TerraDataModel):
                     for sub_term in field_name.lower().split("_"):
                         if sub_term.lower() == term.lower():
-                            yield typing.cast(datamodelT, getattr(self, field_name, None))
+                            yield typing.cast(DatamodelT, getattr(self, field_name, None))
                     # print(getattr(self, field_name , None))
-                    typing.cast(datamodelT, getattr(self, field_name, None)).filter_data(term)
+                    typing.cast(DatamodelT, getattr(self, field_name, None)).filter_data(term)
 
-            except Exception as e:
+            except Exception:
                 try:
                     for sub_term in field_name.lower().split("_"):
                         if sub_term.lower() == term.lower():
-                            yield typing.cast(datamodelT, getattr(self, field_name, None))
+                            yield typing.cast(DatamodelT, getattr(self, field_name, None))
 
                     for inner_item in typing.cast(typing.List[TerraDataModel], getattr(self, field_name, None)):
                         # print(inner_item)
                         inner_item.filter_data(term)
 
-                except Exception as e:
+                except Exception:
                     # print(traceback.format_exc())
                     pass
 
     @classmethod
     def from_dict(
-        cls: typing.Type[datamodelT], model_dict: typing.Dict[str, typing.Any], safe: bool = True
-    ) -> datamodelT:
+        cls: typing.Type[DatamodelT], model_dict: typing.Dict[str, typing.Any], safe: bool = True
+    ) -> DatamodelT:
         """
         Return the Class data model representation of the dictionary (json).
 
@@ -128,7 +124,7 @@ class TerraDataModel:
             safe:obj:`bool`:
 
         Returns:
-            :obj:`terrpython.models.base_model.TerraDataModel`
+            :obj:`terra.models.base_model.TerraDataModel`
         """
         # TODO - I don't like this function at all. It can definitely be more elegant
         data_model = cls()
@@ -145,48 +141,47 @@ class TerraDataModel:
                     v = inner_item.from_dict(v)
 
                 # if it's a list
-                if isinstance(v, list):
-                    if v != []:
-                        # getting all the field types of the current class
-                        fields_dict = {field.name: field.type for field in dataclasses.fields(cls())}
+                if isinstance(v, list) and v:
+                    # getting all the field types of the current class
+                    fields_dict = {field.name: field.type for field in dataclasses.fields(cls())}
 
-                        # getting the current field type as a string and removing the 't.optional'
-                        current_field_type = str(fields_dict[k]).split("[")[1].split("]")[0]
-                        current_field_type2 = str(fields_dict[k]).split("[")[1].split("]")[0]
+                    # getting the current field type as a string and removing the 't.optional'
+                    current_field_type = str(fields_dict[k]).split("[")[1].split("]")[0]
+                    current_field_type2 = str(fields_dict[k]).split("[")[1].split("]")[0]
 
-                        # adding terra before the models name
-                        if current_field_type.split(".")[0] == "models":
-                            current_field_type = "terra." + current_field_type
+                    # adding terra before the models name
+                    if current_field_type.split(".")[0] == "models":
+                        current_field_type = "terra." + current_field_type
 
-                        if current_field_type2.split(".")[0] == "models":
-                            current_field_type2 = "terra-client." + current_field_type2
+                    if current_field_type2.split(".")[0] == "models":
+                        current_field_type2 = "terra-client." + current_field_type2
 
-                        # check if the elements of the list are Terra Data Models
-                        if current_field_type.split(".")[0] == "terra":
-                            result = []
+                    # check if the elements of the list are Terra Data Models
+                    if current_field_type.split(".")[0] == "terra":
+                        result = []
 
-                            # for each json object inside the list
-                            for inner_dict in v:
-                                # an instance of a data model of the type of items inside the list
-                                inner_data_model = typing.cast(
-                                    typing.Type[TerraDataModel], pydoc.locate(current_field_type)
-                                )()
+                        # for each json object inside the list
+                        for inner_dict in v:
+                            # an instance of a data model of the type of items inside the list
+                            inner_data_model = typing.cast(
+                                typing.Type[TerraDataModel], pydoc.locate(current_field_type)
+                            )()
 
-                                # fill up the model
-                                inner_data_model = inner_data_model.from_dict(inner_dict)
+                            # fill up the model
+                            inner_data_model = inner_data_model.from_dict(inner_dict)
 
-                                # append the model to the result list
-                                result.append(inner_data_model)
+                            # append the model to the result list
+                            result.append(inner_data_model)
 
-                            v = result
+                        v = result
 
                 setattr(data_model, k, v)
 
         return data_model
 
     def populate_from_dict(
-        self: datamodelT, model_dict: typing.Dict[str, typing.Any], safe: bool = False
-    ) -> datamodelT:
+        self: DatamodelT, model_dict: typing.Dict[str, typing.Any], safe: bool = False
+    ) -> DatamodelT:
         """
         Populates missing data fields in the class given a dictionary (json).
 
@@ -198,7 +193,7 @@ class TerraDataModel:
             safe:obj:`bool`:
 
         Returns:
-            :obj:`terrpython.models.base_model.TerraDataModel`
+            :obj:`terra.models.base_model.TerraDataModel`
         """
         for k, v in model_dict.items():
             if getattr(self, k, *(("NOT_FOUND",) if safe else ())) is None:
