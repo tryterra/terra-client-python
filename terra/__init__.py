@@ -37,4 +37,4 @@ from terra import utils
 from terra.base_client import *
 from terra.exceptions import *
 
-__version__ = "0.0.15"
+__version__ = "0.0.16"
