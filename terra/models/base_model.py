@@ -65,15 +65,15 @@ class TerraDataModel:
             elif type(attr_val) in PRIMITIVES:
                 output[attr] = attr_val
             elif isinstance(attr_val, list):
-                if (attr_val and type(attr_val[0]) in PRIMITIVES) or not attr_val: # type: ignore
+                if (attr_val and type(attr_val[0]) in PRIMITIVES) or not attr_val:  # type: ignore
                     output[attr] = attr_val
                 else:
-                    output[attr] = [item.to_dict() for item in attr_val] # type: ignore
+                    output[attr] = [item.to_dict() for item in attr_val]  # type: ignore
             else:
                 output[attr] = attr_val.to_dict()
         return output
 
-    def filter_data(self: TerraDataModel, term: str) -> typing.Generator[DatamodelT, None, None]: # type: ignore
+    def filter_data(self: TerraDataModel, term: str) -> typing.Generator[DatamodelT, None, None]:  # type: ignore
         """
         Returns a generator of all the data models that match the filter.
 
@@ -83,10 +83,10 @@ class TerraDataModel:
         Returns:
             :obj:`typing.Generator[datamodelT]`
         """
-        fields_dict = {field.name: field.type for field in dataclasses.fields(self)} # type: ignore
+        fields_dict = {field.name: field.type for field in dataclasses.fields(self)}  # type: ignore
         # print(fields_dict)
 
-        for field_name, field_type in fields_dict.items(): # type: ignore
+        for field_name, field_type in fields_dict.items():  # type: ignore
             try:
                 if isinstance(getattr(self, field_name, None), TerraDataModel):
                     for sub_term in field_name.lower().split("_"):
@@ -141,12 +141,12 @@ class TerraDataModel:
                     continue
 
                 if isinstance(inner_item, TerraDataModel):
-                    v = inner_item.from_dict(v) # type: ignore
+                    v = inner_item.from_dict(v)  # type: ignore
 
                 # if it's a list
                 if isinstance(v, list) and v:
                     # getting all the field types of the current class
-                    fields_dict = {field.name: field.type for field in dataclasses.fields(cls())} # type: ignore
+                    fields_dict = {field.name: field.type for field in dataclasses.fields(cls())}  # type: ignore
 
                     # getting the current field type as a string and removing the 't.optional'
                     current_field_type = str(fields_dict[k]).split("[")[1].split("]")[0]
@@ -164,17 +164,17 @@ class TerraDataModel:
                         result = []
 
                         # for each json object inside the list
-                        for inner_dict in v: # type: ignore
+                        for inner_dict in v:  # type: ignore
                             # an instance of a data model of the type of items inside the list
                             inner_data_model = typing.cast(
                                 typing.Type[TerraDataModel], pydoc.locate(current_field_type)
                             )()
 
                             # fill up the model
-                            inner_data_model = inner_data_model.from_dict(inner_dict) # type: ignore
+                            inner_data_model = inner_data_model.from_dict(inner_dict)  # type: ignore
 
                             # append the model to the result list
-                            result.append(inner_data_model) # type: ignore
+                            result.append(inner_data_model)  # type: ignore
 
                         v = result
 

@@ -81,7 +81,7 @@ def _parse_api_body(
 
         return DataReturned(
             user=a_user,
-            data=( # type: ignore
+            data=(  # type: ignore
                 [MODEL_MAPPING[dtype]().from_dict(item) for item in body["data"]]
                 if body.get("data") or body.get("data") == []
                 else []

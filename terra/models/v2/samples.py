@@ -41,6 +41,7 @@ __all__ = [
     "PositionSample",
     "PowerSample",
     "PulseVelocitySample",
+    "RRIntervalSample",
     "SkinTemperatureSample",
     "SleepHypnogramSample",
     "SnoringSample",
@@ -50,7 +51,6 @@ __all__ = [
     "TSSSample",
     "TemperatureSample",
     "Vo2MaxSample",
-    "RRIntervalSample",
 ]
 
 
