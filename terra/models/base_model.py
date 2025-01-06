@@ -137,6 +137,10 @@ class TerraDataModel:
                 # condition because the data model has a default status: warning and this condition allows it to
                 # get overwritten
             ):
+                
+                if inner_item == "NOT_FOUND":
+                    continue
+                    
                 if isinstance(inner_item, TerraDataModel):
                     v = inner_item.from_dict(v)
 

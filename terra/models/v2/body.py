@@ -73,6 +73,7 @@ class HeartData(base_model.TerraDataModel):
         default_factory=list
     )
     ecg_signal: typing.List[ECGReading] = dataclasses.field(default_factory=list)
+    rr_interval_samples: typing.List[samples_.RRIntervalSample] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass
