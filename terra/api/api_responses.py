@@ -81,7 +81,7 @@ def _parse_api_body(
 
         return DataReturned(
             user=a_user,
-            data=(
+            data=( # type: ignore
                 [MODEL_MAPPING[dtype]().from_dict(item) for item in body["data"]]
                 if body.get("data") or body.get("data") == []
                 else []
@@ -302,7 +302,7 @@ class NoDataReturned(TerraParsedApiResponse):
 class DataReturned(TerraParsedApiResponse):
     user: typing.Optional[models.user.User] = dataclasses.field(default=None)
     type: typing.Optional[str] = dataclasses.field(default=None)
-    data: typing.List[TerraParsedApiResponse] = dataclasses.field(default_factory=list)
+    data: list[TerraParsedApiResponse] = dataclasses.field(default_factory=list)
 
 
 @dataclasses.dataclass

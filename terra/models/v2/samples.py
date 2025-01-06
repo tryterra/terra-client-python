@@ -330,10 +330,10 @@ class MenstruationFlowSample(base_model.TerraDataModel):
 class BodyBatterySample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     level: typing.Optional[float] = dataclasses.field(default=None)
-    
+
+
 @dataclasses.dataclass
 class RRIntervalSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     rr_interval_ms: typing.Optional[float] = dataclasses.field(default=None)
     hr_bpm: typing.Optional[float] = dataclasses.field(default=None)
-
