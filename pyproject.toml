@@ -24,7 +24,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
     "License :: OSI Approved :: Apache Software License",
 ]
-dependencies = ["requests>=2.31.0, <3", "flask"]
+dependencies = ["requests>=2.31.0, <3"]
 dynamic = ["version", "description"]
 
 [project.urls]
