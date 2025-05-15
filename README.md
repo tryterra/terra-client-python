@@ -3,6 +3,11 @@
 
 # Terra Python Package
 
+> [!WARNING]
+> This package has been deprecated and is unmaintained. \
+> Do not use this package for new projects \
+> Use the REST API endpoints directly detailed [here](https://docs.tryterra.co/reference)
+
 A wrapper in python for the Terra endpoints and models.
 
 User Guide: https://docs.tryterra.co/docs/python-project-1
