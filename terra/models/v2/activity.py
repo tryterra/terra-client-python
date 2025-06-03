@@ -34,6 +34,11 @@ class Metadata(base_model.TerraDataModel):
 
 
 @dataclasses.dataclass
+class EnrichmentData(base_model.TerraDataModel):
+    stress_score: typing.Optional[float] = dataclasses.field(default=None)
+
+
+@dataclasses.dataclass
 class LapData(base_model.TerraDataModel):
     laps: typing.List[samples_.LapSample] = dataclasses.field(default_factory=list)
 
@@ -248,3 +253,4 @@ class Activity(base_model.TerraDataModel):
     polyline_map_data: PolylineMapData = dataclasses.field(default_factory=PolylineMapData)
     device_data: DeviceData = dataclasses.field(default_factory=DeviceData)
     cheat_detection: typing.Optional[float] = dataclasses.field(default=None)
+    data_enrichment: EnrichmentData = dataclasses.field(default_factory=EnrichmentData)

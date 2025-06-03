@@ -24,8 +24,13 @@ __all__ = ["Body"]
 
 @dataclasses.dataclass
 class Metadata(base_model.TerraDataModel):
+    """Metadata for the body data payload."""
     start_time: typing.Optional[str] = dataclasses.field(default=None)
+    """The end time of the associated day, in ISO8601 format with microsecond precision. Will always fall on midnight of any given day, and will always be equal to 24h after start_time. TimeZone info will be provided whenever possible. If absent, the time corresponds to the user's local time."""
     end_time: typing.Optional[str] = dataclasses.field(default=None)
+    """The start time of the associated day, in ISO8601 format with microsecond precision. Will always fall on midnight of any given day, and will always be equal to 24h before end_time. TimeZone info will be provided whenever possible. If absent, the time corresponds to the user's local time."""
+    timestamp_localization: typing.Optional[int] = dataclasses.field(default=None)
+    """Indicates whether the timestamps in this payload are localized (LOCAL) or in UTC."""
 
 
 @dataclasses.dataclass
@@ -90,7 +95,9 @@ class GlucoseData(base_model.TerraDataModel):
 
 @dataclasses.dataclass
 class KetoneData(base_model.TerraDataModel):
+    """Data related to ketone measurements."""
     ketone_samples: typing.List[samples_.KetoneDataSample] = dataclasses.field(default_factory=list)
+    """List of ketone data sampled through the day."""
 
 
 @dataclasses.dataclass
