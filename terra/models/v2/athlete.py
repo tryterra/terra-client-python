@@ -17,7 +17,7 @@ import typing
 from terra.models import base_model
 from terra.models import user as user_
 
-__all__ = ["Athlete", "AthleteCollection"]
+__all__ = ["Athlete"]
 
 
 @dataclasses.dataclass
