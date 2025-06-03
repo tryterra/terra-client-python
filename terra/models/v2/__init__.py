@@ -13,7 +13,6 @@
 #  limitations under the License.
 __all__ = [
     "activity",
-    "activity_sample",
     "athlete",
     "body",
     "daily",
@@ -24,7 +23,6 @@ __all__ = [
 ]
 
 from terra.models.v2 import activity
-from terra.models.v2 import activity_sample
 from terra.models.v2 import athlete
 from terra.models.v2 import body
 from terra.models.v2 import daily
