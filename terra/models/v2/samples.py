@@ -79,6 +79,8 @@ class RawECGSample(base_model.TerraDataModel):
 class HeartRateDataSample(base_model.TerraDataModel):
     timestamp: typing.Optional[str] = dataclasses.field(default=None)
     bpm: typing.Optional[float] = dataclasses.field(default=None)
+    timer_duration_seconds: typing.Optional[float] = dataclasses.field(default=None)
+    context: typing.Optional[int] = dataclasses.field(default=None)
 
 
 @dataclasses.dataclass
@@ -237,22 +239,60 @@ class BloodPressureSample(base_model.TerraDataModel):
 
 @dataclasses.dataclass
 class MeasurementDataSample(base_model.TerraDataModel):
+    """
+    Represents a sample of body measurements, such as weight, height, and body composition.
+    """
+
     measurement_time: typing.Optional[str] = dataclasses.field(default=None)
+    """Time with which the record is associated, in ISO8601 format with microsecond precision. TimeZone info will be provided whenever possible. If absent, the time corresponds to the user's local time."""
+
     BMI: typing.Optional[float] = dataclasses.field(default=None)
+    """User's Body Mass Index (BMI)."""
+
     BMR: typing.Optional[float] = dataclasses.field(default=None)
+    """User's Basal Metabolic Rate - minimum amount of calories that a person's body needs to perform necessary functions."""
+
     RMR: typing.Optional[float] = dataclasses.field(default=None)
-    estimated_fitness_age: typing.Optional[int] = dataclasses.field(default=None)
+    """User's Resting Metabolic Rate - amount of energy that a person's body needs to function while at rest. RMR accounts for additional low-effort daily activities on top of basic body functions."""
+
+    estimated_fitness_age: typing.Optional[str] = dataclasses.field(default=None)
+    """Estimate of how fit the user is compared to their actual age, as measured by the device."""
+
     skin_fold_mm: typing.Optional[float] = dataclasses.field(default=None)
+    """User's skin fold measurement."""
+
     bodyfat_percentage: typing.Optional[float] = dataclasses.field(default=None)
+    """User's body fat percentage. Value between 0 and 100."""
+
     weight_kg: typing.Optional[float] = dataclasses.field(default=None)
+    """User's body weight."""
+
     height_cm: typing.Optional[float] = dataclasses.field(default=None)
+    """User's height."""
+
     bone_mass_g: typing.Optional[float] = dataclasses.field(default=None)
+    """User's total bone mass."""
+
     muscle_mass_g: typing.Optional[float] = dataclasses.field(default=None)
+    """User's total muscle mass (i.e. skeletal muscle mass)."""
+
     lean_mass_g: typing.Optional[float] = dataclasses.field(default=None)
+    """Total lean mass of the user - calculated as the difference between total body weight and body fat weight."""
+
     water_percentage: typing.Optional[float] = dataclasses.field(default=None)
+    """Total amount of fluid in the user's body. Value between 0.0 and 100.0."""
+
     insulin_units: typing.Optional[float] = dataclasses.field(default=None)
+    """Quantity of insulin administered to the user."""
+
     insulin_type: typing.Optional[str] = dataclasses.field(default=None)
+    """Type of insulin administered to the user."""
+
     urine_color: typing.Optional[str] = dataclasses.field(default=None)
+    """Color of the user's urine."""
+
+    user_notes: typing.Optional[str] = dataclasses.field(default=None)
+    """User notes associated with the measurement."""
 
 
 @dataclasses.dataclass
