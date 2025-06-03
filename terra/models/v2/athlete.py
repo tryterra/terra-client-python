@@ -33,10 +33,3 @@ class Athlete(base_model.TerraDataModel):
     city: typing.Optional[str] = dataclasses.field(default=None)
     state: typing.Optional[str] = dataclasses.field(default=None)
     country: typing.Optional[str] = dataclasses.field(default=None)
-
-
-@dataclasses.dataclass
-class AthleteCollection(base_model.TerraDataModel):
-    user: user_.User = dataclasses.field()
-    athlete: Athlete = dataclasses.field()
-    type: typing.Optional[str] = dataclasses.field(default=None)
