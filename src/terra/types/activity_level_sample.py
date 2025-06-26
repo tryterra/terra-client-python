@@ -9,8 +9,12 @@ from .activity_level import ActivityLevel
 
 
 class ActivityLevelSample(UncheckedBaseModel):
-    timestamp: str
-    level: ActivityLevel
+    timestamp: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Time with which the record is associated, in ISO8601 format with microsecond precision. TimeZone info will be provided whenever possible. If absent, the time corresponds to the user's local time.
+    """
+
+    level: typing.Optional[ActivityLevel] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

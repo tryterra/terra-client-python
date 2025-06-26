@@ -7,13 +7,32 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.serialization import FieldMetadata
 from ..core.unchecked_base_model import UncheckedBaseModel
+from .low import Low
+from .trend_arrow import TrendArrow
 
 
 class GlucoseDataSample(UncheckedBaseModel):
-    timestamp: str
-    blood_glucose_mg_per_d_l: typing_extensions.Annotated[float, FieldMetadata(alias="blood_glucose_mg_per_dL")]
-    glucose_level_flag: int
-    trend_arrow: int
+    timestamp: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Time with which the record is associated, in ISO8601 format with microsecond precision. TimeZone info will be provided whenever possible. If absent, the time corresponds to the user's local time.
+    """
+
+    blood_glucose_mg_per_d_l: typing_extensions.Annotated[
+        typing.Optional[int], FieldMetadata(alias="blood_glucose_mg_per_dL")
+    ] = pydantic.Field(default=None)
+    """
+    User's blood glucose reading
+    """
+
+    glucose_level_flag: typing.Optional[Low] = pydantic.Field(default=None)
+    """
+    Flag indicating state of user's blood glucose level
+    """
+
+    trend_arrow: typing.Optional[TrendArrow] = pydantic.Field(default=None)
+    """
+    Flag indicating the current trend in the user's blood glucose level (e.g. rising, constant, falling)
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

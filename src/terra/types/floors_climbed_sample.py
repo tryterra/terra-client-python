@@ -8,9 +8,20 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 
 
 class FloorsClimbedSample(UncheckedBaseModel):
-    timestamp: str
-    floors_climbed: int
-    timer_duration_seconds: float
+    timestamp: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Time with which the record is associated, in ISO8601 format with microsecond precision. TimeZone info will be provided whenever possible. If absent, the time corresponds to the user's local time.
+    """
+
+    floors_climbed: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Cumulative number of elevation gain measured in floors climbed up to associated timestamp, since the start of the payload
+    """
+
+    timer_duration_seconds: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Time elapsed since the start of the workout, subtracting time during which the recording was paused
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

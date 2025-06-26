@@ -9,11 +9,30 @@ from .other import Other
 
 
 class HeartRateZoneData(UncheckedBaseModel):
-    zone: Other
-    start_percentage: float
-    end_percentage: float
-    name: str
-    duration_seconds: float
+    zone: typing.Optional[Other] = pydantic.Field(default=None)
+    """
+    Heart rate zone designation
+    """
+
+    start_percentage: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Start percentage (based off user's max HR) of the HR zone
+    """
+
+    end_percentage: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    End percentage (based off user's max HR) of the HR zone
+    """
+
+    name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Name of the associated heart rate zone
+    """
+
+    duration_seconds: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Duration spent in the heart rate zone
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

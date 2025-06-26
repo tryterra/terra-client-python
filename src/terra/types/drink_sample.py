@@ -8,10 +8,25 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 
 
 class DrinkSample(UncheckedBaseModel):
-    timestamp: str
-    drink_volume: float
-    drink_unit: str
-    drink_name: str
+    timestamp: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Time with which the record is associated, in ISO8601 format with microsecond precision. TimeZone info will be provided whenever possible. If absent, the time corresponds to the user's local time
+    """
+
+    drink_volume: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Volume of drink consumed
+    """
+
+    drink_unit: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Unit of measurement for the drink
+    """
+
+    drink_name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Name of drink consumed.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

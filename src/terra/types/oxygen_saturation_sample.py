@@ -5,11 +5,24 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
+from .muscle import Muscle
 
 
 class OxygenSaturationSample(UncheckedBaseModel):
-    timestamp: str
-    percentage: float
+    timestamp: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Time with which the record is associated, in ISO8601 format with microsecond precision. TimeZone info will be provided whenever possible. If absent, the time corresponds to the user's local time.
+    """
+
+    percentage: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    User's oxygen saturation percentage - referring to either SpO2 or SmO2, based on the `type` field
+    """
+
+    type: typing.Optional[Muscle] = pydantic.Field(default=None)
+    """
+    Type of oxygen saturation measurement (i.e. blood vs muscle)
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

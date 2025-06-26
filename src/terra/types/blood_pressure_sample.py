@@ -8,9 +8,20 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 
 
 class BloodPressureSample(UncheckedBaseModel):
-    timestamp: str
-    diastolic_bp: float
-    systolic_bp: float
+    timestamp: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Time with which the record is associated, in ISO8601 format with microsecond precision. TimeZone info will be provided whenever possible. If absent, the time corresponds to the user's local time.
+    """
+
+    diastolic_bp: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    User's diastolic blood pressure, in mmHg
+    """
+
+    systolic_bp: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    User's systolic blood pressure, in mmHg
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

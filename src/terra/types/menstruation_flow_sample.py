@@ -9,12 +9,12 @@ from .had import Had
 
 
 class MenstruationFlowSample(UncheckedBaseModel):
-    timestamp: str = pydantic.Field()
+    timestamp: typing.Optional[str] = pydantic.Field(default=None)
     """
     Time with which the record is associated, in ISO8601 format with microsecond precision. TimeZone info will be provided whenever possible. If absent, the time corresponds to the user's local time.
     """
 
-    flow: Had = pydantic.Field()
+    flow: typing.Optional[Had] = pydantic.Field(default=None)
     """
     Flag indicating the strength of the user's menstrual flow.
     """

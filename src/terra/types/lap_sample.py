@@ -9,13 +9,45 @@ from .stroke_type import StrokeType
 
 
 class LapSample(UncheckedBaseModel):
-    start_time: str
-    end_time: str
-    distance_meters: float
-    calories: float
-    total_strokes: int
-    stroke_type: StrokeType
-    avg_speed_meters_per_second: float
+    calories: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Calories burned during the lap
+    """
+
+    avg_hr_bpm: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Average heart rate in bpm, for the Lap sample
+    """
+
+    start_time: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The start time of the associated lap, in ISO8601 format with microsecond precision. TimeZone info will be provided whenever possible. If absent, the time corresponds to the user's local time
+    """
+
+    avg_speed_meters_per_second: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Average speed of the user during the lap
+    """
+
+    distance_meters: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Distance covered during the lap
+    """
+
+    total_strokes: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Total strokes performed during the lap - only relevant for swimming activities
+    """
+
+    end_time: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The end time of the associated lap, in ISO8601 format with microsecond precision. TimeZone info will be provided whenever possible. If absent, the time corresponds to the user's local time
+    """
+
+    stroke_type: typing.Optional[StrokeType] = pydantic.Field(default=None)
+    """
+    Stroke type - only relevant for swimming activities
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

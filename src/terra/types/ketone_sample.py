@@ -11,9 +11,22 @@ from .breath import Breath
 
 
 class KetoneSample(UncheckedBaseModel):
-    timestamp: str
-    ketone_mg_per_d_l: typing_extensions.Annotated[float, FieldMetadata(alias="ketone_mg_per_dL")]
-    sample_type: Breath
+    timestamp: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Time with which the record is associated, in ISO8601 format with microsecond precision. TimeZone info will be provided whenever possible. If absent, the time corresponds to the user's local time.
+    """
+
+    ketone_mg_per_d_l: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="ketone_mg_per_dL")] = (
+        pydantic.Field(default=None)
+    )
+    """
+    Ketone in mg per dL
+    """
+
+    sample_type: typing.Optional[Breath] = pydantic.Field(default=None)
+    """
+    Flag indicating the ketone sample type (e.g. blood, breath, urine)
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

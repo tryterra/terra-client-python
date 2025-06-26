@@ -8,12 +8,12 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 
 
 class TssSample(UncheckedBaseModel):
-    planned: float
-    actual: float
-    method: str
-    intensity_factor_planned: float
-    intensity_factor_actual: float
-    normalized_power_watts: float
+    planned: typing.Optional[float] = None
+    actual: typing.Optional[float] = None
+    method: typing.Optional[str] = None
+    intensity_factor_planned: typing.Optional[float] = None
+    intensity_factor_actual: typing.Optional[float] = None
+    normalized_power_watts: typing.Optional[float] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

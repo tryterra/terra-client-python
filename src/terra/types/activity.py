@@ -38,7 +38,7 @@ class Activity(UncheckedBaseModel):
     Object containing calorie-related information for the user during the specific workout.
     """
 
-    cheat_detection: typing.Optional[int] = pydantic.Field(default=None)
+    cheat_detection: typing.Optional[float] = pydantic.Field(default=None)
     """
     Cheat detection flag.
     """

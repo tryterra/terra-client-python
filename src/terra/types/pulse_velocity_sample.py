@@ -8,8 +8,15 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 
 
 class PulseVelocitySample(UncheckedBaseModel):
-    timestamp: str
-    pulse_wave_velocity_meters_per_second: float
+    timestamp: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Time with which the record is associated, in ISO8601 format with microsecond precision. TimeZone info will be provided whenever possible. If absent, the time corresponds to the user's local time.
+    """
+
+    pulse_wave_velocity_meters_per_second: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    User's Pulse Wave Velocity measurement - velocity at which the blood pressure pulse propagates through the circulatory system
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

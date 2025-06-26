@@ -10,8 +10,17 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 
 
 class Vo2MaxSample(UncheckedBaseModel):
-    timestamp: str
-    vo_2_max_ml_per_min_per_kg: typing_extensions.Annotated[float, FieldMetadata(alias="vo2max_ml_per_min_per_kg")]
+    timestamp: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Time with which the record is associated, in ISO8601 format with microsecond precision. TimeZone info will be provided whenever possible. If absent, the time corresponds to the user's local time.
+    """
+
+    vo_2_max_ml_per_min_per_kg: typing_extensions.Annotated[
+        typing.Optional[float], FieldMetadata(alias="vo2max_ml_per_min_per_kg")
+    ] = pydantic.Field(default=None)
+    """
+    User's VO2Max - maximum amount of oxygen the user's body can utilize during exercise
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

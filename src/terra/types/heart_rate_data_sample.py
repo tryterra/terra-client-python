@@ -9,10 +9,25 @@ from .heart_rate_context import HeartRateContext
 
 
 class HeartRateDataSample(UncheckedBaseModel):
-    timestamp: str
-    bpm: float
-    timer_duration_seconds: float
-    context: HeartRateContext
+    timestamp: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Time with which the record is associated, in ISO8601 format with microsecond precision. TimeZone info will be provided whenever possible. If absent, the time corresponds to the user's local time.
+    """
+
+    bpm: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    User's heart rate in bpm
+    """
+
+    timer_duration_seconds: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Time elapsed since the start of the workout, subtracting time during which the recording was paused
+    """
+
+    context: typing.Optional[HeartRateContext] = pydantic.Field(default=None)
+    """
+    Represents the context in which heart rate was measured.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

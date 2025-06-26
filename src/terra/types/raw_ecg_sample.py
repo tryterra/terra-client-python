@@ -10,8 +10,17 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 
 
 class RawEcgSample(UncheckedBaseModel):
-    potential_u_v: typing_extensions.Annotated[float, FieldMetadata(alias="potential_uV")]
-    timestamp: str
+    potential_u_v: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="potential_uV")] = (
+        pydantic.Field(default=None)
+    )
+    """
+    Potential uV in the RawECG Sample
+    """
+
+    timestamp: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Time with which the record is associated, in ISO8601 format with microsecond precision. TimeZone info will be provided whenever possible. If absent, the time corresponds to the user's local time.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
