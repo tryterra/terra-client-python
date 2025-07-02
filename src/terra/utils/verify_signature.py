@@ -1,7 +1,7 @@
 import hashlib
 import hmac
 import time
-from typing import Optional
+from typing import List, Optional, Tuple
 
 
 class WebhookVerificationError(Exception):
@@ -55,7 +55,7 @@ def verify_terra_webhook_signature(
     return True
 
 
-def _extract_timestamp_and_signatures(signature_header: str) -> tuple[Optional[str], list[str]]:
+def _extract_timestamp_and_signatures(signature_header: str) -> Tuple[Optional[str], List[str]]:
     """
     Extract timestamp and v1 signatures from the terra-signature header.
 
@@ -106,7 +106,7 @@ def _compute_signature(signed_payload: str, signing_secret: str) -> str:
     ).hexdigest()
 
 
-def _verify_signatures(received_signatures: list[str], expected_signature: str) -> None:
+def _verify_signatures(received_signatures: List[str], expected_signature: str) -> None:
     """
     Verify that at least one received signature matches the expected signature.
     Uses constant-time comparison to prevent timing attacks.
