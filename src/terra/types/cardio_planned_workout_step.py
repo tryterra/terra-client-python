@@ -5,7 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
-from .cardio_planned_workout_step_exercice_category import CardioPlannedWorkoutStepExerciceCategory
+from .cardio_planned_workout_step_exercise_category import CardioPlannedWorkoutStepExerciseCategory
 from .planned_workout_step_duration import PlannedWorkoutStepDuration
 from .planned_workout_step_target import PlannedWorkoutStepTarget
 
@@ -26,7 +26,7 @@ class CardioPlannedWorkoutStep(UncheckedBaseModel):
     Position of the workout step in the overall workout
     """
 
-    exercice_name: typing.Optional[str] = pydantic.Field(default=None)
+    exercise_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     Name of exercise to be performed for the workout step
     """
@@ -41,7 +41,7 @@ class CardioPlannedWorkoutStep(UncheckedBaseModel):
     List of conditions to be fulfilled for the workout step to be completed - all of the conditions must be completed
     """
 
-    exercice_category: typing.Optional[CardioPlannedWorkoutStepExerciceCategory] = pydantic.Field(default=None)
+    exercise_category: typing.Optional[CardioPlannedWorkoutStepExerciseCategory] = pydantic.Field(default=None)
     """
     Type of exercise to be performed for the workout step
     """

@@ -8,15 +8,15 @@ import pydantic
 import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel, UnionMetadata
-from .cardio_planned_workout_step_exercice_category import CardioPlannedWorkoutStepExerciceCategory
+from .cardio_planned_workout_step_exercise_category import CardioPlannedWorkoutStepExerciseCategory
 from .planned_workout_step import PlannedWorkoutStep
 from .planned_workout_step_duration import PlannedWorkoutStepDuration
 from .planned_workout_step_durations import PlannedWorkoutStepDurations
 from .planned_workout_step_intensity import PlannedWorkoutStepIntensity
 from .planned_workout_step_target import PlannedWorkoutStepTarget
 from .planned_workout_step_targets import PlannedWorkoutStepTargets
-from .strength_planned_workout_step_exercice_category import StrengthPlannedWorkoutStepExerciceCategory
-from .swimming_planned_workout_step_equipement_type import SwimmingPlannedWorkoutStepEquipementType
+from .strength_planned_workout_step_exercise_category import StrengthPlannedWorkoutStepExerciseCategory
+from .swimming_planned_workout_step_equipment_type import SwimmingPlannedWorkoutStepEquipmentType
 from .swimming_planned_workout_step_stroke_type import SwimmingPlannedWorkoutStepStrokeType
 
 
@@ -64,7 +64,7 @@ class PlannedWorkoutSteps_SwimmingPlannedWorkoutStep(UncheckedBaseModel):
     targets: typing.Optional[typing.List[PlannedWorkoutStepTarget]] = None
     intensity: typing.Optional[int] = None
     order: typing.Optional[int] = None
-    equipement_type: typing.Optional[SwimmingPlannedWorkoutStepEquipementType] = None
+    equipment_type: typing.Optional[SwimmingPlannedWorkoutStepEquipmentType] = None
     description: typing.Optional[str] = None
     durations: typing.Optional[typing.List[PlannedWorkoutStepDuration]] = None
     name: typing.Optional[str] = None
@@ -85,10 +85,10 @@ class PlannedWorkoutSteps_CardioPlannedWorkoutStep(UncheckedBaseModel):
     targets: typing.Optional[typing.List[PlannedWorkoutStepTarget]] = None
     intensity: typing.Optional[int] = None
     order: typing.Optional[int] = None
-    exercice_name: typing.Optional[str] = None
+    exercise_name: typing.Optional[str] = None
     description: typing.Optional[str] = None
     durations: typing.Optional[typing.List[PlannedWorkoutStepDuration]] = None
-    exercice_category: typing.Optional[CardioPlannedWorkoutStepExerciceCategory] = None
+    exercise_category: typing.Optional[CardioPlannedWorkoutStepExerciseCategory] = None
     name: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
@@ -107,10 +107,10 @@ class PlannedWorkoutSteps_StrengthPlannedWorkoutStep(UncheckedBaseModel):
     targets: typing.Optional[typing.List[PlannedWorkoutStepTarget]] = None
     intensity: typing.Optional[int] = None
     order: typing.Optional[int] = None
-    exercice_name: typing.Optional[str] = None
+    exercise_name: typing.Optional[str] = None
     description: typing.Optional[str] = None
     durations: typing.Optional[typing.List[PlannedWorkoutStepDuration]] = None
-    exercice_category: typing.Optional[StrengthPlannedWorkoutStepExerciceCategory] = None
+    exercise_category: typing.Optional[StrengthPlannedWorkoutStepExerciseCategory] = None
     name: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:

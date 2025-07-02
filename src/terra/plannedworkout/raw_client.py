@@ -36,21 +36,21 @@ class RawPlannedworkoutClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PlannedWorkoutFetchResponse]:
         """
-        Used to get workout plans the user has registered on their account. This can be stregnth workouts (sets, reps, weight lifted) or cardio workouts (warmup, intervals of different intensities, cooldown etc)
+        Used to get workout plans the user has registered on their account. This can be strength workouts (sets, reps, weight lifted) or cardio workouts (warmup, intervals of different intensities, cooldown etc)
 
         Parameters
         ----------
         user_id : str
-            user ID to query data for
+            Terra user ID (UUID format) to retrieve data for
 
         start_date : PlannedWorkoutFetchRequestStartDate
-            start date of data to query for - either ISO8601 date or unix timestamp
+            Start date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         end_date : typing.Optional[int]
-            end date of data to query for - either ISO8601 date or unix timestamp
+            End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         to_webhook : typing.Optional[bool]
-            boolean flag specifying whether to send the data retrieved to the webhook, or in the response
+            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -123,7 +123,7 @@ class RawPlannedworkoutClient:
         self, *, data: typing.Sequence[PlannedWorkout], request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[PlannedWorkoutWriteResponse]:
         """
-        Used to post workout plans users can follow on their wearable. This can be stregnth workouts (sets, reps, weight lifted) or cardio workouts (warmup, intervals of different intensities, cooldown etc)
+        Used to post workout plans users can follow on their wearable. This can be strength workouts (sets, reps, weight lifted) or cardio workouts (warmup, intervals of different intensities, cooldown etc)
 
         Parameters
         ----------
@@ -197,12 +197,12 @@ class RawPlannedworkoutClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PlannedWorkoutDeleteResponse]:
         """
-        Used to delete workout plans the user has registered on their account. This can be stregnth workouts (sets, reps, weight lifted) or cardio workouts (warmup, intervals of different intensities, cooldown etc)
+        Used to delete workout plans the user has registered on their account. This can be strength workouts (sets, reps, weight lifted) or cardio workouts (warmup, intervals of different intensities, cooldown etc)
 
         Parameters
         ----------
         user_id : str
-            user ID to query data for
+            Terra user ID (UUID format) to retrieve data for
 
         data : typing.Optional[typing.Sequence[str]]
             List of identifiers for planned workout entries to be deleted
@@ -293,21 +293,21 @@ class AsyncRawPlannedworkoutClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PlannedWorkoutFetchResponse]:
         """
-        Used to get workout plans the user has registered on their account. This can be stregnth workouts (sets, reps, weight lifted) or cardio workouts (warmup, intervals of different intensities, cooldown etc)
+        Used to get workout plans the user has registered on their account. This can be strength workouts (sets, reps, weight lifted) or cardio workouts (warmup, intervals of different intensities, cooldown etc)
 
         Parameters
         ----------
         user_id : str
-            user ID to query data for
+            Terra user ID (UUID format) to retrieve data for
 
         start_date : PlannedWorkoutFetchRequestStartDate
-            start date of data to query for - either ISO8601 date or unix timestamp
+            Start date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         end_date : typing.Optional[int]
-            end date of data to query for - either ISO8601 date or unix timestamp
+            End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         to_webhook : typing.Optional[bool]
-            boolean flag specifying whether to send the data retrieved to the webhook, or in the response
+            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -380,7 +380,7 @@ class AsyncRawPlannedworkoutClient:
         self, *, data: typing.Sequence[PlannedWorkout], request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[PlannedWorkoutWriteResponse]:
         """
-        Used to post workout plans users can follow on their wearable. This can be stregnth workouts (sets, reps, weight lifted) or cardio workouts (warmup, intervals of different intensities, cooldown etc)
+        Used to post workout plans users can follow on their wearable. This can be strength workouts (sets, reps, weight lifted) or cardio workouts (warmup, intervals of different intensities, cooldown etc)
 
         Parameters
         ----------
@@ -454,12 +454,12 @@ class AsyncRawPlannedworkoutClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PlannedWorkoutDeleteResponse]:
         """
-        Used to delete workout plans the user has registered on their account. This can be stregnth workouts (sets, reps, weight lifted) or cardio workouts (warmup, intervals of different intensities, cooldown etc)
+        Used to delete workout plans the user has registered on their account. This can be strength workouts (sets, reps, weight lifted) or cardio workouts (warmup, intervals of different intensities, cooldown etc)
 
         Parameters
         ----------
         user_id : str
-            user ID to query data for
+            Terra user ID (UUID format) to retrieve data for
 
         data : typing.Optional[typing.Sequence[str]]
             List of identifiers for planned workout entries to be deleted

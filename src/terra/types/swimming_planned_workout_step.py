@@ -7,7 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
 from .planned_workout_step_duration import PlannedWorkoutStepDuration
 from .planned_workout_step_target import PlannedWorkoutStepTarget
-from .swimming_planned_workout_step_equipement_type import SwimmingPlannedWorkoutStepEquipementType
+from .swimming_planned_workout_step_equipment_type import SwimmingPlannedWorkoutStepEquipmentType
 from .swimming_planned_workout_step_stroke_type import SwimmingPlannedWorkoutStepStrokeType
 
 
@@ -27,7 +27,7 @@ class SwimmingPlannedWorkoutStep(UncheckedBaseModel):
     Position of the workout step in the overall workout
     """
 
-    equipement_type: typing.Optional[SwimmingPlannedWorkoutStepEquipementType] = pydantic.Field(default=None)
+    equipment_type: typing.Optional[SwimmingPlannedWorkoutStepEquipmentType] = pydantic.Field(default=None)
     """
     Workout equipment to be used during the workout step
     """

@@ -7,7 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
 from .planned_workout_step_duration import PlannedWorkoutStepDuration
 from .planned_workout_step_target import PlannedWorkoutStepTarget
-from .strength_planned_workout_step_exercice_category import StrengthPlannedWorkoutStepExerciceCategory
+from .strength_planned_workout_step_exercise_category import StrengthPlannedWorkoutStepExerciseCategory
 
 
 class StrengthPlannedWorkoutStep(UncheckedBaseModel):
@@ -31,7 +31,7 @@ class StrengthPlannedWorkoutStep(UncheckedBaseModel):
     Position of the workout step in the overall workout
     """
 
-    exercice_name: typing.Optional[str] = pydantic.Field(default=None)
+    exercise_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     Name of strength exercise to be performed for the workout step
     """
@@ -46,7 +46,7 @@ class StrengthPlannedWorkoutStep(UncheckedBaseModel):
     List of conditions to be fulfilled for the workout step to be completed - all of the conditions must be completed
     """
 
-    exercice_category: typing.Optional[StrengthPlannedWorkoutStepExerciceCategory] = pydantic.Field(default=None)
+    exercise_category: typing.Optional[StrengthPlannedWorkoutStepExerciseCategory] = pydantic.Field(default=None)
     """
     Type of strength exercise to be performed for the workout step
     """

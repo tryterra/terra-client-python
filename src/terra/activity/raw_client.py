@@ -41,19 +41,19 @@ class RawActivityClient:
         Parameters
         ----------
         user_id : str
-            user ID to query data for
+            Terra user ID (UUID format) to retrieve data for
 
         start_date : ActivityFetchRequestStartDate
-            start date of data to query for - either ISO8601 date or unix timestamp
+            Start date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         end_date : typing.Optional[int]
-            end date of data to query for - either ISO8601 date or unix timestamp
+            End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         to_webhook : typing.Optional[bool]
-            boolean flag specifying whether to send the data retrieved to the webhook, or in the response
+            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
 
         with_samples : typing.Optional[bool]
-            boolean flag specifying whether to include detailed samples in the returned payload
+            Boolean flag specifying whether to include detailed samples in the returned payload (default: false)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -127,7 +127,7 @@ class RawActivityClient:
         self, *, data: typing.Sequence[Activity], request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[ActivityWriteResponse]:
         """
-        Used to post activity data to a provider. Available for Wahoo
+        Used to post activity data to a provider. This endpoint only works for users connected via Wahoo. Returns error for other providers.
 
         Parameters
         ----------
@@ -214,19 +214,19 @@ class AsyncRawActivityClient:
         Parameters
         ----------
         user_id : str
-            user ID to query data for
+            Terra user ID (UUID format) to retrieve data for
 
         start_date : ActivityFetchRequestStartDate
-            start date of data to query for - either ISO8601 date or unix timestamp
+            Start date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         end_date : typing.Optional[int]
-            end date of data to query for - either ISO8601 date or unix timestamp
+            End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         to_webhook : typing.Optional[bool]
-            boolean flag specifying whether to send the data retrieved to the webhook, or in the response
+            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
 
         with_samples : typing.Optional[bool]
-            boolean flag specifying whether to include detailed samples in the returned payload
+            Boolean flag specifying whether to include detailed samples in the returned payload (default: false)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -300,7 +300,7 @@ class AsyncRawActivityClient:
         self, *, data: typing.Sequence[Activity], request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[ActivityWriteResponse]:
         """
-        Used to post activity data to a provider. Available for Wahoo
+        Used to post activity data to a provider. This endpoint only works for users connected via Wahoo. Returns error for other providers.
 
         Parameters
         ----------

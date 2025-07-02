@@ -68,7 +68,7 @@ class PlannedWorkoutMetadata(UncheckedBaseModel):
 
     estimated_tscore: typing.Optional[float] = pydantic.Field(default=None)
     """
-    
+    Estimated training stress score for the workout (normalized power-based metric)
     """
 
     description: typing.Optional[str] = pydantic.Field(default=None)

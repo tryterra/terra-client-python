@@ -2,6 +2,6 @@
 
 import typing
 
-SwimmingPlannedWorkoutStepEquipementType = typing.Union[
+SwimmingPlannedWorkoutStepEquipmentType = typing.Union[
     typing.Literal["NONE", "SWIM_FINS", "SWIM_KICKBOARD", "SWIM_PADDLES", "SWIM_PULL_BUOY", "SWIM_SNORKEL"], typing.Any
 ]

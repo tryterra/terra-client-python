@@ -45,7 +45,7 @@ class AuthenticationClient:
         Parameters
         ----------
         resource : str
-            resource to authenticate user with
+            Provider resource identifier (e.g., 'FITBIT', 'GARMIN', 'OURA'). See "Get detailed list of integrations" for available providers
 
         language : typing.Optional[str]
 
@@ -72,7 +72,7 @@ class AuthenticationClient:
             api_key="YOUR_API_KEY",
         )
         client.authentication.authenticateuser(
-            resource="resource",
+            resource="FITBIT",
         )
         """
         _response = self._raw_client.authenticateuser(
@@ -152,7 +152,7 @@ class AuthenticationClient:
         Parameters
         ----------
         user_id : str
-            user_id to deauthenticate for
+            Terra user ID (UUID format) to deauthenticate and remove from Terra system
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -160,7 +160,7 @@ class AuthenticationClient:
         Returns
         -------
         AuthenticationDeauthenticateUserResponse
-            Returned when authentication link could be successfully generated
+            Returned when user is successfully deauthenticated and data is deleted
 
         Examples
         --------
@@ -238,7 +238,7 @@ class AsyncAuthenticationClient:
         Parameters
         ----------
         resource : str
-            resource to authenticate user with
+            Provider resource identifier (e.g., 'FITBIT', 'GARMIN', 'OURA'). See "Get detailed list of integrations" for available providers
 
         language : typing.Optional[str]
 
@@ -270,7 +270,7 @@ class AsyncAuthenticationClient:
 
         async def main() -> None:
             await client.authentication.authenticateuser(
-                resource="resource",
+                resource="FITBIT",
             )
 
 
@@ -361,7 +361,7 @@ class AsyncAuthenticationClient:
         Parameters
         ----------
         user_id : str
-            user_id to deauthenticate for
+            Terra user ID (UUID format) to deauthenticate and remove from Terra system
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -369,7 +369,7 @@ class AsyncAuthenticationClient:
         Returns
         -------
         AuthenticationDeauthenticateUserResponse
-            Returned when authentication link could be successfully generated
+            Returned when user is successfully deauthenticated and data is deleted
 
         Examples
         --------

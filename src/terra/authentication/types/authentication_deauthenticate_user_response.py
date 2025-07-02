@@ -11,7 +11,7 @@ from .authentication_deauthenticate_user_response_status import AuthenticationDe
 class AuthenticationDeauthenticateUserResponse(UncheckedBaseModel):
     status: typing.Optional[AuthenticationDeauthenticateUserResponseStatus] = pydantic.Field(default=None)
     """
-    indicates that an error happened (value is success)
+    indicates that the deauthentication was successful (value is success)
     """
 
     if IS_PYDANTIC_V2:

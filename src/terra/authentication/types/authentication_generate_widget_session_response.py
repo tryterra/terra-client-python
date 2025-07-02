@@ -21,7 +21,7 @@ class AuthenticationGenerateWidgetSessionResponse(UncheckedBaseModel):
 
     status: typing.Optional[AuthenticationGenerateWidgetSessionResponseStatus] = pydantic.Field(default=None)
     """
-    indicates that an error happened (value is success)
+    indicates that the request was successful (value is success)
     """
 
     expires_in: typing.Optional[float] = pydantic.Field(default=None)

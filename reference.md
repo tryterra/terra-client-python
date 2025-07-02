@@ -34,7 +34,7 @@ client = Terra(
     api_key="YOUR_API_KEY",
 )
 client.authentication.authenticateuser(
-    resource="resource",
+    resource="FITBIT",
 )
 
 ```
@@ -51,7 +51,7 @@ client.authentication.authenticateuser(
 <dl>
 <dd>
 
-**resource:** `str` — resource to authenticate user with
+**resource:** `str` — Provider resource identifier (e.g., 'FITBIT', 'GARMIN', 'OURA'). See "Get detailed list of integrations" for available providers
     
 </dd>
 </dl>
@@ -255,7 +255,7 @@ client.authentication.deauthenticateuser(
 <dl>
 <dd>
 
-**user_id:** `str` — user_id to deauthenticate for
+**user_id:** `str` — Terra user ID (UUID format) to deauthenticate and remove from Terra system
     
 </dd>
 </dl>
@@ -702,7 +702,7 @@ client.activity.fetch(
 <dl>
 <dd>
 
-**user_id:** `str` — user ID to query data for
+**user_id:** `str` — Terra user ID (UUID format) to retrieve data for
     
 </dd>
 </dl>
@@ -710,7 +710,7 @@ client.activity.fetch(
 <dl>
 <dd>
 
-**start_date:** `ActivityFetchRequestStartDate` — start date of data to query for - either ISO8601 date or unix timestamp
+**start_date:** `ActivityFetchRequestStartDate` — Start date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
     
 </dd>
 </dl>
@@ -718,7 +718,7 @@ client.activity.fetch(
 <dl>
 <dd>
 
-**end_date:** `typing.Optional[int]` — end date of data to query for - either ISO8601 date or unix timestamp
+**end_date:** `typing.Optional[int]` — End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
     
 </dd>
 </dl>
@@ -726,7 +726,7 @@ client.activity.fetch(
 <dl>
 <dd>
 
-**to_webhook:** `typing.Optional[bool]` — boolean flag specifying whether to send the data retrieved to the webhook, or in the response
+**to_webhook:** `typing.Optional[bool]` — Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
     
 </dd>
 </dl>
@@ -734,7 +734,7 @@ client.activity.fetch(
 <dl>
 <dd>
 
-**with_samples:** `typing.Optional[bool]` — boolean flag specifying whether to include detailed samples in the returned payload
+**with_samples:** `typing.Optional[bool]` — Boolean flag specifying whether to include detailed samples in the returned payload (default: false)
     
 </dd>
 </dl>
@@ -766,7 +766,7 @@ client.activity.fetch(
 <dl>
 <dd>
 
-Used to post activity data to a provider. Available for Wahoo
+Used to post activity data to a provider. This endpoint only works for users connected via Wahoo. Returns error for other providers.
 </dd>
 </dl>
 </dd>
@@ -887,7 +887,7 @@ client.athlete.fetch(
 <dl>
 <dd>
 
-**user_id:** `str` — user ID to query data for
+**user_id:** `str` — Terra user ID (UUID format) to retrieve data for
     
 </dd>
 </dl>
@@ -895,7 +895,7 @@ client.athlete.fetch(
 <dl>
 <dd>
 
-**to_webhook:** `typing.Optional[bool]` — boolean flag specifying whether to send the data retrieved to the webhook, or in the response
+**to_webhook:** `typing.Optional[bool]` — Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
     
 </dd>
 </dl>
@@ -968,7 +968,7 @@ client.body.fetch(
 <dl>
 <dd>
 
-**user_id:** `str` — user ID to query data for
+**user_id:** `str` — Terra user ID (UUID format) to retrieve data for
     
 </dd>
 </dl>
@@ -976,7 +976,7 @@ client.body.fetch(
 <dl>
 <dd>
 
-**start_date:** `BodyFetchRequestStartDate` — start date of data to query for - either ISO8601 date or unix timestamp
+**start_date:** `BodyFetchRequestStartDate` — Start date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
     
 </dd>
 </dl>
@@ -984,7 +984,7 @@ client.body.fetch(
 <dl>
 <dd>
 
-**end_date:** `typing.Optional[int]` — end date of data to query for - either ISO8601 date or unix timestamp
+**end_date:** `typing.Optional[int]` — End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
     
 </dd>
 </dl>
@@ -992,7 +992,7 @@ client.body.fetch(
 <dl>
 <dd>
 
-**to_webhook:** `typing.Optional[bool]` — boolean flag specifying whether to send the data retrieved to the webhook, or in the response
+**to_webhook:** `typing.Optional[bool]` — Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
     
 </dd>
 </dl>
@@ -1000,7 +1000,7 @@ client.body.fetch(
 <dl>
 <dd>
 
-**with_samples:** `typing.Optional[bool]` — boolean flag specifying whether to include detailed samples in the returned payload
+**with_samples:** `typing.Optional[bool]` — Boolean flag specifying whether to include detailed samples in the returned payload (default: false)
     
 </dd>
 </dl>
@@ -1032,7 +1032,7 @@ client.body.fetch(
 <dl>
 <dd>
 
-Used to post body data to a provider. Available for Google Fit
+Used to post body data to a provider. This endpoint only works for users connected via Google Fit. Returns error for other providers.
 </dd>
 </dl>
 </dd>
@@ -1149,7 +1149,7 @@ client.body.delete(
 <dl>
 <dd>
 
-**user_id:** `str` — user ID to query data for
+**user_id:** `str` — Terra user ID (UUID format) to retrieve data for
     
 </dd>
 </dl>
@@ -1230,7 +1230,7 @@ client.daily.fetch(
 <dl>
 <dd>
 
-**user_id:** `str` — user ID to query data for
+**user_id:** `str` — Terra user ID (UUID format) to retrieve data for
     
 </dd>
 </dl>
@@ -1238,7 +1238,7 @@ client.daily.fetch(
 <dl>
 <dd>
 
-**start_date:** `DailyFetchRequestStartDate` — start date of data to query for - either ISO8601 date or unix timestamp
+**start_date:** `DailyFetchRequestStartDate` — Start date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
     
 </dd>
 </dl>
@@ -1246,7 +1246,7 @@ client.daily.fetch(
 <dl>
 <dd>
 
-**end_date:** `typing.Optional[int]` — end date of data to query for - either ISO8601 date or unix timestamp
+**end_date:** `typing.Optional[int]` — End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
     
 </dd>
 </dl>
@@ -1254,7 +1254,7 @@ client.daily.fetch(
 <dl>
 <dd>
 
-**to_webhook:** `typing.Optional[bool]` — boolean flag specifying whether to send the data retrieved to the webhook, or in the response
+**to_webhook:** `typing.Optional[bool]` — Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
     
 </dd>
 </dl>
@@ -1262,7 +1262,7 @@ client.daily.fetch(
 <dl>
 <dd>
 
-**with_samples:** `typing.Optional[bool]` — boolean flag specifying whether to include detailed samples in the returned payload
+**with_samples:** `typing.Optional[bool]` — Boolean flag specifying whether to include detailed samples in the returned payload (default: false)
     
 </dd>
 </dl>
@@ -1335,7 +1335,7 @@ client.menstruation.fetch(
 <dl>
 <dd>
 
-**user_id:** `str` — user ID to query data for
+**user_id:** `str` — Terra user ID (UUID format) to retrieve data for
     
 </dd>
 </dl>
@@ -1343,7 +1343,7 @@ client.menstruation.fetch(
 <dl>
 <dd>
 
-**start_date:** `MenstruationFetchRequestStartDate` — start date of data to query for - either ISO8601 date or unix timestamp
+**start_date:** `MenstruationFetchRequestStartDate` — Start date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
     
 </dd>
 </dl>
@@ -1351,7 +1351,7 @@ client.menstruation.fetch(
 <dl>
 <dd>
 
-**end_date:** `typing.Optional[int]` — end date of data to query for - either ISO8601 date or unix timestamp
+**end_date:** `typing.Optional[int]` — End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
     
 </dd>
 </dl>
@@ -1359,7 +1359,7 @@ client.menstruation.fetch(
 <dl>
 <dd>
 
-**to_webhook:** `typing.Optional[bool]` — boolean flag specifying whether to send the data retrieved to the webhook, or in the response
+**to_webhook:** `typing.Optional[bool]` — Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
     
 </dd>
 </dl>
@@ -1367,7 +1367,7 @@ client.menstruation.fetch(
 <dl>
 <dd>
 
-**with_samples:** `typing.Optional[bool]` — boolean flag specifying whether to include detailed samples in the returned payload
+**with_samples:** `typing.Optional[bool]` — Boolean flag specifying whether to include detailed samples in the returned payload (default: false)
     
 </dd>
 </dl>
@@ -1440,7 +1440,7 @@ client.nutrition.fetch(
 <dl>
 <dd>
 
-**user_id:** `str` — user ID to query data for
+**user_id:** `str` — Terra user ID (UUID format) to retrieve data for
     
 </dd>
 </dl>
@@ -1448,7 +1448,7 @@ client.nutrition.fetch(
 <dl>
 <dd>
 
-**start_date:** `NutritionFetchRequestStartDate` — start date of data to query for - either ISO8601 date or unix timestamp
+**start_date:** `NutritionFetchRequestStartDate` — Start date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
     
 </dd>
 </dl>
@@ -1456,7 +1456,7 @@ client.nutrition.fetch(
 <dl>
 <dd>
 
-**end_date:** `typing.Optional[int]` — end date of data to query for - either ISO8601 date or unix timestamp
+**end_date:** `typing.Optional[int]` — End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
     
 </dd>
 </dl>
@@ -1464,7 +1464,7 @@ client.nutrition.fetch(
 <dl>
 <dd>
 
-**to_webhook:** `typing.Optional[bool]` — boolean flag specifying whether to send the data retrieved to the webhook, or in the response
+**to_webhook:** `typing.Optional[bool]` — Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
     
 </dd>
 </dl>
@@ -1472,7 +1472,7 @@ client.nutrition.fetch(
 <dl>
 <dd>
 
-**with_samples:** `typing.Optional[bool]` — boolean flag specifying whether to include detailed samples in the returned payload
+**with_samples:** `typing.Optional[bool]` — Boolean flag specifying whether to include detailed samples in the returned payload (default: false)
     
 </dd>
 </dl>
@@ -1504,7 +1504,7 @@ client.nutrition.fetch(
 <dl>
 <dd>
 
-Used to post nutrition logs to a provider. Available for Fitbit
+Used to post nutrition logs to a provider. This endpoint only works for users connected via Fitbit. Returns error for other providers.
 </dd>
 </dl>
 </dd>
@@ -1621,7 +1621,7 @@ client.nutrition.delete(
 <dl>
 <dd>
 
-**user_id:** `str` — user ID to query data for
+**user_id:** `str` — Terra user ID (UUID format) to retrieve data for
     
 </dd>
 </dl>
@@ -1702,7 +1702,7 @@ client.sleep.fetch(
 <dl>
 <dd>
 
-**user_id:** `str` — user ID to query data for
+**user_id:** `str` — Terra user ID (UUID format) to retrieve data for
     
 </dd>
 </dl>
@@ -1710,7 +1710,7 @@ client.sleep.fetch(
 <dl>
 <dd>
 
-**start_date:** `SleepFetchRequestStartDate` — start date of data to query for - either ISO8601 date or unix timestamp
+**start_date:** `SleepFetchRequestStartDate` — Start date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
     
 </dd>
 </dl>
@@ -1718,7 +1718,7 @@ client.sleep.fetch(
 <dl>
 <dd>
 
-**end_date:** `typing.Optional[int]` — end date of data to query for - either ISO8601 date or unix timestamp
+**end_date:** `typing.Optional[int]` — End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
     
 </dd>
 </dl>
@@ -1726,7 +1726,7 @@ client.sleep.fetch(
 <dl>
 <dd>
 
-**to_webhook:** `typing.Optional[bool]` — boolean flag specifying whether to send the data retrieved to the webhook, or in the response
+**to_webhook:** `typing.Optional[bool]` — Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
     
 </dd>
 </dl>
@@ -1734,7 +1734,7 @@ client.sleep.fetch(
 <dl>
 <dd>
 
-**with_samples:** `typing.Optional[bool]` — boolean flag specifying whether to include detailed samples in the returned payload
+**with_samples:** `typing.Optional[bool]` — Boolean flag specifying whether to include detailed samples in the returned payload (default: false)
     
 </dd>
 </dl>
@@ -1767,7 +1767,7 @@ client.sleep.fetch(
 <dl>
 <dd>
 
-Used to get workout plans the user has registered on their account. This can be stregnth workouts (sets, reps, weight lifted) or cardio workouts (warmup, intervals of different intensities, cooldown etc)
+Used to get workout plans the user has registered on their account. This can be strength workouts (sets, reps, weight lifted) or cardio workouts (warmup, intervals of different intensities, cooldown etc)
 </dd>
 </dl>
 </dd>
@@ -1807,7 +1807,7 @@ client.plannedworkout.fetch(
 <dl>
 <dd>
 
-**user_id:** `str` — user ID to query data for
+**user_id:** `str` — Terra user ID (UUID format) to retrieve data for
     
 </dd>
 </dl>
@@ -1815,7 +1815,7 @@ client.plannedworkout.fetch(
 <dl>
 <dd>
 
-**start_date:** `PlannedWorkoutFetchRequestStartDate` — start date of data to query for - either ISO8601 date or unix timestamp
+**start_date:** `PlannedWorkoutFetchRequestStartDate` — Start date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
     
 </dd>
 </dl>
@@ -1823,7 +1823,7 @@ client.plannedworkout.fetch(
 <dl>
 <dd>
 
-**end_date:** `typing.Optional[int]` — end date of data to query for - either ISO8601 date or unix timestamp
+**end_date:** `typing.Optional[int]` — End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
     
 </dd>
 </dl>
@@ -1831,7 +1831,7 @@ client.plannedworkout.fetch(
 <dl>
 <dd>
 
-**to_webhook:** `typing.Optional[bool]` — boolean flag specifying whether to send the data retrieved to the webhook, or in the response
+**to_webhook:** `typing.Optional[bool]` — Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
     
 </dd>
 </dl>
@@ -1863,7 +1863,7 @@ client.plannedworkout.fetch(
 <dl>
 <dd>
 
-Used to post workout plans users can follow on their wearable. This can be stregnth workouts (sets, reps, weight lifted) or cardio workouts (warmup, intervals of different intensities, cooldown etc)
+Used to post workout plans users can follow on their wearable. This can be strength workouts (sets, reps, weight lifted) or cardio workouts (warmup, intervals of different intensities, cooldown etc)
 </dd>
 </dl>
 </dd>
@@ -1934,7 +1934,7 @@ client.plannedworkout.write(
 <dl>
 <dd>
 
-Used to delete workout plans the user has registered on their account. This can be stregnth workouts (sets, reps, weight lifted) or cardio workouts (warmup, intervals of different intensities, cooldown etc)
+Used to delete workout plans the user has registered on their account. This can be strength workouts (sets, reps, weight lifted) or cardio workouts (warmup, intervals of different intensities, cooldown etc)
 </dd>
 </dl>
 </dd>
@@ -1973,7 +1973,7 @@ client.plannedworkout.delete(
 <dl>
 <dd>
 
-**user_id:** `str` — user ID to query data for
+**user_id:** `str` — Terra user ID (UUID format) to retrieve data for
     
 </dd>
 </dl>

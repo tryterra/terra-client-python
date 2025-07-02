@@ -42,19 +42,19 @@ class RawNutritionClient:
         Parameters
         ----------
         user_id : str
-            user ID to query data for
+            Terra user ID (UUID format) to retrieve data for
 
         start_date : NutritionFetchRequestStartDate
-            start date of data to query for - either ISO8601 date or unix timestamp
+            Start date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         end_date : typing.Optional[int]
-            end date of data to query for - either ISO8601 date or unix timestamp
+            End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         to_webhook : typing.Optional[bool]
-            boolean flag specifying whether to send the data retrieved to the webhook, or in the response
+            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
 
         with_samples : typing.Optional[bool]
-            boolean flag specifying whether to include detailed samples in the returned payload
+            Boolean flag specifying whether to include detailed samples in the returned payload (default: false)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -128,7 +128,7 @@ class RawNutritionClient:
         self, *, data: typing.Sequence[Nutrition], request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[NutritionWriteResponse]:
         """
-        Used to post nutrition logs to a provider. Available for Fitbit
+        Used to post nutrition logs to a provider. This endpoint only works for users connected via Fitbit. Returns error for other providers.
 
         Parameters
         ----------
@@ -207,7 +207,7 @@ class RawNutritionClient:
         Parameters
         ----------
         user_id : str
-            user ID to query data for
+            Terra user ID (UUID format) to retrieve data for
 
         data : typing.Optional[typing.Sequence[str]]
             List of identifiers for nutrition entries to be deleted
@@ -304,19 +304,19 @@ class AsyncRawNutritionClient:
         Parameters
         ----------
         user_id : str
-            user ID to query data for
+            Terra user ID (UUID format) to retrieve data for
 
         start_date : NutritionFetchRequestStartDate
-            start date of data to query for - either ISO8601 date or unix timestamp
+            Start date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         end_date : typing.Optional[int]
-            end date of data to query for - either ISO8601 date or unix timestamp
+            End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         to_webhook : typing.Optional[bool]
-            boolean flag specifying whether to send the data retrieved to the webhook, or in the response
+            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
 
         with_samples : typing.Optional[bool]
-            boolean flag specifying whether to include detailed samples in the returned payload
+            Boolean flag specifying whether to include detailed samples in the returned payload (default: false)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -390,7 +390,7 @@ class AsyncRawNutritionClient:
         self, *, data: typing.Sequence[Nutrition], request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[NutritionWriteResponse]:
         """
-        Used to post nutrition logs to a provider. Available for Fitbit
+        Used to post nutrition logs to a provider. This endpoint only works for users connected via Fitbit. Returns error for other providers.
 
         Parameters
         ----------
@@ -469,7 +469,7 @@ class AsyncRawNutritionClient:
         Parameters
         ----------
         user_id : str
-            user ID to query data for
+            Terra user ID (UUID format) to retrieve data for
 
         data : typing.Optional[typing.Sequence[str]]
             List of identifiers for nutrition entries to be deleted

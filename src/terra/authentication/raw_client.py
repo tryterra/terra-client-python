@@ -39,7 +39,7 @@ class RawAuthenticationClient:
         Parameters
         ----------
         resource : str
-            resource to authenticate user with
+            Provider resource identifier (e.g., 'FITBIT', 'GARMIN', 'OURA'). See "Get detailed list of integrations" for available providers
 
         language : typing.Optional[str]
 
@@ -201,7 +201,7 @@ class RawAuthenticationClient:
         Parameters
         ----------
         user_id : str
-            user_id to deauthenticate for
+            Terra user ID (UUID format) to deauthenticate and remove from Terra system
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -209,7 +209,7 @@ class RawAuthenticationClient:
         Returns
         -------
         HttpResponse[AuthenticationDeauthenticateUserResponse]
-            Returned when authentication link could be successfully generated
+            Returned when user is successfully deauthenticated and data is deleted
         """
         _response = self._client_wrapper.httpx_client.request(
             "auth/deauthenticateUser",
@@ -313,7 +313,7 @@ class AsyncRawAuthenticationClient:
         Parameters
         ----------
         resource : str
-            resource to authenticate user with
+            Provider resource identifier (e.g., 'FITBIT', 'GARMIN', 'OURA'). See "Get detailed list of integrations" for available providers
 
         language : typing.Optional[str]
 
@@ -475,7 +475,7 @@ class AsyncRawAuthenticationClient:
         Parameters
         ----------
         user_id : str
-            user_id to deauthenticate for
+            Terra user ID (UUID format) to deauthenticate and remove from Terra system
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -483,7 +483,7 @@ class AsyncRawAuthenticationClient:
         Returns
         -------
         AsyncHttpResponse[AuthenticationDeauthenticateUserResponse]
-            Returned when authentication link could be successfully generated
+            Returned when user is successfully deauthenticated and data is deleted
         """
         _response = await self._client_wrapper.httpx_client.request(
             "auth/deauthenticateUser",

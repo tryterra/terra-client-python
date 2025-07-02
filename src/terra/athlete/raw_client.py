@@ -31,10 +31,10 @@ class RawAthleteClient:
         Parameters
         ----------
         user_id : str
-            user ID to query data for
+            Terra user ID (UUID format) to retrieve data for
 
         to_webhook : typing.Optional[bool]
-            boolean flag specifying whether to send the data retrieved to the webhook, or in the response
+            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -119,10 +119,10 @@ class AsyncRawAthleteClient:
         Parameters
         ----------
         user_id : str
-            user ID to query data for
+            Terra user ID (UUID format) to retrieve data for
 
         to_webhook : typing.Optional[bool]
-            boolean flag specifying whether to send the data retrieved to the webhook, or in the response
+            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

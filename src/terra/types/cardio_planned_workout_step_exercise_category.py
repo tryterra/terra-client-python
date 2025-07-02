@@ -2,7 +2,7 @@
 
 import typing
 
-CardioPlannedWorkoutStepExerciceCategory = typing.Union[
+CardioPlannedWorkoutStepExerciseCategory = typing.Union[
     typing.Literal[
         "UNKNOWN",
         "BENCH_PRESS",
