@@ -3,7 +3,7 @@ name = "terra-python"
 
 [tool.poetry]
 name = "terra-python"
-version = "1.0.8"
+version = "1.0.9"
 description = ""
 readme = "README.md"
 authors = []
