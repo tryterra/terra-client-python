@@ -3,7 +3,7 @@
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Ftryterra%2Fterra-client-python)
 [![pypi](https://img.shields.io/pypi/v/terra-python)](https://pypi.python.org/pypi/terra-python)
 
-The Terra Python library provides convenient access to the Terra API from Python.
+The Terra Python library provides convenient access to the Terra APIs from Python.
 
 ## Documentation
 
@@ -140,7 +140,7 @@ from terra import Terra
 client = Terra(
     ...,
     httpx_client=httpx.Client(
-        proxies="http://my.test.proxy.example.com",
+        proxy="http://my.test.proxy.example.com",
         transport=httpx.HTTPTransport(local_address="0.0.0.0"),
     ),
 )
