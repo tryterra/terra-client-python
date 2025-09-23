@@ -5,6 +5,7 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.body import Body
+from ..types.body_fetch_request_end_date import BodyFetchRequestEndDate
 from .raw_client import AsyncRawBodyClient, RawBodyClient
 from .types.body_delete_response import BodyDeleteResponse
 from .types.body_fetch_request_start_date import BodyFetchRequestStartDate
@@ -35,7 +36,7 @@ class BodyClient:
         *,
         user_id: str,
         start_date: BodyFetchRequestStartDate,
-        end_date: typing.Optional[int] = None,
+        end_date: typing.Optional[BodyFetchRequestEndDate] = None,
         to_webhook: typing.Optional[bool] = None,
         with_samples: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -51,7 +52,7 @@ class BodyClient:
         start_date : BodyFetchRequestStartDate
             Start date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
-        end_date : typing.Optional[int]
+        end_date : typing.Optional[BodyFetchRequestEndDate]
             End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         to_webhook : typing.Optional[bool]
@@ -194,7 +195,7 @@ class AsyncBodyClient:
         *,
         user_id: str,
         start_date: BodyFetchRequestStartDate,
-        end_date: typing.Optional[int] = None,
+        end_date: typing.Optional[BodyFetchRequestEndDate] = None,
         to_webhook: typing.Optional[bool] = None,
         with_samples: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -210,7 +211,7 @@ class AsyncBodyClient:
         start_date : BodyFetchRequestStartDate
             Start date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
-        end_date : typing.Optional[int]
+        end_date : typing.Optional[BodyFetchRequestEndDate]
             End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         to_webhook : typing.Optional[bool]

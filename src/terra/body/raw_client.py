@@ -13,6 +13,7 @@ from ..errors.bad_request_error import BadRequestError
 from ..errors.not_found_error import NotFoundError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.body import Body
+from ..types.body_fetch_request_end_date import BodyFetchRequestEndDate
 from .types.body_delete_response import BodyDeleteResponse
 from .types.body_fetch_request_start_date import BodyFetchRequestStartDate
 from .types.body_fetch_response import BodyFetchResponse
@@ -31,7 +32,7 @@ class RawBodyClient:
         *,
         user_id: str,
         start_date: BodyFetchRequestStartDate,
-        end_date: typing.Optional[int] = None,
+        end_date: typing.Optional[BodyFetchRequestEndDate] = None,
         to_webhook: typing.Optional[bool] = None,
         with_samples: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -47,7 +48,7 @@ class RawBodyClient:
         start_date : BodyFetchRequestStartDate
             Start date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
-        end_date : typing.Optional[int]
+        end_date : typing.Optional[BodyFetchRequestEndDate]
             End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         to_webhook : typing.Optional[bool]
@@ -293,7 +294,7 @@ class AsyncRawBodyClient:
         *,
         user_id: str,
         start_date: BodyFetchRequestStartDate,
-        end_date: typing.Optional[int] = None,
+        end_date: typing.Optional[BodyFetchRequestEndDate] = None,
         to_webhook: typing.Optional[bool] = None,
         with_samples: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -309,7 +310,7 @@ class AsyncRawBodyClient:
         start_date : BodyFetchRequestStartDate
             Start date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
-        end_date : typing.Optional[int]
+        end_date : typing.Optional[BodyFetchRequestEndDate]
             End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         to_webhook : typing.Optional[bool]

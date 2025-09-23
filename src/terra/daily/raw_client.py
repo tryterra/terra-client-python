@@ -11,6 +11,7 @@ from ..core.unchecked_base_model import construct_type
 from ..errors.bad_request_error import BadRequestError
 from ..errors.not_found_error import NotFoundError
 from ..errors.unauthorized_error import UnauthorizedError
+from ..types.daily_fetch_request_end_date import DailyFetchRequestEndDate
 from .types.daily_fetch_request_start_date import DailyFetchRequestStartDate
 from .types.daily_fetch_response import DailyFetchResponse
 
@@ -24,7 +25,7 @@ class RawDailyClient:
         *,
         user_id: str,
         start_date: DailyFetchRequestStartDate,
-        end_date: typing.Optional[int] = None,
+        end_date: typing.Optional[DailyFetchRequestEndDate] = None,
         to_webhook: typing.Optional[bool] = None,
         with_samples: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -40,7 +41,7 @@ class RawDailyClient:
         start_date : DailyFetchRequestStartDate
             Start date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
-        end_date : typing.Optional[int]
+        end_date : typing.Optional[DailyFetchRequestEndDate]
             End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         to_webhook : typing.Optional[bool]
@@ -127,7 +128,7 @@ class AsyncRawDailyClient:
         *,
         user_id: str,
         start_date: DailyFetchRequestStartDate,
-        end_date: typing.Optional[int] = None,
+        end_date: typing.Optional[DailyFetchRequestEndDate] = None,
         to_webhook: typing.Optional[bool] = None,
         with_samples: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -143,7 +144,7 @@ class AsyncRawDailyClient:
         start_date : DailyFetchRequestStartDate
             Start date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
-        end_date : typing.Optional[int]
+        end_date : typing.Optional[DailyFetchRequestEndDate]
             End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         to_webhook : typing.Optional[bool]

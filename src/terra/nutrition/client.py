@@ -5,6 +5,7 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.nutrition import Nutrition
+from ..types.nutrition_fetch_request_end_date import NutritionFetchRequestEndDate
 from .raw_client import AsyncRawNutritionClient, RawNutritionClient
 from .types.nutrition_delete_response import NutritionDeleteResponse
 from .types.nutrition_fetch_request_start_date import NutritionFetchRequestStartDate
@@ -35,7 +36,7 @@ class NutritionClient:
         *,
         user_id: str,
         start_date: NutritionFetchRequestStartDate,
-        end_date: typing.Optional[int] = None,
+        end_date: typing.Optional[NutritionFetchRequestEndDate] = None,
         to_webhook: typing.Optional[bool] = None,
         with_samples: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -51,7 +52,7 @@ class NutritionClient:
         start_date : NutritionFetchRequestStartDate
             Start date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
-        end_date : typing.Optional[int]
+        end_date : typing.Optional[NutritionFetchRequestEndDate]
             End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         to_webhook : typing.Optional[bool]
@@ -194,7 +195,7 @@ class AsyncNutritionClient:
         *,
         user_id: str,
         start_date: NutritionFetchRequestStartDate,
-        end_date: typing.Optional[int] = None,
+        end_date: typing.Optional[NutritionFetchRequestEndDate] = None,
         to_webhook: typing.Optional[bool] = None,
         with_samples: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -210,7 +211,7 @@ class AsyncNutritionClient:
         start_date : NutritionFetchRequestStartDate
             Start date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
-        end_date : typing.Optional[int]
+        end_date : typing.Optional[NutritionFetchRequestEndDate]
             End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         to_webhook : typing.Optional[bool]

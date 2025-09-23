@@ -718,7 +718,7 @@ client.activity.fetch(
 <dl>
 <dd>
 
-**end_date:** `typing.Optional[int]` — End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
+**end_date:** `typing.Optional[ActivityFetchRequestEndDate]` — End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
     
 </dd>
 </dl>
@@ -984,7 +984,7 @@ client.body.fetch(
 <dl>
 <dd>
 
-**end_date:** `typing.Optional[int]` — End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
+**end_date:** `typing.Optional[BodyFetchRequestEndDate]` — End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
     
 </dd>
 </dl>
@@ -1246,7 +1246,7 @@ client.daily.fetch(
 <dl>
 <dd>
 
-**end_date:** `typing.Optional[int]` — End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
+**end_date:** `typing.Optional[DailyFetchRequestEndDate]` — End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
     
 </dd>
 </dl>
@@ -1351,7 +1351,7 @@ client.menstruation.fetch(
 <dl>
 <dd>
 
-**end_date:** `typing.Optional[int]` — End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
+**end_date:** `typing.Optional[MenstruationFetchRequestEndDate]` — End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
     
 </dd>
 </dl>
@@ -1456,7 +1456,7 @@ client.nutrition.fetch(
 <dl>
 <dd>
 
-**end_date:** `typing.Optional[int]` — End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
+**end_date:** `typing.Optional[NutritionFetchRequestEndDate]` — End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
     
 </dd>
 </dl>
@@ -1718,7 +1718,7 @@ client.sleep.fetch(
 <dl>
 <dd>
 
-**end_date:** `typing.Optional[int]` — End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
+**end_date:** `typing.Optional[SleepFetchRequestEndDate]` — End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
     
 </dd>
 </dl>
@@ -1823,7 +1823,7 @@ client.plannedworkout.fetch(
 <dl>
 <dd>
 
-**end_date:** `typing.Optional[int]` — End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
+**end_date:** `typing.Optional[PlannedWorkoutFetchRequestEndDate]` — End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
     
 </dd>
 </dl>

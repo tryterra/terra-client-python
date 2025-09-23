@@ -13,6 +13,7 @@ from ..errors.bad_request_error import BadRequestError
 from ..errors.not_found_error import NotFoundError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.activity import Activity
+from ..types.activity_fetch_request_end_date import ActivityFetchRequestEndDate
 from .types.activity_fetch_request_start_date import ActivityFetchRequestStartDate
 from .types.activity_fetch_response import ActivityFetchResponse
 from .types.activity_write_response import ActivityWriteResponse
@@ -30,7 +31,7 @@ class RawActivityClient:
         *,
         user_id: str,
         start_date: ActivityFetchRequestStartDate,
-        end_date: typing.Optional[int] = None,
+        end_date: typing.Optional[ActivityFetchRequestEndDate] = None,
         to_webhook: typing.Optional[bool] = None,
         with_samples: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -46,7 +47,7 @@ class RawActivityClient:
         start_date : ActivityFetchRequestStartDate
             Start date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
-        end_date : typing.Optional[int]
+        end_date : typing.Optional[ActivityFetchRequestEndDate]
             End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         to_webhook : typing.Optional[bool]
@@ -203,7 +204,7 @@ class AsyncRawActivityClient:
         *,
         user_id: str,
         start_date: ActivityFetchRequestStartDate,
-        end_date: typing.Optional[int] = None,
+        end_date: typing.Optional[ActivityFetchRequestEndDate] = None,
         to_webhook: typing.Optional[bool] = None,
         with_samples: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -219,7 +220,7 @@ class AsyncRawActivityClient:
         start_date : ActivityFetchRequestStartDate
             Start date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
-        end_date : typing.Optional[int]
+        end_date : typing.Optional[ActivityFetchRequestEndDate]
             End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         to_webhook : typing.Optional[bool]

@@ -5,6 +5,7 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.planned_workout import PlannedWorkout
+from ..types.planned_workout_fetch_request_end_date import PlannedWorkoutFetchRequestEndDate
 from .raw_client import AsyncRawPlannedworkoutClient, RawPlannedworkoutClient
 from .types.planned_workout_delete_response import PlannedWorkoutDeleteResponse
 from .types.planned_workout_fetch_request_start_date import PlannedWorkoutFetchRequestStartDate
@@ -35,7 +36,7 @@ class PlannedworkoutClient:
         *,
         user_id: str,
         start_date: PlannedWorkoutFetchRequestStartDate,
-        end_date: typing.Optional[int] = None,
+        end_date: typing.Optional[PlannedWorkoutFetchRequestEndDate] = None,
         to_webhook: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PlannedWorkoutFetchResponse:
@@ -50,7 +51,7 @@ class PlannedworkoutClient:
         start_date : PlannedWorkoutFetchRequestStartDate
             Start date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
-        end_date : typing.Optional[int]
+        end_date : typing.Optional[PlannedWorkoutFetchRequestEndDate]
             End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         to_webhook : typing.Optional[bool]
@@ -182,7 +183,7 @@ class AsyncPlannedworkoutClient:
         *,
         user_id: str,
         start_date: PlannedWorkoutFetchRequestStartDate,
-        end_date: typing.Optional[int] = None,
+        end_date: typing.Optional[PlannedWorkoutFetchRequestEndDate] = None,
         to_webhook: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PlannedWorkoutFetchResponse:
@@ -197,7 +198,7 @@ class AsyncPlannedworkoutClient:
         start_date : PlannedWorkoutFetchRequestStartDate
             Start date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
-        end_date : typing.Optional[int]
+        end_date : typing.Optional[PlannedWorkoutFetchRequestEndDate]
             End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         to_webhook : typing.Optional[bool]
