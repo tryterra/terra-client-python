@@ -51,7 +51,7 @@ class RawActivityClient:
             End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         to_webhook : typing.Optional[bool]
-            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
+            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: true if not provided)
 
         with_samples : typing.Optional[bool]
             Boolean flag specifying whether to include detailed samples in the returned payload (default: false)
@@ -224,7 +224,7 @@ class AsyncRawActivityClient:
             End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         to_webhook : typing.Optional[bool]
-            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
+            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: true if not provided)
 
         with_samples : typing.Optional[bool]
             Boolean flag specifying whether to include detailed samples in the returned payload (default: false)

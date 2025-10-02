@@ -110,7 +110,10 @@ class UserClient:
             dev_id="YOUR_DEV_ID",
             api_key="YOUR_API_KEY",
         )
-        client.user.getinfoforuserid()
+        client.user.getinfoforuserid(
+            user_id="user_id",
+            reference_id="reference_id",
+        )
         """
         _response = self._raw_client.getinfoforuserid(
             user_id=user_id, reference_id=reference_id, request_options=request_options
@@ -151,7 +154,10 @@ class UserClient:
             dev_id="YOUR_DEV_ID",
             api_key="YOUR_API_KEY",
         )
-        client.user.getalluserids()
+        client.user.getalluserids(
+            page=1,
+            per_page=1,
+        )
         """
         _response = self._raw_client.getalluserids(page=page, per_page=per_page, request_options=request_options)
         return _response.data
@@ -299,7 +305,10 @@ class AsyncUserClient:
 
 
         async def main() -> None:
-            await client.user.getinfoforuserid()
+            await client.user.getinfoforuserid(
+                user_id="user_id",
+                reference_id="reference_id",
+            )
 
 
         asyncio.run(main())
@@ -348,7 +357,10 @@ class AsyncUserClient:
 
 
         async def main() -> None:
-            await client.user.getalluserids()
+            await client.user.getalluserids(
+                page=1,
+                per_page=1,
+            )
 
 
         asyncio.run(main())

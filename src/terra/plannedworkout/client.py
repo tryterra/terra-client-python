@@ -55,7 +55,7 @@ class PlannedworkoutClient:
             End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         to_webhook : typing.Optional[bool]
-            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
+            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: true if not provided)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -76,6 +76,8 @@ class PlannedworkoutClient:
         client.plannedworkout.fetch(
             user_id="user_id",
             start_date=1,
+            end_date=1,
+            to_webhook=True,
         )
         """
         _response = self._raw_client.fetch(
@@ -88,13 +90,20 @@ class PlannedworkoutClient:
         return _response.data
 
     def write(
-        self, *, data: typing.Sequence[PlannedWorkout], request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        user_id: str,
+        data: typing.Sequence[PlannedWorkout],
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PlannedWorkoutWriteResponse:
         """
         Used to post workout plans users can follow on their wearable. This can be strength workouts (sets, reps, weight lifted) or cardio workouts (warmup, intervals of different intensities, cooldown etc)
 
         Parameters
         ----------
+        user_id : str
+            Terra user ID (UUID format) to retrieve data for
+
         data : typing.Sequence[PlannedWorkout]
             PlannedWorkout entry to post to data provider
 
@@ -115,10 +124,11 @@ class PlannedworkoutClient:
             api_key="YOUR_API_KEY",
         )
         client.plannedworkout.write(
+            user_id="user_id",
             data=[PlannedWorkout()],
         )
         """
-        _response = self._raw_client.write(data=data, request_options=request_options)
+        _response = self._raw_client.write(user_id=user_id, data=data, request_options=request_options)
         return _response.data
 
     def delete(
@@ -202,7 +212,7 @@ class AsyncPlannedworkoutClient:
             End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         to_webhook : typing.Optional[bool]
-            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
+            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: true if not provided)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -228,6 +238,8 @@ class AsyncPlannedworkoutClient:
             await client.plannedworkout.fetch(
                 user_id="user_id",
                 start_date=1,
+                end_date=1,
+                to_webhook=True,
             )
 
 
@@ -243,13 +255,20 @@ class AsyncPlannedworkoutClient:
         return _response.data
 
     async def write(
-        self, *, data: typing.Sequence[PlannedWorkout], request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        user_id: str,
+        data: typing.Sequence[PlannedWorkout],
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PlannedWorkoutWriteResponse:
         """
         Used to post workout plans users can follow on their wearable. This can be strength workouts (sets, reps, weight lifted) or cardio workouts (warmup, intervals of different intensities, cooldown etc)
 
         Parameters
         ----------
+        user_id : str
+            Terra user ID (UUID format) to retrieve data for
+
         data : typing.Sequence[PlannedWorkout]
             PlannedWorkout entry to post to data provider
 
@@ -275,13 +294,14 @@ class AsyncPlannedworkoutClient:
 
         async def main() -> None:
             await client.plannedworkout.write(
+                user_id="user_id",
                 data=[PlannedWorkout()],
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.write(data=data, request_options=request_options)
+        _response = await self._raw_client.write(user_id=user_id, data=data, request_options=request_options)
         return _response.data
 
     async def delete(

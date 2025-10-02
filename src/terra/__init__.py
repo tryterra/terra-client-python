@@ -25,17 +25,17 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AsyncTerra": ".client",
     "Terra": ".client",
     "__version__": ".version",
-    "activity": ".",
-    "athlete": ".",
-    "authentication": ".",
-    "body": ".",
-    "daily": ".",
-    "integrations": ".",
-    "menstruation": ".",
-    "nutrition": ".",
-    "plannedworkout": ".",
-    "sleep": ".",
-    "user": ".",
+    "activity": ".activity",
+    "athlete": ".athlete",
+    "authentication": ".authentication",
+    "body": ".body",
+    "daily": ".daily",
+    "integrations": ".integrations",
+    "menstruation": ".menstruation",
+    "nutrition": ".nutrition",
+    "plannedworkout": ".plannedworkout",
+    "sleep": ".sleep",
+    "user": ".user",
 }
 
 
@@ -45,8 +45,10 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        result = getattr(module, attr_name)
-        return result
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:

@@ -457,7 +457,10 @@ client = Terra(
     dev_id="YOUR_DEV_ID",
     api_key="YOUR_API_KEY",
 )
-client.user.getinfoforuserid()
+client.user.getinfoforuserid(
+    user_id="user_id",
+    reference_id="reference_id",
+)
 
 ```
 </dd>
@@ -534,7 +537,10 @@ client = Terra(
     dev_id="YOUR_DEV_ID",
     api_key="YOUR_API_KEY",
 )
-client.user.getalluserids()
+client.user.getalluserids(
+    page=1,
+    per_page=1,
+)
 
 ```
 </dd>
@@ -686,6 +692,9 @@ client = Terra(
 client.activity.fetch(
     user_id="user_id",
     start_date=1,
+    end_date=1,
+    to_webhook=True,
+    with_samples=True,
 )
 
 ```
@@ -726,7 +735,7 @@ client.activity.fetch(
 <dl>
 <dd>
 
-**to_webhook:** `typing.Optional[bool]` — Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
+**to_webhook:** `typing.Optional[bool]` — Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: true if not provided)
     
 </dd>
 </dl>
@@ -871,6 +880,7 @@ client = Terra(
 )
 client.athlete.fetch(
     user_id="user_id",
+    to_webhook=True,
 )
 
 ```
@@ -895,7 +905,7 @@ client.athlete.fetch(
 <dl>
 <dd>
 
-**to_webhook:** `typing.Optional[bool]` — Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
+**to_webhook:** `typing.Optional[bool]` — Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: true if not provided)
     
 </dd>
 </dl>
@@ -952,6 +962,9 @@ client = Terra(
 client.body.fetch(
     user_id="user_id",
     start_date=1,
+    end_date=1,
+    to_webhook=True,
+    with_samples=True,
 )
 
 ```
@@ -992,7 +1005,7 @@ client.body.fetch(
 <dl>
 <dd>
 
-**to_webhook:** `typing.Optional[bool]` — Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
+**to_webhook:** `typing.Optional[bool]` — Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: true if not provided)
     
 </dd>
 </dl>
@@ -1214,6 +1227,9 @@ client = Terra(
 client.daily.fetch(
     user_id="user_id",
     start_date=1,
+    end_date=1,
+    to_webhook=True,
+    with_samples=True,
 )
 
 ```
@@ -1254,7 +1270,7 @@ client.daily.fetch(
 <dl>
 <dd>
 
-**to_webhook:** `typing.Optional[bool]` — Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
+**to_webhook:** `typing.Optional[bool]` — Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: true if not provided)
     
 </dd>
 </dl>
@@ -1319,6 +1335,9 @@ client = Terra(
 client.menstruation.fetch(
     user_id="user_id",
     start_date=1,
+    end_date=1,
+    to_webhook=True,
+    with_samples=True,
 )
 
 ```
@@ -1359,7 +1378,7 @@ client.menstruation.fetch(
 <dl>
 <dd>
 
-**to_webhook:** `typing.Optional[bool]` — Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
+**to_webhook:** `typing.Optional[bool]` — Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: true if not provided)
     
 </dd>
 </dl>
@@ -1424,6 +1443,9 @@ client = Terra(
 client.nutrition.fetch(
     user_id="user_id",
     start_date=1,
+    end_date=1,
+    to_webhook=True,
+    with_samples=True,
 )
 
 ```
@@ -1464,7 +1486,7 @@ client.nutrition.fetch(
 <dl>
 <dd>
 
-**to_webhook:** `typing.Optional[bool]` — Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
+**to_webhook:** `typing.Optional[bool]` — Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: true if not provided)
     
 </dd>
 </dl>
@@ -1686,6 +1708,9 @@ client = Terra(
 client.sleep.fetch(
     user_id="user_id",
     start_date=1,
+    end_date=1,
+    to_webhook=True,
+    with_samples=True,
 )
 
 ```
@@ -1726,7 +1751,7 @@ client.sleep.fetch(
 <dl>
 <dd>
 
-**to_webhook:** `typing.Optional[bool]` — Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
+**to_webhook:** `typing.Optional[bool]` — Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: true if not provided)
     
 </dd>
 </dl>
@@ -1791,6 +1816,8 @@ client = Terra(
 client.plannedworkout.fetch(
     user_id="user_id",
     start_date=1,
+    end_date=1,
+    to_webhook=True,
 )
 
 ```
@@ -1831,7 +1858,7 @@ client.plannedworkout.fetch(
 <dl>
 <dd>
 
-**to_webhook:** `typing.Optional[bool]` — Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
+**to_webhook:** `typing.Optional[bool]` — Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: true if not provided)
     
 </dd>
 </dl>
@@ -1885,6 +1912,7 @@ client = Terra(
     api_key="YOUR_API_KEY",
 )
 client.plannedworkout.write(
+    user_id="user_id",
     data=[PlannedWorkout()],
 )
 
@@ -1898,6 +1926,14 @@ client.plannedworkout.write(
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**user_id:** `str` — Terra user ID (UUID format) to retrieve data for
+    
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -2096,7 +2132,9 @@ client = Terra(
     dev_id="YOUR_DEV_ID",
     api_key="YOUR_API_KEY",
 )
-client.integrations.detailedfetch()
+client.integrations.detailedfetch(
+    sdk=True,
+)
 
 ```
 </dd>

@@ -39,7 +39,7 @@ class AthleteClient:
             Terra user ID (UUID format) to retrieve data for
 
         to_webhook : typing.Optional[bool]
-            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
+            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: true if not provided)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -59,6 +59,7 @@ class AthleteClient:
         )
         client.athlete.fetch(
             user_id="user_id",
+            to_webhook=True,
         )
         """
         _response = self._raw_client.fetch(user_id=user_id, to_webhook=to_webhook, request_options=request_options)
@@ -96,7 +97,7 @@ class AsyncAthleteClient:
             Terra user ID (UUID format) to retrieve data for
 
         to_webhook : typing.Optional[bool]
-            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
+            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: true if not provided)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -121,6 +122,7 @@ class AsyncAthleteClient:
         async def main() -> None:
             await client.athlete.fetch(
                 user_id="user_id",
+                to_webhook=True,
             )
 
 

@@ -51,7 +51,7 @@ class RawPlannedworkoutClient:
             End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         to_webhook : typing.Optional[bool]
-            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
+            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: true if not provided)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -121,13 +121,20 @@ class RawPlannedworkoutClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def write(
-        self, *, data: typing.Sequence[PlannedWorkout], request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        user_id: str,
+        data: typing.Sequence[PlannedWorkout],
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PlannedWorkoutWriteResponse]:
         """
         Used to post workout plans users can follow on their wearable. This can be strength workouts (sets, reps, weight lifted) or cardio workouts (warmup, intervals of different intensities, cooldown etc)
 
         Parameters
         ----------
+        user_id : str
+            Terra user ID (UUID format) to retrieve data for
+
         data : typing.Sequence[PlannedWorkout]
             PlannedWorkout entry to post to data provider
 
@@ -142,6 +149,9 @@ class RawPlannedworkoutClient:
         _response = self._client_wrapper.httpx_client.request(
             "plannedWorkout",
             method="POST",
+            params={
+                "user_id": user_id,
+            },
             json={
                 "data": convert_and_respect_annotation_metadata(
                     object_=data, annotation=typing.Sequence[PlannedWorkout], direction="write"
@@ -308,7 +318,7 @@ class AsyncRawPlannedworkoutClient:
             End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         to_webhook : typing.Optional[bool]
-            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
+            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: true if not provided)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -378,13 +388,20 @@ class AsyncRawPlannedworkoutClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def write(
-        self, *, data: typing.Sequence[PlannedWorkout], request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        user_id: str,
+        data: typing.Sequence[PlannedWorkout],
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PlannedWorkoutWriteResponse]:
         """
         Used to post workout plans users can follow on their wearable. This can be strength workouts (sets, reps, weight lifted) or cardio workouts (warmup, intervals of different intensities, cooldown etc)
 
         Parameters
         ----------
+        user_id : str
+            Terra user ID (UUID format) to retrieve data for
+
         data : typing.Sequence[PlannedWorkout]
             PlannedWorkout entry to post to data provider
 
@@ -399,6 +416,9 @@ class AsyncRawPlannedworkoutClient:
         _response = await self._client_wrapper.httpx_client.request(
             "plannedWorkout",
             method="POST",
+            params={
+                "user_id": user_id,
+            },
             json={
                 "data": convert_and_respect_annotation_metadata(
                     object_=data, annotation=typing.Sequence[PlannedWorkout], direction="write"

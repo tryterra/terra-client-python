@@ -78,7 +78,9 @@ class IntegrationsClient:
             dev_id="YOUR_DEV_ID",
             api_key="YOUR_API_KEY",
         )
-        client.integrations.detailedfetch()
+        client.integrations.detailedfetch(
+            sdk=True,
+        )
         """
         _response = self._raw_client.detailedfetch(sdk=sdk, request_options=request_options)
         return _response.data
@@ -166,7 +168,9 @@ class AsyncIntegrationsClient:
 
 
         async def main() -> None:
-            await client.integrations.detailedfetch()
+            await client.integrations.detailedfetch(
+                sdk=True,
+            )
 
 
         asyncio.run(main())

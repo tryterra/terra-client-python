@@ -50,7 +50,7 @@ class SleepClient:
             End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         to_webhook : typing.Optional[bool]
-            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
+            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: true if not provided)
 
         with_samples : typing.Optional[bool]
             Boolean flag specifying whether to include detailed samples in the returned payload (default: false)
@@ -74,6 +74,9 @@ class SleepClient:
         client.sleep.fetch(
             user_id="user_id",
             start_date=1,
+            end_date=1,
+            to_webhook=True,
+            with_samples=True,
         )
         """
         _response = self._raw_client.fetch(
@@ -127,7 +130,7 @@ class AsyncSleepClient:
             End date for data query - either ISO8601 date (YYYY-MM-DD) or unix timestamp in seconds (10-digit)
 
         to_webhook : typing.Optional[bool]
-            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
+            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: true if not provided)
 
         with_samples : typing.Optional[bool]
             Boolean flag specifying whether to include detailed samples in the returned payload (default: false)
@@ -156,6 +159,9 @@ class AsyncSleepClient:
             await client.sleep.fetch(
                 user_id="user_id",
                 start_date=1,
+                end_date=1,
+                to_webhook=True,
+                with_samples=True,
             )
 
 

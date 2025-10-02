@@ -34,7 +34,7 @@ class RawAthleteClient:
             Terra user ID (UUID format) to retrieve data for
 
         to_webhook : typing.Optional[bool]
-            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
+            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: true if not provided)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -122,7 +122,7 @@ class AsyncRawAthleteClient:
             Terra user ID (UUID format) to retrieve data for
 
         to_webhook : typing.Optional[bool]
-            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: false)
+            Boolean flag specifying whether to send the data retrieved to the webhook instead of in the response (default: true if not provided)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
