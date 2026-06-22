@@ -1,2 +1,3 @@
 # Specify files that shouldn't be modified by Fern
+src/terra/utils/__init__.py
 src/terra/utils/verify_signature.py
