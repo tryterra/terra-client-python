@@ -7,7 +7,7 @@ The Terra Python library provides convenient access to the Terra APIs from Pytho
 
 ## Documentation
 
-API reference documentation is available [here](https://docs.tryterra.co/reference).
+API reference documentation is available [here](https://docs.tryterra.co/health-fitness/health-fitness-api-reference).
 
 ## Installation
 
